@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bell Schedule - Pleasanton Student Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-content visible">
+        <nav class="top-nav">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo.png" alt="Pleasanton Student Pro - Graduation cap and book logo" class="nav-logo-img">
+            </a>
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </nav>
+
+        <section class="schedule-section">
+            <div class="schedule-header-main fade-in">
+                <h1>Bell Schedule</h1>
+                <p class="schedule-intro">Select your school to view the current bell schedule.</p>
+            </div>
+
+            <div class="school-selector slide-up">
+                <div class="school-category">
+                    <h2><i class="fas fa-graduation-cap"></i> High Schools</h2>
+                    <div class="school-buttons">
+                        <button class="school-btn" data-school="amador">
+                            <i class="fas fa-school"></i>
+                            Amador Valley High
+                        </button>
+                        <button class="school-btn" data-school="foothill">
+                            <i class="fas fa-school"></i>
+                            Foothill High
+                        </button>
+                    </div>
+                </div>
+
+                <div class="school-category">
+                    <h2><i class="fas fa-book-reader"></i> Middle Schools</h2>
+                    <div class="school-buttons">
+                        <button class="school-btn" data-school="harvest">
+                            <i class="fas fa-school"></i>
+                            Harvest Park
+                        </button>
+                        <button class="school-btn" data-school="hart">
+                            <i class="fas fa-school"></i>
+                            Hart Middle School
+                        </button>
+                        <button class="school-btn" data-school="pleasanton">
+                            <i class="fas fa-school"></i>
+                            Pleasanton Middle School
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="schedule-display slide-up">
+                <div class="schedule-header">
+                    <h3 class="selected-school">Select a school to view schedule</h3>
+                    <div class="schedule-controls">
+                        <div class="day-selector">
+                            <button class="schedule-type-btn active">
+                                <i class="fas fa-calendar"></i>
+                                <select id="day-select" class="day-select">
+                                    <option value="monday">Monday</option>
+                                    <option value="tuesday">Tuesday</option>
+                                    <option value="wednesday">Wednesday</option>
+                                    <option value="thursday">Thursday</option>
+                                    <option value="friday">Friday</option>
+                                </select>
+                            </button>
+                        </div>
+                        <div class="schedule-type-buttons">
+                            <button class="schedule-type-btn active" data-type="regular">
+                                <i class="fas fa-calendar-day"></i> Regular
+                            </button>
+                            <button class="schedule-type-btn" data-type="minimum">
+                                <i class="fas fa-calendar-minus"></i> Minimum Day
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-content">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Period</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="period-name">A Period</td>
+                                <td class="period-time">7:56 AM - 8:46 AM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Period 1</td>
+                                <td class="period-time">8:50 AM - 9:43 AM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Period 2</td>
+                                <td class="period-time">9:47 AM - 10:31 AM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Period 3</td>
+                                <td class="period-time">10:35 AM - 11:19 AM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Period 4</td>
+                                <td class="period-time">11:23 AM - 12:07 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Lunch 4</td>
+                                <td class="period-time">11:23 AM - 11:53 AM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Period 5</td>
+                                <td class="period-time">11:57 AM - 12:41 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Lunch 5</td>
+                                <td class="period-time">12:11 PM - 12:41 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Period 6</td>
+                                <td class="period-time">12:45 PM - 1:29 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Period 7</td>
+                                <td class="period-time">1:33 PM - 2:17 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="period-name">Period 8</td>
+                                <td class="period-time">2:21 PM - 3:05 PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Set current day
+        const today = new Date().getDay(); // 0 = Sunday, 1 = Monday, ...
+        if (today > 0 && today < 6) { // Monday to Friday
+            document.getElementById('day-select').selectedIndex = today - 1;
+        }
+
+        document.querySelectorAll('.school-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.school-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+                
+                const schoolName = button.textContent.trim();
+                document.querySelector('.selected-school').textContent = schoolName + ' Bell Schedule';
+                
+                loadSchedule(button.dataset.school);
+            });
+        });
+
+        document.querySelectorAll('.schedule-type-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.schedule-type-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+                
+                const activeSchool = document.querySelector('.school-btn.active');
+                if (activeSchool) {
+                    loadSchedule(activeSchool.dataset.school, button.dataset.type);
+                }
+            });
+        });
+
+        document.getElementById('day-select').addEventListener('change', (event) => {
+            const activeSchool = document.querySelector('.school-btn.active');
+            const activeType = document.querySelector('.schedule-type-btn.active');
+            if (activeSchool) {
+                // Force immediate update of schedule when day changes
+                const selectedDay = event.target.value;
+                const school = activeSchool.dataset.school;
+                const type = activeType ? activeType.dataset.type : 'regular';
+                
+                // Update schedule immediately
+                loadSchedule(school, type, selectedDay);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add animation classes
+            document.querySelectorAll('.fade-in').forEach(el => el.classList.add('active'));
+            setTimeout(() => {
+                document.querySelectorAll('.slide-up').forEach(el => el.classList.add('active'));
+            }, 200);
+
+            // Automatically select Harvest Park and load its schedule
+            const harvestButton = document.querySelector('[data-school="harvest"]');
+            if (harvestButton) {
+                harvestButton.classList.add('active');
+                const schoolName = harvestButton.textContent.trim();
+                document.querySelector('.selected-school').textContent = schoolName + ' Bell Schedule';
+                loadSchedule('harvest');
+            }
+        });
+
+        function loadSchedule(school, type = 'regular', selectedDay = null) {
+            const day = selectedDay || document.getElementById('day-select').value;
+            const scheduleContent = document.querySelector('.schedule-content');
+            
+            if (school === 'amador') {
+                // Regular schedule data
+                const regularScheduleData = {
+                    monday: {
+                        title: 'Monday & Friday Schedule',
+                        schedule: [
+                            { period: 'A Period', time: '7:26 - 8:23' },
+                            { period: '1st Period', time: '8:30 - 9:27' },
+                            { period: '2nd Period', time: '9:34 - 10:31' },
+                            { period: 'Brunch', time: '10:31 - 10:36', isLunch: true },
+                            { period: '3rd Period', time: '10:43 - 11:40' },
+                            { period: '4th Period', time: '11:47 - 12:44' },
+                            { period: 'Lunch', time: '12:44 - 1:14', isLunch: true },
+                            { period: '5th Period', time: '1:21 - 2:18' },
+                            { period: '6th Period', time: '2:25 - 3:22' },
+                            { period: 'B Period', time: '3:29 - 4:26' }
+                        ],
+                        notes: ['Breakfast served at 8:00 a.m.']
+                    },
+                    tuesday: {
+                        title: 'Tuesday Schedule',
+                        schedule: [
+                            { period: 'A Period', time: '7:26 - 8:23' },
+                            { period: '1st Period', time: '8:30 - 9:27' },
+                            { period: '2nd Period', time: '9:34 - 10:31' },
+                            { period: 'Brunch', time: '10:31 - 10:36', isLunch: true },
+                            { period: '3rd Period', time: '10:43 - 11:40' },
+                            { period: '4th Period', time: '11:47 - 12:44' },
+                            { period: 'Lunch', time: '12:44 - 1:14', isLunch: true },
+                            { period: '5th Period', time: '1:21 - 2:18' },
+                            { period: '6th Period', time: '2:25 - 3:22' },
+                            { period: 'B Period', time: '3:29 - 4:26' }
+                        ],
+                        notes: ['Breakfast served at 8:00 a.m.']
+                    },
+                    wednesday: {
+                        title: 'Wednesday Schedule',
+                        schedule: [
+                            { period: 'Staff Collaboration', time: '8:00 - 8:45' },
+                            { period: '1st Period', time: '8:50 - 10:22' },
+                            { period: 'Brunch', time: '10:22 - 10:30', isLunch: true },
+                            { period: '3rd Period', time: '10:37 - 12:09' },
+                            { period: 'Lunch', time: '12:09 - 12:39', isLunch: true },
+                            { period: 'Access', time: '12:46 - 1:41' },
+                            { period: '5th Period', time: '1:48 - 3:20' },
+                            { period: 'B Period', time: '3:27 - 4:24' }
+                        ],
+                        notes: ['Breakfast served at 8:20 a.m.']
+                    }
+                };
+
+                // Minimum day schedule data
+                const minimumScheduleData = {
+                    title: 'Minimum Day Schedule',
+                    schedule: [
+                        { period: 'A', time: '7:48 - 8:23' },
+                        { period: '1', time: '8:30 - 9:05' },
+                        { period: '2', time: '9:12 - 9:47' },
+                        { period: '3', time: '9:54 - 10:29' },
+                        { period: 'BRUNCH', time: '10:29 - 10:39', isLunch: true },
+                        { period: '4', time: '10:46 - 11:21' },
+                        { period: '5', time: '11:28 - 12:03' },
+                        { period: '6', time: '12:10 - 12:45' }
+                    ]
+                };
+
+                let daySchedule;
+                if (type === 'minimum') {
+                    daySchedule = minimumScheduleData;
+                } else {
+                    // Map Friday to Monday's schedule and Thursday to Tuesday's schedule
+                    const selectedDay = day === 'friday' ? 'monday' : 
+                                      day === 'thursday' ? 'tuesday' : 
+                                      day;
+                    daySchedule = regularScheduleData[selectedDay];
+                }
+
+                if (!daySchedule) {
+                    scheduleContent.innerHTML = `
+                        <div class="schedule-placeholder">
+                            <i class="fas fa-clock"></i>
+                            <p>Schedule not available for ${day}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let scheduleHTML = `
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">${daySchedule.title}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                // Add notes section if present
+                if (daySchedule.notes && daySchedule.notes.length > 0) {
+                    scheduleHTML += `
+                        <tr class="schedule-note">
+                            <td colspan="2" class="note-text">
+                                <i class="fas fa-info-circle period-icon"></i>
+                                ${daySchedule.notes.join('<br>')}
+                            </td>
+                        </tr>
+                    `;
+                }
+
+                daySchedule.schedule.forEach(period => {
+                    // Convert time to minutes for comparison
+                    let startMinutes = 0;
+                    let endMinutes = 0;
+                    let formattedTime = period.time;
+
+                    if (period.time.includes(' - ')) {
+                        const [startTime, endTime] = period.time.split(' - ');
+                        const [startHour, startMinute] = startTime.split(':').map(Number);
+                        const [endHour, endMinute] = endTime.split(':').map(Number);
+                        startMinutes = startHour * 60 + startMinute;
+                        endMinutes = endHour * 60 + endMinute;
+                        
+                        // Add AM/PM to the time display
+                        const formattedStartTime = `${startTime} ${startHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        const formattedEndTime = `${endTime} ${endHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        formattedTime = `${formattedStartTime} - ${formattedEndTime}`;
+                    }
+                    
+                    // Check if this is the current period
+                    const now = new Date();
+                    const currentTime = now.getHours() * 60 + now.getMinutes();
+                    const isCurrent = currentTime >= startMinutes && currentTime <= endMinutes;
+                    
+                    // Determine the appropriate icon for each period type
+                    let periodIcon = '';
+                    if (period.period.toLowerCase().includes('lunch') || period.period.toLowerCase().includes('brunch')) {
+                        periodIcon = '<i class="fas fa-utensils period-icon" title="Lunch/Brunch Period"></i>';
+                    } else if (period.period.toLowerCase().includes('a period')) {
+                        periodIcon = '<i class="fas fa-sun period-icon" title="Morning Period"></i>';
+                    } else if (period.period.toLowerCase().includes('b period')) {
+                        periodIcon = '<i class="fas fa-moon period-icon" title="Afternoon Period"></i>';
+                    } else {
+                        periodIcon = '<i class="fas fa-book period-icon" title="Regular Period"></i>';
+                    }
+                    
+                    scheduleHTML += `
+                        <tr class="${isCurrent ? 'current-period' : ''} ${period.isLunch ? 'lunch-period' : ''}">
+                            <td class="period-name">${period.period}</td>
+                            <td class="period-time">
+                                <span>${formattedTime}</span>
+                                ${periodIcon}
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                scheduleHTML += `
+                        </tbody>
+                    </table>
+                `;
+
+                scheduleContent.innerHTML = scheduleHTML;
+            } else if (school === 'harvest') {
+                // Regular schedule data
+                const regularScheduleData = {
+                    monday: {
+                        title: 'Monday/Friday Schedule',
+                        schedule: [
+                            { period: 'A Period', time: '7:56 - 8:46' },
+                            { period: 'Period 1', time: '8:50 - 9:43' },
+                            { period: 'Period 2', time: '9:47 - 10:31' },
+                            { period: 'Period 3', time: '10:35 - 11:19' },
+                            { period: 'Period 4', time: '11:23 - 12:07' },
+                            { period: 'Lunch 4', time: '11:23 - 11:53', isLunch: true },
+                            { period: 'Period 5', time: '11:57 - 12:41' },
+                            { period: 'Lunch 5', time: '12:11 - 12:41', isLunch: true },
+                            { period: 'Period 6', time: '12:45 - 1:29' },
+                            { period: 'Period 7', time: '1:33 - 2:17' },
+                            { period: 'Period 8', time: '2:21 - 3:05' }
+                        ]
+                    },
+                    tuesday: {
+                        title: 'Tuesday/Thursday Schedule',
+                        schedule: [
+                            { period: 'A Period', time: '7:56 - 8:46' },
+                            { period: 'Period 1', time: '8:50 - 9:30' },
+                            { period: 'Period 2', time: '9:34 - 10:14' },
+                            { period: 'Period 3', time: '10:18 - 10:58' },
+                            { period: 'Access', time: '11:02 - 11:35' },
+                            { period: 'Period 4', time: '11:39 - 12:19' },
+                            { period: 'Lunch 4', time: '11:39 - 12:09', isLunch: true },
+                            { period: 'Period 5', time: '12:13 - 12:53' },
+                            { period: 'Lunch 5', time: '12:23 - 12:53', isLunch: true },
+                            { period: 'Period 6', time: '12:57 - 1:37' },
+                            { period: 'Period 7', time: '1:41 - 2:21' },
+                            { period: 'Period 8', time: '2:25 - 3:05' }
+                        ]
+                    },
+                    wednesday: {
+                        title: 'Wednesday Schedule',
+                        schedule: [
+                            { period: 'Period 1', time: '9:41 - 10:19' },
+                            { period: 'Period 2', time: '10:23 - 11:01' },
+                            { period: 'Period 3', time: '11:05 - 11:43' },
+                            { period: 'Period 4', time: '11:47 - 12:25' },
+                            { period: 'Lunch 4', time: '11:47 - 12:17', isLunch: true },
+                            { period: 'Period 5', time: '12:21 - 12:59' },
+                            { period: 'Lunch 5', time: '12:29 - 12:59', isLunch: true },
+                            { period: 'Period 6', time: '1:03 - 1:41' },
+                            { period: 'Period 7', time: '1:45 - 2:23' },
+                            { period: 'Period 8', time: '2:27 - 3:05' }
+                        ]
+                    }
+                };
+
+                // Minimum day schedule data
+                const minimumScheduleData = {
+                    title: 'Minimum Day Schedule',
+                    schedule: [
+                        { period: '0 Period (A)', time: '7:48 - 8:23', duration: '35 mins' },
+                        { period: '1st Period', time: '8:30 - 9:05', duration: '35 mins' },
+                        { period: '2nd Period', time: '9:12 - 9:47', duration: '35 mins' },
+                        { period: '3rd Period', time: '9:54 - 10:29', duration: '35 mins' },
+                        { period: '4th Period', time: '10:36 - 11:11', duration: '35 mins' },
+                        { period: '5th Period', time: '11:18 - 11:53', duration: '35 mins' },
+                        { period: '6th Period', time: '12:00 - 12:35', duration: '35 mins' },
+                        { period: '7th Period (B)', time: '12:42 - 1:21', duration: '39 mins' }
+                    ]
+                };
+
+                let daySchedule;
+                if (type === 'minimum') {
+                    daySchedule = minimumScheduleData;
+                } else {
+                    // Map Friday to Monday's schedule and Thursday to Tuesday's schedule
+                    const selectedDay = day === 'friday' ? 'monday' : 
+                                      day === 'thursday' ? 'tuesday' : 
+                                      day;
+                    daySchedule = regularScheduleData[selectedDay];
+                }
+
+                if (!daySchedule) {
+                    console.error('No schedule found for day:', day);
+                    return;
+                }
+
+                let scheduleHTML = `
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">${daySchedule.title}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                daySchedule.schedule.forEach(period => {
+                    // Convert time to minutes for comparison
+                    let startMinutes = 0;
+                    let endMinutes = 0;
+                    let formattedTime = period.time;
+
+                    if (period.time.includes(' - ')) {
+                        const [startTime, endTime] = period.time.split(' - ');
+                        const [startHour, startMinute] = startTime.split(':').map(Number);
+                        const [endHour, endMinute] = endTime.split(':').map(Number);
+                        startMinutes = startHour * 60 + startMinute;
+                        endMinutes = endHour * 60 + endMinute;
+                        
+                        // Add AM/PM to the time display
+                        const formattedStartTime = `${startTime} ${startHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        const formattedEndTime = `${endTime} ${endHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        formattedTime = `${formattedStartTime} - ${formattedEndTime}`;
+                    }
+                    
+                    // Check if this is the current period
+                    const now = new Date();
+                    const currentTime = now.getHours() * 60 + now.getMinutes();
+                    const isCurrent = currentTime >= startMinutes && currentTime <= endMinutes;
+                    
+                    // For special cases like Teacher Collaboration
+                    const displayTime = period.time.includes('*') ? period.time : formattedTime;
+                    
+                    // Determine the appropriate icon for each period type
+                    let periodIcon = '';
+                    if (period.period.toLowerCase().includes('lunch')) {
+                        periodIcon = '<i class="fas fa-utensils period-icon" title="Lunch Period"></i>';
+                    } else if (period.period.toLowerCase().includes('pride')) {
+                        periodIcon = '<i class="fas fa-star period-icon" title="PRIDE Time"></i>';
+                    } else if (period.period.toLowerCase().includes('collaboration')) {
+                        periodIcon = '<i class="fas fa-users period-icon" title="Teacher Collaboration"></i>';
+                    } else if (period.period.toLowerCase().includes('a period')) {
+                        periodIcon = '<i class="fas fa-sun period-icon" title="Morning Period"></i>';
+                    } else if (period.period.toLowerCase().includes('b period')) {
+                        periodIcon = '<i class="fas fa-moon period-icon" title="Afternoon Period"></i>';
+                    } else if (period.period.toLowerCase().includes('access')) {
+                        periodIcon = '<i class="fas fa-door-open period-icon" title="Access Period"></i>';
+                    } else {
+                        periodIcon = '<i class="fas fa-book period-icon" title="Regular Period"></i>';
+                    }
+                    
+                    scheduleHTML += `
+                        <tr class="${isCurrent ? 'current-period' : ''} ${period.isLunch ? 'lunch-period' : ''}">
+                            <td class="period-name">${period.period}</td>
+                            <td class="period-time">
+                                <span>${displayTime}</span>
+                                ${periodIcon}
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                scheduleHTML += `
+                        </tbody>
+                    </table>
+                `;
+
+                scheduleContent.innerHTML = scheduleHTML;
+            } else if (school === 'pleasanton') {
+                // Regular schedule data
+                const regularScheduleData = {
+                    monday: {
+                        title: 'Monday & Friday Schedule',
+                        schedule: [
+                            { period: 'A period', time: '7:56 - 8:46' },
+                            { period: '1st period', time: '8:50 - 9:34' },
+                            { period: '2nd period', time: '9:38 - 10:22' },
+                            { period: '3rd period', time: '10:26 - 11:10' },
+                            { period: '4th period', time: '11:14 - 11:58' },
+                            { period: '4th LUNCH', time: '11:14 - 11:44', isLunch: true },
+                            { period: '5th period', time: '11:48 - 12:32' },
+                            { period: '5th LUNCH', time: '12:02 - 12:32', isLunch: true },
+                            { period: '6th period', time: '12:36 - 1:20' },
+                            { period: '7th period', time: '1:24 - 2:08' },
+                            { period: '8th period', time: '2:12 - 3:05' },
+                            { period: 'B period', time: '3:09 - 3:59' }
+                        ]
+                    },
+                    tuesday: {
+                        title: 'Tuesday & Thursday Schedule',
+                        schedule: [
+                            { period: 'A period', time: '7:56 - 8:46' },
+                            { period: '1st period', time: '8:50 - 9:30' },
+                            { period: '2nd period', time: '9:34 - 10:14' },
+                            { period: '3rd period', time: '10:18 - 10:58' },
+                            { period: 'PRIDE time', time: '11:02 - 11:35' },
+                            { period: '4th period', time: '11:39 - 12:19' },
+                            { period: '4th LUNCH', time: '11:39 - 12:09', isLunch: true },
+                            { period: '5th period', time: '12:13 - 12:53' },
+                            { period: '5th LUNCH', time: '12:23 - 12:53', isLunch: true },
+                            { period: '6th period', time: '12:57 - 1:37' },
+                            { period: '7th period', time: '1:41 - 2:21' },
+                            { period: '8th period', time: '2:25 - 3:05' },
+                            { period: 'B period', time: '3:09 - 3:59' }
+                        ]
+                    },
+                    wednesday: {
+                        title: 'Wednesday Schedule',
+                        schedule: [
+                            { period: 'Collaboration', time: '8:45 - 9:30' },
+                            { period: '1st period', time: '9:41 - 10:19' },
+                            { period: '2nd period', time: '10:23 - 11:01' },
+                            { period: '3rd period', time: '11:05 - 11:43' },
+                            { period: '4th period', time: '11:47 - 12:25' },
+                            { period: '4th LUNCH', time: '11:47 - 12:17', isLunch: true },
+                            { period: '5th period', time: '12:21 - 12:59' },
+                            { period: '5th LUNCH', time: '12:29 - 12:59', isLunch: true },
+                            { period: '6th period', time: '1:03 - 1:41' },
+                            { period: '7th period', time: '1:45 - 2:23' },
+                            { period: '8th period', time: '2:27 - 3:05' },
+                            { period: 'B period', time: '3:09 - 3:59' }
+                        ]
+                    }
+                };
+
+                // Minimum day schedule data
+                const minimumScheduleData = {
+                    title: 'Minimum Day Schedule',
+                    schedule: [
+                        { period: 'A period', time: '8:16 - 8:46' },
+                        { period: '1st period', time: '8:50 - 9:20' },
+                        { period: '2nd period', time: '9:24 - 9:54' },
+                        { period: '3rd period', time: '9:58 - 10:28' },
+                        { period: 'Period 4/5', time: '10:32 - 11:02' },
+                        { period: '6th period', time: '11:06 - 11:36' },
+                        { period: '7th period', time: '11:40 - 12:10' },
+                        { period: '8th period', time: '12:14 - 12:44' },
+                        { period: 'B period', time: '12:48 - 1:18' }
+                    ]
+                };
+
+                let daySchedule;
+                if (type === 'minimum') {
+                    daySchedule = minimumScheduleData;
+                } else {
+                    // Map Friday to Monday's schedule and Thursday to Tuesday's schedule
+                    const selectedDay = day === 'friday' ? 'monday' : 
+                                      day === 'thursday' ? 'tuesday' : 
+                                      day;
+                    daySchedule = regularScheduleData[selectedDay];
+                }
+
+                if (!daySchedule) {
+                    console.error('No schedule found for day:', day);
+                    return;
+                }
+
+                let scheduleHTML = `
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">${daySchedule.title}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                daySchedule.schedule.forEach(period => {
+                    // Convert time to minutes for comparison
+                    let startMinutes = 0;
+                    let endMinutes = 0;
+                    let formattedTime = period.time;
+
+                    if (period.time.includes(' - ')) {
+                        const [startTime, endTime] = period.time.split(' - ');
+                        const [startHour, startMinute] = startTime.split(':').map(Number);
+                        const [endHour, endMinute] = endTime.split(':').map(Number);
+                        startMinutes = startHour * 60 + startMinute;
+                        endMinutes = endHour * 60 + endMinute;
+                        
+                        // Add AM/PM to the time display
+                        const formattedStartTime = `${startTime} ${startHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        const formattedEndTime = `${endTime} ${endHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        formattedTime = `${formattedStartTime} - ${formattedEndTime}`;
+                    }
+                    
+                    // Check if this is the current period
+                    const now = new Date();
+                    const currentTime = now.getHours() * 60 + now.getMinutes();
+                    const isCurrent = currentTime >= startMinutes && currentTime <= endMinutes;
+                    
+                    // For special cases like Teacher Collaboration
+                    const displayTime = period.time.includes('*') ? period.time : formattedTime;
+                    
+                    // Determine the appropriate icon for each period type
+                    let periodIcon = '';
+                    if (period.period.toLowerCase().includes('lunch')) {
+                        periodIcon = '<i class="fas fa-utensils period-icon" title="Lunch Period"></i>';
+                    } else if (period.period.toLowerCase().includes('pride')) {
+                        periodIcon = '<i class="fas fa-star period-icon" title="PRIDE Time"></i>';
+                    } else if (period.period.toLowerCase().includes('collaboration')) {
+                        periodIcon = '<i class="fas fa-users period-icon" title="Teacher Collaboration"></i>';
+                    } else if (period.period.toLowerCase().includes('a period')) {
+                        periodIcon = '<i class="fas fa-sun period-icon" title="Morning Period"></i>';
+                    } else if (period.period.toLowerCase().includes('b period')) {
+                        periodIcon = '<i class="fas fa-moon period-icon" title="Afternoon Period"></i>';
+                    } else if (period.period.toLowerCase().includes('access')) {
+                        periodIcon = '<i class="fas fa-door-open period-icon" title="Access Period"></i>';
+                    } else {
+                        periodIcon = '<i class="fas fa-book period-icon" title="Regular Period"></i>';
+                    }
+                    
+                    scheduleHTML += `
+                        <tr class="${isCurrent ? 'current-period' : ''} ${period.isLunch ? 'lunch-period' : ''}">
+                            <td class="period-name">${period.period}</td>
+                            <td class="period-time">
+                                <span>${displayTime}</span>
+                                ${periodIcon}
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                scheduleHTML += `
+                        </tbody>
+                    </table>
+                `;
+
+                scheduleContent.innerHTML = scheduleHTML;
+            } else if (school === 'foothill') {
+                // Regular schedule data
+                const regularScheduleData = {
+                    monday: {
+                        title: 'Monday/Friday Schedule',
+                        schedule: [
+                            { period: '0 Period (A)', time: '7:10 - 8:43', duration: '93 mins' },
+                            { period: '2nd Period', time: '8:50 - 10:24', duration: '94 mins' },
+                            { period: '4th Period', time: '10:31 - 12:05', duration: '94 mins' },
+                            { period: 'Lunch', time: '12:05 - 12:35', duration: '30 mins', isLunch: true },
+                            { period: 'Access Period', time: '12:42 - 1:32', duration: '50 mins' },
+                            { period: '6th Period', time: '1:39 - 3:13', duration: '94 mins' },
+                            { period: '7th Period (B)', time: '3:20 - 4:17', duration: '57 mins' }
+                        ]
+                    },
+                    tuesday: {
+                        title: 'Tuesday/Thursday Schedule',
+                        schedule: [
+                            { period: '0 Period (A)', time: '7:10 - 8:43', duration: '93 mins' },
+                            { period: '2nd Period', time: '8:50 - 10:24', duration: '94 mins' },
+                            { period: '4th Period', time: '10:31 - 12:05', duration: '94 mins' },
+                            { period: 'Lunch', time: '12:05 - 12:35', duration: '30 mins', isLunch: true },
+                            { period: 'Access Period', time: '12:42 - 1:32', duration: '50 mins' },
+                            { period: '6th Period', time: '1:39 - 3:13', duration: '94 mins' },
+                            { period: '7th Period (B)', time: '3:20 - 4:17', duration: '57 mins' }
+                        ]
+                    },
+                    wednesday: {
+                        title: 'Wednesday Schedule',
+                        schedule: [
+                            { period: 'Staff Collaboration', time: '8:00 - 8:45', duration: '45 mins' },
+                            { period: '1st Period', time: '8:50 - 10:24', duration: '94 mins' },
+                            { period: '3rd Period', time: '10:31 - 12:05', duration: '94 mins' },
+                            { period: 'Lunch', time: '12:05 - 12:35', duration: '30 mins', isLunch: true },
+                            { period: 'Access Period', time: '12:42 - 1:32', duration: '50 mins' },
+                            { period: '5th Period', time: '1:39 - 3:13', duration: '94 mins' },
+                            { period: '7th Period (B)', time: '3:20 - 4:17', duration: '57 mins' }
+                        ]
+                    }
+                };
+
+                // Minimum day schedule data
+                const minimumScheduleData = {
+                    title: 'Minimum Day Schedule',
+                    schedule: [
+                        { period: '0 Period (A)', time: '7:48 - 8:23', duration: '35 mins' },
+                        { period: '1st Period', time: '8:30 - 9:05', duration: '35 mins' },
+                        { period: '2nd Period', time: '9:12 - 9:47', duration: '35 mins' },
+                        { period: '3rd Period', time: '9:54 - 10:29', duration: '35 mins' },
+                        { period: '4th Period', time: '10:36 - 11:11', duration: '35 mins' },
+                        { period: '5th Period', time: '11:18 - 11:53', duration: '35 mins' },
+                        { period: '6th Period', time: '12:00 - 12:35', duration: '35 mins' },
+                        { period: '7th Period (B)', time: '12:42 - 1:21', duration: '39 mins' }
+                    ]
+                };
+
+                let daySchedule;
+                if (type === 'minimum') {
+                    daySchedule = minimumScheduleData;
+                } else {
+                    // Map Friday to Monday's schedule and Thursday to Tuesday's schedule
+                    const selectedDay = day === 'friday' ? 'monday' : 
+                                      day === 'thursday' ? 'tuesday' : 
+                                      day;
+                    daySchedule = regularScheduleData[selectedDay];
+                }
+
+                if (!daySchedule) {
+                    scheduleContent.innerHTML = `
+                        <div class="schedule-placeholder">
+                            <i class="fas fa-clock"></i>
+                            <p>Schedule not available for ${day}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let scheduleHTML = `
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">${daySchedule.title}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                daySchedule.schedule.forEach(period => {
+                    // Convert time to minutes for comparison
+                    let startMinutes = 0;
+                    let endMinutes = 0;
+                    let formattedTime = period.time;
+
+                    if (period.time.includes(' - ')) {
+                        const [startTime, endTime] = period.time.split(' - ');
+                        const [startHour, startMinute] = startTime.split(':').map(Number);
+                        const [endHour, endMinute] = endTime.split(':').map(Number);
+                        startMinutes = startHour * 60 + startMinute;
+                        endMinutes = endHour * 60 + endMinute;
+                        
+                        // Add AM/PM to the time display
+                        const formattedStartTime = `${startTime} ${startHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        const formattedEndTime = `${endTime} ${endHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        formattedTime = `${formattedStartTime} - ${formattedEndTime}`;
+                    }
+                    
+                    // Check if this is the current period
+                    const now = new Date();
+                    const currentTime = now.getHours() * 60 + now.getMinutes();
+                    const isCurrent = currentTime >= startMinutes && currentTime <= endMinutes;
+                    
+                    // For special cases like Teacher Collaboration
+                    const displayTime = period.time.includes('*') ? period.time : formattedTime;
+                    
+                    // Determine the appropriate icon for each period type
+                    let periodIcon = '';
+                    if (period.period.toLowerCase().includes('lunch')) {
+                        periodIcon = '<i class="fas fa-utensils period-icon" title="Lunch Period"></i>';
+                    } else if (period.period.toLowerCase().includes('pride')) {
+                        periodIcon = '<i class="fas fa-star period-icon" title="PRIDE Time"></i>';
+                    } else if (period.period.toLowerCase().includes('collaboration')) {
+                        periodIcon = '<i class="fas fa-users period-icon" title="Teacher Collaboration"></i>';
+                    } else if (period.period.toLowerCase().includes('a period')) {
+                        periodIcon = '<i class="fas fa-sun period-icon" title="Morning Period"></i>';
+                    } else if (period.period.toLowerCase().includes('b period')) {
+                        periodIcon = '<i class="fas fa-moon period-icon" title="Afternoon Period"></i>';
+                    } else if (period.period.toLowerCase().includes('access')) {
+                        periodIcon = '<i class="fas fa-door-open period-icon" title="Access Period"></i>';
+                    } else {
+                        periodIcon = '<i class="fas fa-book period-icon" title="Regular Period"></i>';
+                    }
+                    
+                    scheduleHTML += `
+                        <tr class="${isCurrent ? 'current-period' : ''} ${period.isLunch ? 'lunch-period' : ''}">
+                            <td class="period-name">${period.period}</td>
+                            <td class="period-time">
+                                <span>${displayTime}</span>
+                                ${periodIcon}
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                scheduleHTML += `
+                        </tbody>
+                    </table>
+                `;
+
+                scheduleContent.innerHTML = scheduleHTML;
+            } else if (school === 'hart') {
+                // Regular schedule data
+                const regularScheduleData = {
+                    monday: {
+                        title: 'Monday & Friday Schedule',
+                        schedule: [
+                            { period: 'A Period', time: '7:51 - 8:41' },
+                            { period: 'Period 1', time: '8:45 - 9:38' },
+                            { period: 'Period 2', time: '9:42 - 10:26' },
+                            { period: 'Period 3', time: '10:30 - 11:14' },
+                            { period: 'Period 4', time: '11:18 - 12:02' },
+                            { period: 'Period 5', time: '12:06 - 12:50' },
+                            { period: 'Lunch 5', time: '12:06 - 12:36', isLunch: true },
+                            { period: 'Period 6', time: '12:40 - 1:24' },
+                            { period: 'Lunch 6', time: '12:54 - 1:24', isLunch: true },
+                            { period: 'Period 7', time: '1:28 - 2:12' },
+                            { period: 'Period 8', time: '2:16 - 3:00' }
+                        ]
+                    },
+                    tuesday: {
+                        title: 'Tuesday/Thursday Schedule',
+                        schedule: [
+                            { period: 'A Period', time: '7:56 - 8:46' },
+                            { period: 'Period 1', time: '8:50 - 9:30' },
+                            { period: 'Period 2', time: '9:34 - 10:14' },
+                            { period: 'Period 3', time: '10:18 - 10:58' },
+                            { period: 'Access', time: '11:02 - 11:35' },
+                            { period: 'Period 4', time: '11:39 - 12:19' },
+                            { period: 'Lunch 4', time: '11:39 - 12:09', isLunch: true },
+                            { period: 'Period 5', time: '12:13 - 12:53' },
+                            { period: 'Lunch 5', time: '12:23 - 12:53', isLunch: true },
+                            { period: 'Period 6', time: '12:57 - 1:37' },
+                            { period: 'Period 7', time: '1:41 - 2:21' },
+                            { period: 'Period 8', time: '2:25 - 3:05' }
+                        ]
+                    },
+                    wednesday: {
+                        title: 'Wednesday Schedule',
+                        schedule: [
+                            { period: 'Period 1', time: '9:41 - 10:19' },
+                            { period: 'Period 2', time: '10:23 - 11:01' },
+                            { period: 'Period 3', time: '11:05 - 11:43' },
+                            { period: 'Period 4', time: '11:47 - 12:25' },
+                            { period: 'Lunch 4', time: '11:47 - 12:17', isLunch: true },
+                            { period: 'Period 5', time: '12:21 - 12:59' },
+                            { period: 'Lunch 5', time: '12:29 - 12:59', isLunch: true },
+                            { period: 'Period 6', time: '1:03 - 1:41' },
+                            { period: 'Period 7', time: '1:45 - 2:23' },
+                            { period: 'Period 8', time: '2:27 - 3:05' }
+                        ]
+                    }
+                };
+
+                // Minimum day schedule data
+                const minimumScheduleData = {
+                    title: 'Minimum Day Schedule',
+                    schedule: [
+                        { period: '0 Period (A)', time: '7:48 - 8:23', duration: '35 mins' },
+                        { period: '1st Period', time: '8:30 - 9:05', duration: '35 mins' },
+                        { period: '2nd Period', time: '9:12 - 9:47', duration: '35 mins' },
+                        { period: '3rd Period', time: '9:54 - 10:29', duration: '35 mins' },
+                        { period: '4th Period', time: '10:36 - 11:11', duration: '35 mins' },
+                        { period: '5th Period', time: '11:18 - 11:53', duration: '35 mins' },
+                        { period: '6th Period', time: '12:00 - 12:35', duration: '35 mins' },
+                        { period: '7th Period (B)', time: '12:42 - 1:21', duration: '39 mins' }
+                    ]
+                };
+
+                let daySchedule;
+                if (type === 'minimum') {
+                    daySchedule = minimumScheduleData;
+                } else {
+                    // Map Friday to Monday's schedule and Thursday to Tuesday's schedule
+                    const selectedDay = day === 'friday' ? 'monday' : 
+                                      day === 'thursday' ? 'tuesday' : 
+                                      day;
+                    daySchedule = regularScheduleData[selectedDay];
+                }
+
+                if (!daySchedule) {
+                    scheduleContent.innerHTML = `
+                        <div class="schedule-placeholder">
+                            <i class="fas fa-clock"></i>
+                            <p>Schedule not available for ${day}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let scheduleHTML = `
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2">${daySchedule.title}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                daySchedule.schedule.forEach(period => {
+                    // Convert time to minutes for comparison
+                    let startMinutes = 0;
+                    let endMinutes = 0;
+                    let formattedTime = period.time;
+
+                    if (period.time.includes(' - ')) {
+                        const [startTime, endTime] = period.time.split(' - ');
+                        const [startHour, startMinute] = startTime.split(':').map(Number);
+                        const [endHour, endMinute] = endTime.split(':').map(Number);
+                        startMinutes = startHour * 60 + startMinute;
+                        endMinutes = endHour * 60 + endMinute;
+                        
+                        // Add AM/PM to the time display
+                        const formattedStartTime = `${startTime} ${startHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        const formattedEndTime = `${endTime} ${endHour < 12 ? 'a.m.' : 'p.m.'}`;
+                        formattedTime = `${formattedStartTime} - ${formattedEndTime}`;
+                    }
+                    
+                    // Check if this is the current period
+                    const now = new Date();
+                    const currentTime = now.getHours() * 60 + now.getMinutes();
+                    const isCurrent = currentTime >= startMinutes && currentTime <= endMinutes;
+                    
+                    // For special cases like Teacher Collaboration
+                    const displayTime = period.time.includes('*') ? period.time : formattedTime;
+                    
+                    // Determine the appropriate icon for each period type
+                    let periodIcon = '';
+                    if (period.period.toLowerCase().includes('lunch')) {
+                        periodIcon = '<i class="fas fa-utensils period-icon" title="Lunch Period"></i>';
+                    } else if (period.period.toLowerCase().includes('pride')) {
+                        periodIcon = '<i class="fas fa-star period-icon" title="PRIDE Time"></i>';
+                    } else if (period.period.toLowerCase().includes('collaboration')) {
+                        periodIcon = '<i class="fas fa-users period-icon" title="Teacher Collaboration"></i>';
+                    } else if (period.period.toLowerCase().includes('a period')) {
+                        periodIcon = '<i class="fas fa-sun period-icon" title="Morning Period"></i>';
+                    } else if (period.period.toLowerCase().includes('b period')) {
+                        periodIcon = '<i class="fas fa-moon period-icon" title="Afternoon Period"></i>';
+                    } else if (period.period.toLowerCase().includes('access')) {
+                        periodIcon = '<i class="fas fa-door-open period-icon" title="Access Period"></i>';
+                    } else {
+                        periodIcon = '<i class="fas fa-book period-icon" title="Regular Period"></i>';
+                    }
+                    
+                    scheduleHTML += `
+                        <tr class="${isCurrent ? 'current-period' : ''} ${period.isLunch ? 'lunch-period' : ''}">
+                            <td class="period-name">${period.period}</td>
+                            <td class="period-time">
+                                <span>${displayTime}</span>
+                                ${periodIcon}
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                scheduleHTML += `
+                        </tbody>
+                    </table>
+                `;
+
+                scheduleContent.innerHTML = scheduleHTML;
+            } else {
+                scheduleContent.innerHTML = `
+                    <div class="schedule-placeholder">
+                        <i class="fas fa-clock"></i>
+                        <p>Please select a school to view its bell schedule</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Helper function to convert time string to minutes
+        function convertTimeToMinutes(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        // Update schedule every minute to keep current period highlighted
+        setInterval(() => {
+            const activeSchool = document.querySelector('.school-btn.active');
+            if (activeSchool) {
+                loadSchedule(activeSchool.dataset.school);
+            }
+        }, 60000);
+    </script>
+</body>
+</html> 

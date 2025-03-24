@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant - Pleasanton Student Pro</title>
+    <style>
+        :root {
+            --primary-purple: #8257E6;
+            --primary-purple-dark: #6B46C1;
+            --bg-dark: #13111B;
+            --bg-darker: #0D0B14;
+            --bg-card: #1A1825;
+            --text-light: #FFFFFF;
+            --text-gray: #A8A8B3;
+            --border-color: #2D2B33;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-window {
+            width: 90%;
+            max-width: 1200px;
+            height: 90vh;
+            background: var(--bg-darker);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .promotion {
+            padding: 20px;
+            background: linear-gradient(45deg, var(--bg-card), var(--primary-purple-dark));
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .promotion h3 {
+            margin: 0 0 8px 0;
+            color: white;
+            font-size: 18px;
+        }
+
+        .promotion p {
+            margin: 0;
+            color: var(--text-gray);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .prompt-section {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .prompt-category {
+            margin-bottom: 24px;
+        }
+
+        .prompt-category h3 {
+            margin: 0 0 12px 0;
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .prompt-button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .prompt-button:hover {
+            background: var(--primary-purple);
+            border-color: var(--primary-purple);
+            transform: translateX(4px);
+        }
+
+        .file-upload-btn {
+            padding: 12px;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-upload-btn:hover {
+            border-color: var(--primary-purple);
+        }
+
+        .image-preview {
+            max-width: 200px;
+            margin-top: 12px;
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: auto;
+        }
+
+        .saved-chats {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .chat-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: var(--bg-darker);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .chat-item:hover {
+            border-color: var(--primary-purple);
+            transform: translateX(4px);
+        }
+
+        .chat-item h4 {
+            margin: 0 0 4px 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .chat-item p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .main-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 16px 24px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header .icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-purple);
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 8C15.16 8 8 15.16 8 24s7.16 16 16 16 16-7.16 16-16S32.84 8 24 8zm0 4c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm8 20c0 1.1-.9 2-2 2H18c-1.1 0-2-.9-2-2v-1c0-3.31 2.69-6 6-6h4c3.31 0 6 2.69 6 6v1z' fill='%238257E6'/%3E%3C/svg%3E");
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 8C15.16 8 8 15.16 8 24s7.16 16 16 16 16-7.16 16-16S32.84 8 24 8zm0 4c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm8 20c0 1.1-.9 2-2 2H18c-1.1 0-2-.9-2-2v-1c0-3.31 2.69-6 6-6h4c3.31 0 6 2.69 6 6v1z' fill='%238257E6'/%3E%3C/svg%3E");
+            mask-size: contain;
+            -webkit-mask-size: contain;
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+        }
+
+        /* Keep your existing message styles and add these new ones */
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        .message.user {
+            background: var(--primary-purple);
+            align-self: flex-end;
+        }
+
+        .message.ai {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            align-self: flex-start;
+        }
+
+        .input-container {
+            padding: 20px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 12px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px;
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-light);
+            resize: none;
+            min-height: 24px;
+            max-height: 120px;
+        }
+
+        .send-button {
+            padding: 12px 24px;
+            background: var(--primary-purple);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .send-button:hover {
+            background: var(--primary-purple-dark);
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-window">
+        <aside class="sidebar">
+            <div class="promotion">
+                <h3>AI Assistant Pro</h3>
+                <p>Get instant homework help, analyze images, and get answers to any academic question. Upload photos of problems or type your questions to get started! 🚀</p>
+            </div>
+            <div class="prompt-section">
+                <div class="prompt-category">
+                    <h3>🎓 Homework Help</h3>
+                    <button class="prompt-button" data-prompt="Can you help me solve this math problem?">Math Problem Solver</button>
+                    <button class="prompt-button" data-prompt="Can you help me understand this concept?">Concept Explanation</button>
+                    <button class="prompt-button" data-prompt="Can you check my essay for errors and suggest improvements?">Essay Review</button>
+                </div>
+                <div class="prompt-category">
+                    <h3>📚 Study Tools</h3>
+                    <button class="prompt-button" data-prompt="Can you summarize this text for me?">Text Summarizer</button>
+                    <button class="prompt-button" data-prompt="Can you create a study guide for this topic?">Study Guide Creator</button>
+                    <button class="prompt-button" data-prompt="Can you quiz me on this subject?">Quiz Generator</button>
+                </div>
+                <div class="prompt-category">
+                    <h3>🔍 Research</h3>
+                    <button class="prompt-button" data-prompt="Can you help me research this topic?">Research Assistant</button>
+                    <button class="prompt-button" data-prompt="Can you help me find sources for my paper?">Source Finder</button>
+                    <button class="prompt-button" data-prompt="Can you explain this diagram/image?">Image Analyzer</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-chat">
+            <div class="chat-header">
+                <div class="icon"></div>
+                <h2>AI Assistant</h2>
+            </div>
+
+            <div class="messages-container" id="messages">
+                <div class="message ai">
+                    Hello! I'm your AI assistant. I can help you with homework, answer questions, and analyze images. Choose a prompt or ask any question to get started! 🤖
+                </div>
+            </div>
+
+            <div class="input-container">
+                <label class="file-upload-btn" for="imageUpload">
+                    📷 Upload Image
+                </label>
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                <textarea 
+                    class="message-input" 
+                    id="userInput" 
+                    placeholder="Type your message..."
+                    rows="1"
+                    onInput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"
+                ></textarea>
+                <button class="send-button" onclick="sendMessage()">Send</button>
+            </div>
+            <div class="image-preview" id="imagePreview">
+                <img id="previewImg" src="" alt="Preview">
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const apiKey = 'AIzaSyAkkTVjbQ9Uv2DxLA6m4swvl-KdHOavYdA';
+        let currentImageData = null;
+
+        // Image handling
+        const imageUpload = document.getElementById('imageUpload');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+
+        imageUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentImageData = e.target.result;
+                    previewImg.src = currentImageData;
+                    imagePreview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Prompt handling
+        document.querySelectorAll('.prompt-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const prompt = button.getAttribute('data-prompt');
+                const input = document.getElementById('userInput');
+                input.value = prompt;
+                input.focus();
+            });
+        });
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message && !currentImageData) return;
+
+            addMessage(message, true);
+            input.value = '';
+            input.style.height = 'auto';
+
+            try {
+                const loadingId = addLoadingMessage();
+
+                let requestBody = {
+                    contents: [{
+                        parts: [{ text: message }]
+                    }]
+                };
+
+                if (currentImageData) {
+                    requestBody.contents[0].parts.push({
+                        inline_data: {
+                            mime_type: "image/jpeg",
+                            data: currentImageData.split(',')[1]
+                        }
+                    });
+                }
+
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                removeLoadingMessage(loadingId);
+
+                const data = await response.json();
+                if (data.candidates && data.candidates[0].content) {
+                    addMessage(data.candidates[0].content.parts[0].text, false);
+                } else {
+                    addMessage('Sorry, I could not generate a response.', false);
+                }
+
+                // Clear image after sending
+                if (currentImageData) {
+                    currentImageData = null;
+                    imagePreview.style.display = 'none';
+                    imageUpload.value = '';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('Sorry, there was an error processing your request.', false);
+            }
+        }
+
+        function addMessage(text, isUser) {
+            const messages = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
+            messageDiv.textContent = text;
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function addLoadingMessage() {
+            const messages = document.getElementById('messages');
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message ai';
+            loadingDiv.textContent = 'Thinking...';
+            loadingDiv.id = 'loading-' + Date.now();
+            messages.appendChild(loadingDiv);
+            messages.scrollTop = messages.scrollHeight;
+            return loadingDiv.id;
+        }
+
+        function removeLoadingMessage(id) {
+            const loadingDiv = document.getElementById(id);
+            if (loadingDiv) {
+                loadingDiv.remove();
+            }
+        }
+
+        // Handle Enter key
+        document.getElementById('userInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html> 

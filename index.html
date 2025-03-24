@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pleasanton Student Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="splash-screen">
+        <img src="images/logo.png" alt="Pleasanton Student Pro Logo" class="logo">
+        <div class="creator-credit">
+            Designed and created by Shaurya Grover
+        </div>
+    </div>
+
+    <div class="main-content">
+        <section class="intro-section">
+            <div class="intro-content">
+                <div class="intro-text">
+                    <h1 class="slide-in-left">Your Pleasanton School Life,<br>Simplified</h1>
+                    <p class="fade-up">Welcome to Pleasanton Student Pro - your all-in-one companion for PUSD schools. Stay on top of your class schedule with our smart bell schedule for Amador Valley, Foothill, Harvest Park, Hart, and Pleasanton Middle School. Never miss a period change and always know what's coming up next.</p>
+                    <div class="intro-cta fade-up">
+                        <a href="#features" class="scroll-btn">Explore Features <i class="fas fa-arrow-down"></i></a>
+                    </div>
+                </div>
+                <div class="intro-art slide-in-right">
+                    <img src="images/student-hero.jpg" alt="Students collaborating and learning" class="hero-image">
+                </div>
+            </div>
+            <div class="scroll-indicator fade-in">
+                <div class="mouse"></div>
+            </div>
+        </section>
+        
+        <section id="features" class="features-section">
+            <div class="features-grid">
+                <div class="feature-card" onclick="window.location.href='gradebook.html'">
+                    <i class="icon book"></i>
+                    <h3>Gradebook</h3>
+                    <p>Check your grades</p>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='news.html'">
+                    <i class="icon board"></i>
+                    <h3>Community Board</h3>
+                    <p>Share & view updates</p>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='ai.html'">
+                    <i class="icon robot"></i>
+                    <h3>AI Feature</h3>
+                    <p>Get help with your questions</p>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='bell-schedule.html'">
+                    <i class="icon clock"></i>
+                    <h3>Bell Schedule</h3>
+                    <p>View class timings</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="promo-section">
+            <h3 class="fade-up">What Students Are Saying 🌟</h3>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=MaDy" alt="Student Avatar" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h4>MaDy G</h4>
+                            <p>03/05/2025</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+                    </div>
+                    <p class="testimonial-text">"Great effort Shaurya! This is super helpful. Love the AI homework helper and the bell schedule! Keep up the great work and can't wait to see the next version.."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Insanogoat" alt="Student Avatar" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h4>Insanogoat</h4>
+                            <p>03/04/2025</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+                    </div>
+                    <p class="testimonial-text">"This app is actually fire! The bell schedule saved me from being late like 5 times already. Plus the AI homework help is clutch when I'm stuck."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Dreehoo" alt="Student Avatar" class="testimonial-avatar">
+                        <div class="testimonial-info">
+                            <h4>Dreehoo Jin</h4>
+                            <p>03/04/2025</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">
+                        <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+                    </div>
+                    <p class="testimonial-text">"This friggin app is so tuffy yo. Been using it for my calc homework and checking grades without having to log in every time. Mad convenient fr."</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="about-creator">
+            <div class="creator-container">
+                <div class="creator-content">
+                    <div class="image-wrapper">
+                        <img src="./images/Shaurya-Image.png" alt="Shaurya Grover" class="creator-image">
+                    </div>
+                    <div class="creator-info">
+                        <div class="creator-header">
+                            <h2>Meet the Creator</h2>
+                            <h3>Shaurya Grover</h3>
+                        </div>
+                        <div class="creator-message">
+                            <p>"Hi there - I am Shaurya Grover and as a member of the pleasanton community, I believe that all students can achieve brilliance in different ways. Combining my love for technology and art, I created this website/app to improve students lives."</p>
+                        </div>
+                        <div class="creator-mission">
+                            <h4>Vision & Purpose</h4>
+                            <p>This platform serves as a centralized hub for students, offering innovative tools like AI assistance, grade management, and community updates to enhance the academic experience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="development-story">
+            <div class="dev-container">
+                <h2>How This App Was Made</h2>
+                <div class="dev-process">
+                    <div class="process-step" data-step="1">
+                        <div class="step-icon">🎯</div>
+                        <div class="step-content">
+                            <h3>Vision & Planning</h3>
+                            <p>Started with a vision to create an all-in-one solution for Pleasanton students.</p>
+                        </div>
+                    </div>
+                    <div class="process-step" data-step="2">
+                        <div class="step-icon">💻</div>
+                        <div class="step-content">
+                            <h3>Development</h3>
+                            <p>Built using modern web technologies with AI integration for enhanced learning.</p>
+                        </div>
+                    </div>
+                    <div class="process-step" data-step="3">
+                        <div class="step-icon">🔍</div>
+                        <div class="step-content">
+                            <h3>Testing & Feedback</h3>
+                            <p>Refined through extensive testing with fellow students to ensure optimal functionality.</p>
+                        </div>
+                    </div>
+                    <div class="process-step" data-step="4">
+                        <div class="step-icon">🚀</div>
+                        <div class="step-content">
+                            <h3>Continuous Updates</h3>
+                            <p>Regularly improved based on student feedback and emerging needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-section">
+            <div class="contact-section">
+                <h3 class="fade-up">Get in Touch</h3>
+                <div class="contact-links fade-up">
+                    <a href="mailto:pleasantonstudentpro@gmail.com" class="contact-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Us</span>
+                    </a>
+                    <a href="https://www.instagram.com/pleasantonstudentpro/" target="_blank" class="contact-link">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow Us</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="privacy-section">
+                <h4>Privacy Policy</h4>
+                <div class="privacy-content">
+                    <p>Last updated: March 2024</p>
+                    <p>At Pleasanton Student Pro, your privacy and security are our top priorities. We believe in complete transparency about how our platform operates.</p>
+                    
+                    <h5>No Data Collection</h5>
+                    <p>We are committed to your privacy:</p>
+                    <ul>
+                        <li>We do not collect any personal information</li>
+                        <li>No account creation is required</li>
+                        <li>No tracking or analytics are implemented</li>
+                        <li>No cookies are used on our platform</li>
+                    </ul>
+
+                    <h5>How We Keep You Secure</h5>
+                    <p>Our platform is designed with security in mind:</p>
+                    <ul>
+                        <li>All connections are encrypted using HTTPS</li>
+                        <li>Information is processed locally on your device</li>
+                        <li>No data is stored on external servers</li>
+                        <li>Regular security audits and updates</li>
+                    </ul>
+
+                    <h5>Your Privacy Rights</h5>
+                    <p>Since we don't collect any personal information, you maintain complete control over your privacy. You can use our platform with confidence, knowing that your academic activities and usage patterns remain private and secure.</p>
+
+                    <h5>Contact Us</h5>
+                    <p>If you have any questions about our privacy practices, please reach out to us at pleasantonstudentpro@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Pleasanton Student Pro. All rights reserved.</p>
+            </div>
+            <p class="creator-signature">Made by Shaurya Grover</p>
+        </footer>
+    </div>
+
+    <script>
+        // Handle splash screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splashScreen = document.querySelector('.splash-screen');
+                const mainContent = document.querySelector('.main-content');
+                
+                splashScreen.classList.add('fade-out');
+                mainContent.classList.add('visible');
+
+                // Trigger initial animations for above-fold content
+                setTimeout(() => {
+                    document.querySelectorAll('.intro-section .slide-in-left, .intro-section .slide-in-right, .intro-section .fade-up, .intro-section .fade-in')
+                        .forEach(el => el.classList.add('active'));
+                }, 100);
+            }, 1000);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-up, .fade-in, .slide-in-left, .slide-in-right, .scale-up, .option-card, .testimonial-card')
+            .forEach(el => observer.observe(el));
+    </script>
+
+    <style>
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 24px;
+        padding: 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        background: #1A1825;
+        border-radius: 16px;
+        padding: 24px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid #8257E6;
+        box-shadow: 0 0 20px rgba(130, 87, 230, 0.3);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .icon {
+        display: block;
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 20px;
+        background: #8257E6;
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        -webkit-mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+    }
+
+    .icon.book {
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M36 4H12C9.79 4 8 5.79 8 8v32c0 2.21 1.79 4 4 4h24c2.21 0 4-1.79 4-4V8c0-2.21-1.79-4-4-4zm0 36H12V8h24v32zm-4-24H16v-4h16v4zm0 8H16v-4h16v4zm-8 8h-8v-4h8v4z' fill='%238257E6'/%3E%3C/svg%3E");
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M36 4H12C9.79 4 8 5.79 8 8v32c0 2.21 1.79 4 4 4h24c2.21 0 4-1.79 4-4V8c0-2.21-1.79-4-4-4zm0 36H12V8h24v32zm-4-24H16v-4h16v4zm0 8H16v-4h16v4zm-8 8h-8v-4h8v4z' fill='%238257E6'/%3E%3C/svg%3E");
+    }
+
+    .icon.board {
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M40 4H8C5.79 4 4 5.79 4 8v32c0 2.21 1.79 4 4 4h32c2.21 0 4-1.79 4-4V8c0-2.21-1.79-4-4-4zm0 36H8V8h32v32zm-4-24H12v-4h24v4zm0 8H12v-4h24v4zm0 8H12v-4h24v4z' fill='%238257E6'/%3E%3C/svg%3E");
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M40 4H8C5.79 4 4 5.79 4 8v32c0 2.21 1.79 4 4 4h32c2.21 0 4-1.79 4-4V8c0-2.21-1.79-4-4-4zm0 36H8V8h32v32zm-4-24H12v-4h24v4zm0 8H12v-4h24v4zm0 8H12v-4h24v4z' fill='%238257E6'/%3E%3C/svg%3E");
+    }
+
+    .icon.robot {
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 8C15.16 8 8 15.16 8 24s7.16 16 16 16 16-7.16 16-16S32.84 8 24 8zm0 4c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm8 20c0 1.1-.9 2-2 2H18c-1.1 0-2-.9-2-2v-1c0-3.31 2.69-6 6-6h4c3.31 0 6 2.69 6 6v1z' fill='%238257E6'/%3E%3C/svg%3E");
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 8C15.16 8 8 15.16 8 24s7.16 16 16 16 16-7.16 16-16S32.84 8 24 8zm0 4c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm8 20c0 1.1-.9 2-2 2H18c-1.1 0-2-.9-2-2v-1c0-3.31 2.69-6 6-6h4c3.31 0 6 2.69 6 6v1z' fill='%238257E6'/%3E%3C/svg%3E");
+    }
+
+    .icon.clock {
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16zm1-26h-3v12l10.49 6.3L34 29.84l-9-5.34V14z' fill='%238257E6'/%3E%3C/svg%3E");
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16zm1-26h-3v12l10.49 6.3L34 29.84l-9-5.34V14z' fill='%238257E6'/%3E%3C/svg%3E");
+    }
+
+    .feature-card h3 {
+        color: white;
+        margin: 0 0 8px 0;
+        font-size: 24px;
+        font-weight: bold;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .feature-card p {
+        color: #A8A8B3;
+        margin: 0;
+        font-size: 16px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .creator-credit {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        opacity: 0;
+        animation: fadeIn 0.5s ease-out 1s forwards;
+    }
+
+    .footer {
+        padding: 20px;
+        text-align: center;
+        background: transparent;
+        margin-top: auto;
+    }
+
+    .creator-signature {
+        color: var(--text-gray, #A8A8B3);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        margin: 0;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    .creator-signature:hover {
+        opacity: 1;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, 20px);
+        }
+        to {
+            opacity: 0.7;
+            transform: translate(-50%, 0);
+        }
+    }
+
+    .about-creator {
+        padding: 80px 0;
+        background: linear-gradient(to bottom, var(--bg-dark), var(--bg-darker));
+    }
+
+    .creator-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .creator-content {
+        display: flex;
+        gap: 60px;
+        align-items: center;
+    }
+
+    .image-wrapper {
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .creator-image {
+        width: 240px;
+        height: 240px;
+        border-radius: 16px;
+        object-fit: cover;
+        border: 2px solid var(--primary-purple);
+        box-shadow: 0 0 25px rgba(130, 87, 230, 0.4);
+        transition: transform 0.3s ease;
+        filter: contrast(1.05) brightness(1.02);
+    }
+
+    .image-wrapper:hover .creator-image {
+        transform: scale(1.02);
+    }
+
+    .creator-info {
+        flex: 1;
+    }
+
+    .creator-header {
+        margin-bottom: 30px;
+    }
+
+    .creator-header h2 {
+        color: var(--primary-purple);
+        font-size: 36px;
+        margin: 0 0 12px 0;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .creator-header h3 {
+        color: white;
+        font-size: 28px;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .creator-message {
+        background: linear-gradient(135deg, rgba(130, 87, 230, 0.1), rgba(130, 87, 230, 0.05));
+        padding: 24px;
+        border-radius: 16px;
+        margin-bottom: 30px;
+        border: 1px solid rgba(130, 87, 230, 0.2);
+    }
+
+    .creator-message p {
+        color: var(--text-light);
+        line-height: 1.8;
+        font-size: 18px;
+        margin: 0;
+        font-weight: 400;
+        letter-spacing: 0.2px;
+    }
+
+    .creator-mission {
+        background: var(--bg-card);
+        padding: 24px;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+    }
+
+    .creator-mission h4 {
+        color: var(--primary-purple);
+        margin: 0 0 12px 0;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .creator-mission p {
+        color: var(--text-gray);
+        line-height: 1.7;
+        margin: 0;
+        font-size: 16px;
+    }
+
+    @media (max-width: 1024px) {
+        .creator-image {
+            width: 220px;
+            height: 220px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .creator-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .creator-image {
+            width: 200px;
+            height: 200px;
+        }
+
+        .creator-message, 
+        .creator-mission {
+            text-align: left;
+        }
+    }
+
+    .development-story {
+        padding: 60px 0;
+        background: var(--bg-darker);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dev-container {
+        background: linear-gradient(135deg, #8257E6, #6B46C1);
+        border-radius: 24px;
+        padding: 40px;
+        max-width: 900px;
+        margin: 0 20px;
+        box-shadow: 0 8px 32px rgba(130, 87, 230, 0.3);
+        animation: containerFadeIn 0.8s ease-out;
+    }
+
+    .dev-container h2 {
+        text-align: center;
+        color: white;
+        margin-bottom: 40px;
+        font-size: 28px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        animation: titleSlideDown 0.8s ease-out;
+    }
+
+    .dev-process {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .process-step {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: stepFadeIn 0.5s ease-out forwards;
+    }
+
+    .process-step:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-4px);
+    }
+
+    .step-icon {
+        font-size: 24px;
+        background: rgba(255, 255, 255, 0.2);
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .step-content {
+        flex: 1;
+    }
+
+    .step-content h3 {
+        color: white;
+        margin: 0 0 8px 0;
+        font-size: 18px;
+    }
+
+    .step-content p {
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    @keyframes containerFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes titleSlideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes stepFadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Add animation delays for each step */
+    .process-step[data-step="1"] { animation-delay: 0.2s; }
+    .process-step[data-step="2"] { animation-delay: 0.4s; }
+    .process-step[data-step="3"] { animation-delay: 0.6s; }
+    .process-step[data-step="4"] { animation-delay: 0.8s; }
+
+    @media (max-width: 768px) {
+        .dev-process {
+            grid-template-columns: 1fr;
+        }
+        
+        .dev-container {
+            padding: 30px 20px;
+        }
+    }
+    </style>
+</body>
+</html> 
