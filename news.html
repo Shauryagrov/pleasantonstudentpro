@@ -824,6 +824,8 @@
     </div>
 
     <script>
+        const API_BASE_URL = 'https://pleasantonstudentpro.onrender.com';
+
         // DOM elements
         const newsForm = document.getElementById('newsForm');
         const imageInput = document.getElementById('image');
@@ -1010,7 +1012,7 @@
             
             try {
                 // Try to delete from server
-                fetch(`/api/posts/${postId}?userId=${userId}`, {
+                fetch(`${API_BASE_URL}/api/posts/${postId}?userId=${userId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {
@@ -1074,7 +1076,7 @@
             console.log('Loading posts...');
             
             // Always try to fetch from server first
-            fetch('/api/posts')
+            fetch(`${API_BASE_URL}/api/posts`)
                 .then(response => {
                     console.log('Server response status:', response.status);
                     if (!response.ok) {
@@ -1154,7 +1156,7 @@
         
         // Function to refresh posts from server
         function refreshPosts() {
-            fetch('/api/posts')
+            fetch(`${API_BASE_URL}/api/posts`)
                 .then(response => response.ok ? response.json() : [])
                 .then(serverPosts => {
                     if (serverPosts.length > 0) {
@@ -1235,7 +1237,7 @@
             console.log('New post data:', newPost);
 
             // First send to server, then update UI
-            fetch('/api/posts', {
+            fetch(`${API_BASE_URL}/api/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

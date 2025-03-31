@@ -9,30 +9,31 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 8080;
 
-// MongoDB connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://pleasantonstudentpro:pleasantonstudentpro@cluster0.mongodb.net/pleasantonstudentpro?retryWrites=true&w=majority';
-
-mongoose.connect(MONGODB_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
-
-// Post Schema
-const postSchema = new mongoose.Schema({
-    name: String,
-    post: String,
-    timestamp: { type: Date, default: Date.now }
-});
-
-const Post = mongoose.model('Post', postSchema);
-
-// Enable CORS with specific origin
+// CORS configuration
 app.use(cors({
     origin: ['https://pleasantonstudentpro.com', 'http://localhost:8080'],
     methods: ['GET', 'POST', 'DELETE'],
     credentials: true
 }));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+app.use(express.json());
+
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/pleasantonstudentpro', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+// Post Schema
+const PostSchema = new mongoose.Schema({
+    title: String,
+    content: String,
+    author: String,
+    timestamp: { type: Date, default: Date.now },
+    userId: String
+});
+
+const Post = mongoose.model('Post', PostSchema);
 
 // Request rate limiting - in-memory store for demo purposes
 // In production, use Redis or another distributed store
@@ -110,63 +111,43 @@ function containsProfanity(text) {
     return false;
 }
 
-// API endpoints for posts
+// Routes
 app.get('/api/posts', async (req, res) => {
     try {
         const posts = await Post.find().sort({ timestamp: -1 });
-        console.log('GET /api/posts - Sending', posts.length, 'posts');
         res.json(posts);
     } catch (error) {
         console.error('Error fetching posts:', error);
-        res.status(500).json({ error: 'Server error fetching posts' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
 app.post('/api/posts', async (req, res) => {
     try {
-        console.log('POST /api/posts - Received new post request');
-        
-        if (!req.body || !req.body.name || !req.body.post) {
-            console.error('Invalid post data:', req.body);
-            return res.status(400).json({ error: 'Missing required fields' });
-        }
-        
-        // Check for inappropriate content
-        if (containsProfanity(req.body.post)) {
-            console.error('Post contains inappropriate content');
-            return res.status(400).json({ error: 'Post contains inappropriate content that violates community guidelines' });
-        }
-        
-        const newPost = new Post({
-            name: req.body.name,
-            post: req.body.post
-        });
-        
-        await newPost.save();
-        console.log('Created new post:', newPost._id);
-        
-        res.status(201).json(newPost);
+        const post = new Post(req.body);
+        await post.save();
+        res.status(201).json(post);
     } catch (error) {
         console.error('Error creating post:', error);
-        res.status(500).json({ error: 'Server error creating post' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
 app.delete('/api/posts/:id', async (req, res) => {
     try {
-        const postId = req.params.id;
-        console.log(`DELETE /api/posts/${postId}`);
+        const { id } = req.params;
+        const { userId } = req.query;
+        const post = await Post.findOne({ _id: id, userId: userId });
         
-        const result = await Post.findByIdAndDelete(postId);
-        if (!result) {
-            return res.status(404).json({ error: 'Post not found' });
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found or unauthorized' });
         }
         
-        console.log('Post deleted successfully');
+        await Post.deleteOne({ _id: id });
         res.status(200).json({ message: 'Post deleted successfully' });
     } catch (error) {
         console.error('Error deleting post:', error);
-        res.status(500).json({ error: 'Server error deleting post' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
@@ -258,9 +239,9 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Add a health check endpoint for Render
+// Health check endpoint
 app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'ok' });
+    res.status(200).send('OK');
 });
 
 // Error handling middleware
@@ -271,5 +252,5 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Server running on port ${port}`);
 }); 
