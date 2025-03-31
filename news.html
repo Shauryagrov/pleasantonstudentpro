@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PUSD Community Board - Pleasanton Student Pro</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,17 +25,73 @@
             <h1>PUSD Community Board <i class="fas fa-bullhorn"></i></h1>
             <div class="schedule-intro">
                 <p>Share announcements and stay connected with your school community! 🏫</p>
+                <div class="promo-banner">
+                    <div class="promo-content">
+                        <div class="promo-icon"><i class="fas fa-star"></i></div>
+                        <div class="promo-text">
+                            <h3>Be Heard, Stay Connected!</h3>
+                            <p>Share important events, club activities, or ask questions. Your voice matters to our PUSD community!</p>
+                        </div>
+                    </div>
+                    <button class="scroll-down-btn" id="scrollDownBtn">
+                        <i class="fas fa-chevron-down"></i>
+                        <span>View Community</span>
+                    </button>
+                </div>
             </div>
 
             <div class="school-category">
-                <h2><i class="fas fa-pen"></i> Create a Post</h2>
+                <h2><i class="fas fa-newspaper"></i> Recent Posts</h2>
+                
+                <div class="posts-container">
+                    <!-- Pinned Announcement -->
+                    <div class="post-card pinned-post" id="pinnedAnnouncement">
+                        <div class="post-header">
+                            <div class="post-author">
+                                <div class="profile-icon">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="post-info">
+                                    <h3>Shaurya</h3>
+                                    <p>Student • 8th Grade • Harvest Park</p>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <span class="post-time">Just now</span>
+                            </div>
+                        </div>
+                        <p class="post-content">Hi everyone, make sure to keep this page productive and professional. Any profanity or negativity will be stopped by the server. enjoy 😊 💯</p>
+                    </div>
+                    <!-- Other posts will be loaded here -->
+                </div>
+            </div>
+
+            <div class="school-category">
+                <h2 class="create-post-header">
+                    <i class="fas fa-pen"></i> Create a Post
+                    <button id="toggleFormBtn" class="toggle-form-btn">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </h2>
+                <div id="postFormContainer" class="post-form-container collapsed">
                 <form id="newsForm" class="news-form">
-                    <div class="form-group">
+                        <div class="compact-form">
+                            <div class="compact-group">
                         <label for="name">Your Name</label>
                         <input type="text" id="name" required placeholder="Enter your name">
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
+                            <div class="compact-group">
+                                <label for="school">School</label>
+                                <select id="school" required>
+                                    <option value="">Select School</option>
+                                    <option value="Amador Valley">Amador Valley High</option>
+                                    <option value="Foothill">Foothill High</option>
+                                    <option value="Harvest Park">Harvest Park Middle</option>
+                                    <option value="Hart">Hart Middle</option>
+                                    <option value="Pleasanton Middle">Pleasanton Middle</option>
+                                </select>
+                            </div>
+                            <div class="compact-group">
                             <label for="role">Role</label>
                             <select id="role" required>
                                 <option value="">Select Role</option>
@@ -42,7 +99,7 @@
                                 <option value="Teacher">Teacher</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                            <div class="compact-group">
                             <label for="grade">Grade</label>
                             <select id="grade" required>
                                 <option value="">Select Grade</option>
@@ -55,24 +112,12 @@
                                 <option value="12">12th Grade</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="school">School</label>
-                        <select id="school" required>
-                            <option value="">Select School</option>
-                            <option value="Amador Valley">Amador Valley High</option>
-                            <option value="Foothill">Foothill High</option>
-                            <option value="Harvest Park">Harvest Park Middle</option>
-                            <option value="Hart">Hart Middle</option>
-                            <option value="Pleasanton Middle">Pleasanton Middle</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
+                            <div class="full-width">
                         <label for="post">Your Post</label>
                         <textarea id="post" required placeholder="Share your news or update (max 500 characters)" maxlength="500"></textarea>
                         <div class="char-count">0/500</div>
                     </div>
-                    <div class="form-group">
+                            <div class="full-width">
                         <label for="image">Add Image (optional)</label>
                         <div class="image-upload-container">
                             <input type="file" id="image" accept="image/*" class="image-input">
@@ -84,242 +129,330 @@
                             </div>
                         </div>
                     </div>
+                            <div class="full-width" style="text-align: center; margin-top: 1rem;">
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-paper-plane"></i>
-                        Submit Post
+                                    Post to Community
                     </button>
-                </form>
             </div>
-
-            <div class="school-category">
-                <h2><i class="fas fa-newspaper"></i> Recent Posts</h2>
-                <div class="posts-container">
-                    <!-- Posts will be dynamically added here -->
-                    <div class="post-card">
-                        <div class="post-header">
-                            <div class="post-author">
-                                <div class="profile-icon">
-                                    <i class="fas fa-user-circle"></i>
                                 </div>
-                                <div class="post-info">
-                                    <h3>Sarah Chen</h3>
-                                    <p>11th Grade • Amador Valley High</p>
-                                </div>
-                            </div>
-                            <span class="post-time">2 hours ago</span>
-                        </div>
-                        <p class="post-content">Club Rush is happening this Friday during lunch in the quad! Come check out all the amazing clubs and sign up for activities. 🎉 Don't miss out on this opportunity to get involved! 🌟</p>
-                        <div class="post-image-container" style="display: none;">
-                            <img src="" alt="" class="post-image">
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>
     </div>
 
     <style>
+        :root {
+            --vibrant-purple: #8a2be2;
+            --vibrant-purple-light: #a45deb;
+            --accent-color: #00c9ff;
+            --accent-color-light: #74e3ff;
+            --success-color: #00d679;
+            --error-color: #ff4757;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-black), #0c0c14);
+        }
+
+        h1 {
+            background: linear-gradient(90deg, var(--vibrant-purple), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(138, 43, 226, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .schedule-intro p {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         .news-form {
-            background: var(--gray-light);
-            padding: 2rem;
+            background: linear-gradient(135deg, rgba(20, 20, 36, 0.8), rgba(30, 30, 50, 0.8));
+            padding: 1.5rem;
             border-radius: 12px;
             margin-top: 1rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--vibrant-purple);
+            backdrop-filter: blur(10px);
+        }
+
+        .compact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .compact-group {
+            margin-bottom: 1rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         label {
             display: block;
             color: var(--primary-white);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 0.8rem;
-            border: 2px solid var(--primary-purple);
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--vibrant-purple);
             border-radius: 8px;
-            background: var(--primary-black);
-            color: var(--primary-white);
+            background: rgba(15, 15, 30, 0.8);
+            color: #ffffff;
             font-family: 'Outfit', sans-serif;
             transition: all 0.3s ease;
+            font-size: 1rem;
+            min-height: 44px;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--primary-purple-light);
-            box-shadow: 0 0 0 2px rgba(159, 122, 234, 0.2);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(0, 201, 255, 0.2);
         }
 
         textarea {
-            min-height: 120px;
+            min-height: 100px;
             resize: vertical;
         }
 
         .char-count {
             color: var(--gray-medium);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-align: right;
-            margin-top: 0.5rem;
+            margin-top: 0.3rem;
         }
 
         .submit-btn {
-            background: var(--primary-purple);
-            color: var(--primary-white);
+            background: linear-gradient(135deg, var(--vibrant-purple), var(--accent-color));
+            color: white;
             border: none;
-            padding: 1rem 2rem;
+            padding: 0 1.5rem;
             border-radius: 8px;
             font-family: 'Outfit', sans-serif;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            min-height: 44px;
+            font-size: 1rem;
         }
 
         .submit-btn:hover {
-            background: var(--primary-purple-light);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
         }
 
         .posts-container {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .post-card {
-            background: var(--gray-light);
+            background: linear-gradient(135deg, rgba(25, 25, 40, 0.8), rgba(35, 35, 55, 0.8));
             padding: 1.5rem;
             border-radius: 12px;
-            border: 1px solid var(--primary-purple);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--vibrant-purple);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            margin-bottom: 4px;
+        }
+
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--vibrant-purple), var(--accent-color));
+            opacity: 0.8;
         }
 
         .post-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(107, 70, 193, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.25);
         }
 
-        .post-header {
+        .post-card.new-post {
+            animation: highlight-new-post 2s ease;
+        }
+
+        @keyframes highlight-new-post {
+            0% { box-shadow: 0 0 0 2px var(--accent-color); }
+            50% { box-shadow: 0 0 25px 3px var(--vibrant-purple); }
+            100% { box-shadow: 0 5px 20px rgba(138, 43, 226, 0.2); }
+        }
+
+        .create-post-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            cursor: pointer;
+            user-select: none;
+            background: linear-gradient(90deg, rgba(35, 35, 55, 0.8), rgba(25, 25, 40, 0.8));
+            padding: 0.8rem 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid var(--vibrant-purple);
+            transition: all 0.3s ease;
+            height: 56px;
         }
-
-        .post-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        
+        .create-post-header:hover {
+            background: linear-gradient(90deg, rgba(40, 40, 60, 0.8), rgba(30, 30, 50, 0.8));
+            transform: translateY(-2px);
         }
-
-        .profile-icon {
-            width: 40px;
-            height: 40px;
+        
+        .create-post-header i {
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+        
+        .toggle-form-btn {
+            background: linear-gradient(135deg, var(--vibrant-purple), var(--accent-color));
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: var(--primary-purple);
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(138, 43, 226, 0.3);
+        }
+        
+        .toggle-form-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
         }
 
-        .profile-icon i {
-            font-size: 1.5rem;
-            color: var(--primary-white);
-            opacity: 0.9;
-        }
-
-        .post-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .post-info h3 {
-            color: var(--primary-white);
-            margin: 0;
+        .toggle-form-btn i {
             font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .post-info p {
-            color: var(--gray-medium);
-            margin: 0.2rem 0 0 0;
-            font-size: 0.9rem;
-        }
-
-        .post-time {
-            color: var(--gray-medium);
-            font-size: 0.9rem;
-        }
-
-        .post-content {
-            color: var(--primary-white);
-            line-height: 1.6;
-            margin: 0 0 1rem 0;
-        }
-
-        .post-image-container {
-            margin-top: 1rem;
-            border-radius: 8px;
-            overflow: hidden;
-            max-width: 200px;
-            margin-left: 0;
-        }
-
-        .post-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
-            height: auto;
-            max-height: 200px;
-            object-fit: cover;
+            height: 100%;
+        }
+
+        .empty-posts {
+            background: linear-gradient(135deg, rgba(25, 25, 40, 0.7), rgba(35, 35, 55, 0.7));
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px dashed var(--accent-color);
+            margin-top: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .empty-posts i {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
             display: block;
+            opacity: 0.8;
+        }
+
+        .empty-posts p {
+            color: var(--gray-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        .create-first-post-btn {
+            background: linear-gradient(135deg, var(--vibrant-purple), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
             border-radius: 8px;
-            transition: transform 0.3s ease;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+            height: 44px;
+            gap: 0.5rem;
         }
 
-        .post-image:hover {
-            transform: scale(1.02);
+        .create-first-post-btn i {
+            margin-right: 0.25rem;
         }
 
-        .image-preview-container {
-            position: relative;
-            max-width: 200px;
-            margin: 1rem 0;
+        .create-first-post-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.5);
         }
 
-        .image-preview {
-            max-width: 100%;
-            max-height: 200px;
-            object-fit: cover;
+        .success-message, .error-message {
+            padding: 0.8rem 1rem;
             border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideIn 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        .success-message {
+            background: rgba(0, 214, 121, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .error-message {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
         }
 
         .image-upload-container {
-            border: 2px dashed var(--primary-purple);
+            border: 2px dashed var(--accent-color);
             border-radius: 12px;
-            padding: 1rem;
+            padding: 0.8rem;
             text-align: center;
             position: relative;
-            background: var(--primary-black);
-            min-height: 100px;
+            background: rgba(15, 15, 30, 0.5);
+            min-height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -328,8 +461,8 @@
         }
 
         .image-upload-container:hover {
-            border-color: var(--primary-purple-light);
-            background: rgba(107, 70, 193, 0.1);
+            border-color: var(--accent-color-light);
+            background: rgba(0, 201, 255, 0.1);
         }
 
         .image-input {
@@ -369,13 +502,16 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: var(--gray-light);
+            background: linear-gradient(135deg, rgba(30, 30, 50, 0.95), rgba(45, 30, 70, 0.95));
             padding: 2rem;
             border-radius: 12px;
-            border: 2px solid var(--primary-purple);
+            border: 1px solid var(--vibrant-purple);
             z-index: 1000;
             text-align: center;
             display: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            min-width: 320px;
         }
 
         .modal-buttons {
@@ -386,13 +522,18 @@
         }
 
         .modal-btn {
-            padding: 0.8rem 1.5rem;
+            padding: 0 1.5rem;
             border-radius: 8px;
             border: none;
             cursor: pointer;
             font-family: 'Outfit', sans-serif;
             font-weight: 600;
             transition: all 0.3s ease;
+            min-height: 44px;
+            min-width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .confirm-delete {
@@ -427,22 +568,247 @@
         }
 
         .pinned-post {
-            border: 2px solid var(--primary-purple);
-            background: linear-gradient(to right, var(--gray-light), rgba(107, 70, 193, 0.1));
+            border: 2px solid var(--vibrant-purple);
+            background: linear-gradient(135deg, rgba(35, 35, 55, 0.9), rgba(60, 40, 90, 0.8));
             position: relative;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
         }
         
-        .pinned-post::before {
+        .pinned-post::after {
             content: "📌 Pinned";
             position: absolute;
             top: 0.5rem;
             right: 0.5rem;
-            background: var(--primary-purple);
+            background: var(--vibrant-purple);
             color: white;
-            padding: 0.2rem 0.5rem;
+            padding: 0.4rem 0.75rem;
             border-radius: 4px;
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            z-index: 5;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .profile-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--vibrant-purple), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(138, 43, 226, 0.3);
+            margin-right: 5px;
+        }
+
+        .profile-icon i {
+            font-size: 1.4rem;
+            color: white;
+        }
+
+        .post-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-info h3 {
+            color: var(--primary-white);
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .post-info p {
+            color: var(--gray-medium);
+            margin: 0.2rem 0 0 0;
+            font-size: 0.9rem;
+        }
+
+        .post-time {
+            color: var(--gray-medium);
+            font-size: 0.9rem;
+        }
+
+        .post-content {
+            color: var(--primary-white);
+            line-height: 1.6;
+            margin: 0 0 1.25rem 0;
+            font-size: 1rem;
+            letter-spacing: 0.01em;
+        }
+
+        .post-image-container {
+            margin-top: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 200px;
+            margin-left: 0;
+        }
+
+        .post-image {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .post-image:hover {
+            transform: scale(1.02);
+        }
+
+        .image-preview-container {
+            position: relative;
+            max-width: 100%;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .post-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-right: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .promo-content {
+                flex-direction: column;
+                text-align: center;
+                padding: 0 0.5rem;
+            }
+            
+            .promo-icon {
+                margin: 0 auto 1rem auto;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+                text-align: center;
+                padding: 0 1rem;
+            }
+        }
+
+        /* New promotional content */
+        .promo-banner {
+            background: linear-gradient(135deg, rgba(40, 40, 70, 0.8), rgba(60, 35, 90, 0.8));
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 5rem;
+            position: relative;
+            overflow: visible;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-left: 3px solid var(--accent-color);
+            backdrop-filter: blur(10px);
+            animation: glow 3s infinite alternate;
+            text-align: center;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(0, 201, 255, 0.5);
+            }
+        }
+        
+        .promo-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .promo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--vibrant-purple), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            margin: 0 auto 0.5rem;
+        }
+        
+        .promo-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .promo-text {
+            text-align: center;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        
+        .promo-text h3 {
+            color: white;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--vibrant-purple-light), var(--accent-color-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .promo-text p {
+            color: #e0e0e0;
+            margin: 0;
+            line-height: 1.5;
+            font-size: 1rem;
+        }
+        
+        /* Fix for the post-form-container */
+        .post-form-container {
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.3s ease, transform 0.3s ease;
+            transform-origin: top;
+            max-height: 0;
+        }
+        
+        .post-form-container.collapsed {
+            max-height: 0;
+            opacity: 0;
+            transform: scaleY(0.8);
+        }
+        
+        .post-form-container.expanded {
+            max-height: 1500px;
+            opacity: 1;
+            transform: scaleY(1);
+            margin-top: 1rem;
         }
     </style>
 
@@ -458,308 +824,230 @@
     </div>
 
     <script>
-        // Character counter for post textarea
+        // DOM elements
+        const newsForm = document.getElementById('newsForm');
+        const imageInput = document.getElementById('image');
+        const imagePreview = document.getElementById('imagePreview');
+        const removeImageBtn = document.getElementById('removeImage');
         const textarea = document.getElementById('post');
         const charCount = document.querySelector('.char-count');
+        const postsContainer = document.querySelector('.posts-container');
+        const deleteModal = document.getElementById('deleteModal');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const confirmDeleteBtn = document.getElementById('confirmDelete');
+        const toggleFormBtn = document.getElementById('toggleFormBtn');
+        const postFormContainer = document.getElementById('postFormContainer');
+        const createPostHeader = document.querySelector('.create-post-header');
+        const scrollDownBtn = document.getElementById('scrollDownBtn');
         
+        // Scroll down button functionality
+        scrollDownBtn.addEventListener('click', () => {
+            document.querySelector('.stats-container').scrollIntoView({ 
+                behavior: 'smooth'
+            });
+        });
+        
+        // User identification (stored locally)
+        let userId = localStorage.getItem('userId');
+        if (!userId) {
+            userId = 'user_' + Date.now() + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('userId', userId);
+        }
+        console.log('User ID:', userId);
+        
+        // Toggle form visibility - fixed version
+        function toggleForm() {
+            if (postFormContainer.classList.contains('collapsed')) {
+                postFormContainer.classList.remove('collapsed');
+                postFormContainer.classList.add('expanded');
+                toggleFormBtn.querySelector('i').className = 'fas fa-chevron-up';
+            } else {
+                postFormContainer.classList.add('collapsed');
+                postFormContainer.classList.remove('expanded');
+                toggleFormBtn.querySelector('i').className = 'fas fa-chevron-down';
+            }
+        }
+        
+        // Add event listeners for form toggle
+        toggleFormBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleForm();
+        });
+        
+        createPostHeader.addEventListener('click', toggleForm);
+        
+        // State variables
+        let imageData = null;
+        let postToDelete = null;
+        let elementToDelete = null;
+        
+        // Simple profanity filter - common inappropriate words
+        const profanityList = [
+            'ass', 'asshole', 'bitch', 'cunt', 'damn', 'fuck', 'fucking', 'shit', 
+            'dick', 'cock', 'pussy', 'nigger', 'nigga', 'piss', 'bastard', 
+            'whore', 'slut', 'bullshit', 'crap', 'hell', 'twat'
+        ];
+
+        // Function to check for profanity
+        function containsProfanity(text) {
+            if (!text) return false;
+            const lowerText = text.toLowerCase();
+            
+            // Check for exact matches or words containing profanity
+            for (const word of profanityList) {
+                // Match whole words by checking for word boundaries
+                const regex = new RegExp(`\\b${word}\\b|\\b${word}s\\b|\\b${word}ed\\b|\\b${word}ing\\b`, 'i');
+                if (regex.test(lowerText)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Character counter for post textarea
         textarea.addEventListener('input', () => {
             const count = textarea.value.length;
             charCount.textContent = `${count}/500`;
         });
 
-        // Initialize posts storage
-        let savedPosts = JSON.parse(localStorage.getItem('savedPosts')) || [];
-        let userPosts = JSON.parse(localStorage.getItem('userPosts')) || [];
+        // Image handling
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imageData = e.target.result;
+                    imagePreview.src = imageData;
+                    imagePreview.style.display = 'block';
+                    removeImageBtn.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
-        // Function to generate a unique post ID
-        const generatePostId = () => {
-            return Date.now().toString(36) + Math.random().toString(36).substr(2);
-        };
+        removeImageBtn.addEventListener('click', () => {
+            imageInput.value = '';
+            imagePreview.src = '';
+            imagePreview.style.display = 'none';
+            removeImageBtn.style.display = 'none';
+            imageData = null;
+        });
 
-        // Function to format time difference
-        const formatTimeDiff = (timestamp) => {
-            const now = Date.now();
+        // Time formatting helper
+        function formatTimeDiff(timestamp) {
+            const now = new Date();
             const diff = now - timestamp;
             const minutes = Math.floor(diff / 60000);
             const hours = Math.floor(minutes / 60);
             const days = Math.floor(hours / 24);
 
-            if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
-            if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-            if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            if (days > 0) return `${days}d ago`;
+            if (hours > 0) return `${hours}h ago`;
+            if (minutes > 0) return `${minutes}m ago`;
             return 'Just now';
-        };
+        }
 
-        // Function to create post HTML
-        const createPostElement = (postData) => {
-            const newPost = document.createElement('div');
-            newPost.className = 'post-card';
-            newPost.dataset.postId = postData.id;
+        // Helper function to create post element
+        function createPostElement(post) {
+            const postElement = document.createElement('div');
+            postElement.className = 'post-card';
+            postElement.dataset.postId = post.id;
+            postElement.dataset.userId = post.userId || 'unknown';
             
-            const deleteButton = userPosts.includes(postData.id) 
-                ? `<button class="delete-btn" onclick="showDeleteModal('${postData.id}', this.closest('.post-card'))">
+            const imageHtml = post.image 
+                ? `<div class="post-image-container">
+                       <img src="${post.image}" alt="Post image" class="post-image">
+                   </div>` 
+                : '';
+            
+            // Only show delete button if the post belongs to current user
+            const isOwnPost = post.userId === userId;
+            const deleteButton = isOwnPost 
+                ? `<button class="delete-btn" onclick="showDeleteModal('${post.id}', this.closest('.post-card'))">
                        <i class="fas fa-trash"></i>
                    </button>` 
                 : '';
 
-            const imageHtml = postData.image 
-                ? `<img src="${postData.image}" alt="Post image" class="post-image">` 
-                : '';
-
-            newPost.innerHTML = `
+            postElement.innerHTML = `
                 <div class="post-header">
                     <div class="post-author">
                         <div class="profile-icon">
                             <i class="fas fa-user-circle"></i>
                         </div>
                         <div class="post-info">
-                            <h3>${postData.name}</h3>
-                            <p>${postData.role} • ${postData.grade}th Grade • ${postData.school}</p>
+                            <h3>${post.name}</h3>
+                            <p>${post.role} • ${post.grade}th Grade • ${post.school}</p>
                         </div>
                     </div>
                     <div class="post-actions">
-                        <span class="post-time">${formatTimeDiff(postData.timestamp)}</span>
+                        <span class="post-time">${formatTimeDiff(new Date(post.timestamp))}</span>
                         ${deleteButton}
                     </div>
                 </div>
-                <p class="post-content">${postData.post}</p>
+                <p class="post-content">${post.post}</p>
                 ${imageHtml}
             `;
-            return newPost;
-        };
 
-        // Function to delete a post
-        const deletePost = (postId, postElement) => {
-            // Remove from both storage arrays
-            userPosts = userPosts.filter(id => id !== postId);
-            savedPosts = savedPosts.filter(post => post.id !== postId);
+            return postElement;
+        }
+
+        // Delete post function
+        function deletePost(postId, postElement) {
+            // Check if this is the pinned announcement
+            if (postElement.id === 'pinnedAnnouncement') {
+                closeDeleteModal();
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'error-message';
+                errorMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Cannot delete pinned announcements.';
+                document.querySelector('.news-form').insertBefore(errorMessage, document.querySelector('.news-form').firstChild);
+                
+                // Remove error message after 5 seconds
+                setTimeout(() => {
+                    errorMessage.remove();
+                }, 5000);
+                return;
+            }
             
-            // Update localStorage
-            localStorage.setItem('userPosts', JSON.stringify(userPosts));
-            localStorage.setItem('savedPosts', JSON.stringify(savedPosts));
+            try {
+                // Try to delete from server
+                fetch(`/api/posts/${postId}?userId=${userId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.error || 'Failed to delete post');
+                        });
+                    }
+                    console.log('Post deleted from server');
+                    
+                    // Remove from localStorage too
+                    let posts = JSON.parse(localStorage.getItem('posts') || '[]');
+                    posts = posts.filter(post => post.id !== postId);
+                    localStorage.setItem('posts', JSON.stringify(posts));
             
             // Remove from DOM with animation
             postElement.style.opacity = '0';
             postElement.style.transform = 'translateX(100px)';
             setTimeout(() => {
                 postElement.remove();
+                        
+                        // If no posts left, show empty state
+                        if (postsContainer.children.length === 0) {
+                            showEmptyState();
+                        }
             }, 300);
-        };
-
-        // Load saved posts on page load
-        window.addEventListener('load', () => {
-            const postsContainer = document.querySelector('.posts-container');
-            // Clear default post
-            postsContainer.innerHTML = '';
-            
-            // Add pinned post
-            const pinnedPost = {
-                id: 'pinned-owner-post',
-                name: 'Shaurya Grover',
-                role: 'Owner',
-                grade: '11',
-                school: 'Amador Valley',
-                post: 'Welcome to the PUSD Community Board! This is a place for students and teachers to share announcements and stay connected. Please keep all posts school-appropriate. 🎓✨',
-                timestamp: Date.now(),
-                isPinned: true
-            };
-            
-            // Create and add pinned post
-            const pinnedElement = createPostElement(pinnedPost);
-            pinnedElement.classList.add('pinned-post');
-            postsContainer.appendChild(pinnedElement);
-            
-            // Sort and add other posts
-            savedPosts.sort((a, b) => b.timestamp - a.timestamp);
-            savedPosts.forEach(postData => {
-                const postElement = createPostElement(postData);
-                postsContainer.appendChild(postElement);
-            });
-        });
-
-        // Update post times periodically
-        setInterval(() => {
-            document.querySelectorAll('.post-time').forEach(timeElement => {
-                const postId = timeElement.closest('.post-card').dataset.postId;
-                const post = savedPosts.find(p => p.id === postId);
-                if (post) {
-                    timeElement.textContent = formatTimeDiff(post.timestamp);
-                }
-            });
-        }, 60000); // Update every minute
-
-        // Handle image upload and preview
-        const imageInput = document.getElementById('image');
-        const imagePreview = document.getElementById('imagePreview');
-        const removeImageBtn = document.getElementById('removeImage');
-        const imagePreviewContainer = document.querySelector('.image-preview-container');
-
-        // Add image resize function at the top of the script
-        function resizeImage(base64Image, maxWidth = 800) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.src = base64Image;
-                img.onload = function() {
-                    let width = img.width;
-                    let height = img.height;
-                    
-                    // Calculate new dimensions if image is too large
-                    if (width > maxWidth) {
-                        height = (height * maxWidth) / width;
-                        width = maxWidth;
-                    }
-                    
-                    // Create canvas and resize image
-                    const canvas = document.createElement('canvas');
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    
-                    // Convert back to base64
-                    resolve(canvas.toDataURL('image/jpeg', 0.85));
-                };
-            });
+                })
+                .catch(err => {
+                    console.warn('Could not delete from server:', err);
+                    alert(err.message || 'You can only delete your own posts');
+                });
+            } catch (e) {
+                console.warn('Error trying to delete from server:', e);
+            }
         }
 
-        // Update image input handler
-        imageInput.addEventListener('change', async function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                if (file.size > 5 * 1024 * 1024) { // 5MB limit
-                    alert('Image size should be less than 5MB');
-                    imageInput.value = '';
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = async function(e) {
-                    // Resize image before preview
-                    const resizedImage = await resizeImage(e.target.result);
-                    imagePreview.src = resizedImage;
-                    imagePreview.style.display = 'block';
-                    removeImageBtn.style.display = 'flex';
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        removeImageBtn.addEventListener('click', function() {
-            imageInput.value = '';
-            imagePreview.src = '';
-            imagePreview.style.display = 'none';
-            removeImageBtn.style.display = 'none';
-        });
-
-        // Update form submission handler
-        const newsForm = document.getElementById('newsForm');
-        newsForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            // Check for profanity first
-            const postContent = document.getElementById('post').value;
-            try {
-                const response = await fetch(`https://api.api-ninjas.com/v1/profanityfilter?text=${encodeURIComponent(postContent)}`, {
-                    method: 'GET',
-                    headers: {
-                        'X-Api-Key': 'kX9OPlu90JJTslDCFfjqUw==8buvpXNq5bTFO5BH',
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                const data = await response.json();
-                
-                if (data.has_profanity) {
-                    alert('Your post contains inappropriate content. Please revise and try again.');
-                    return;
-                }
-            } catch (error) {
-                console.error('Error checking content:', error);
-                // Fallback to basic word filter if API fails
-                const inappropriateWords = ['badword1', 'badword2', 'badword3'];
-                const containsInappropriate = inappropriateWords.some(word => 
-                    postContent.toLowerCase().includes(word.toLowerCase())
-                );
-                
-                if (containsInappropriate) {
-                    alert('Your post contains inappropriate content. Please revise and try again.');
-                    return;
-                }
-            }
-            
-            let imageData = null;
-            if (imagePreview.style.display !== 'none') {
-                // Resize image before saving
-                imageData = await resizeImage(imagePreview.src);
-            }
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                role: document.getElementById('role').value,
-                grade: document.getElementById('grade').value,
-                school: document.getElementById('school').value,
-                post: document.getElementById('post').value,
-                image: imageData,
-                timestamp: Date.now()
-            };
-
-            // Create new post element
-            const newPost = document.createElement('div');
-            newPost.className = 'post-card';
-            newPost.dataset.postId = generatePostId();
-            
-            const imageHtml = formData.image 
-                ? `<div class="post-image-container">
-                       <img src="${formData.image}" alt="Post image" class="post-image">
-                   </div>` 
-                : '';
-
-            newPost.innerHTML = `
-                <div class="post-header">
-                    <div class="post-author">
-                        <div class="profile-icon">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="post-info">
-                            <h3>${formData.name}</h3>
-                            <p>${formData.role} • ${formData.grade}th Grade • ${formData.school}</p>
-                        </div>
-                    </div>
-                    <div class="post-actions">
-                        <span class="post-time">${formatTimeDiff(formData.timestamp)}</span>
-                        <button class="delete-btn" onclick="showDeleteModal('${newPost.dataset.postId}', this.closest('.post-card'))">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                <p class="post-content">${formData.post}</p>
-                ${imageHtml}
-            `;
-
-            // Add the new post to the top of the posts container
-            const postsContainer = document.querySelector('.posts-container');
-            postsContainer.insertBefore(newPost, postsContainer.firstChild);
-
-            // Reset form
-            newsForm.reset();
-            imagePreview.src = '';
-            imagePreview.style.display = 'none';
-            removeImageBtn.style.display = 'none';
-
-            // Save post data
-            formData.id = newPost.dataset.postId;
-            userPosts.push(formData.id);
-            savedPosts.unshift(formData);
-            localStorage.setItem('userPosts', JSON.stringify(userPosts));
-            localStorage.setItem('savedPosts', JSON.stringify(savedPosts));
-        });
-
-        // Delete confirmation handling
-        const deleteModal = document.getElementById('deleteModal');
-        const modalOverlay = document.getElementById('modalOverlay');
-        const confirmDeleteBtn = document.getElementById('confirmDelete');
-        let postToDelete = null;
-        let elementToDelete = null;
-
+        // Delete modal functions
         function showDeleteModal(postId, postElement) {
             postToDelete = postId;
             elementToDelete = postElement;
@@ -781,6 +1069,253 @@
             }
         });
 
+        // Load posts on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Loading posts...');
+            
+            // Always try to fetch from server first
+            fetch('/api/posts')
+                .then(response => {
+                    console.log('Server response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`Server error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(serverPosts => {
+                    console.log('Successfully loaded', serverPosts.length, 'posts from server');
+                    
+                    // Update post count in stats
+                    document.getElementById('postsCount').textContent = serverPosts.length;
+                    
+                    // Keep the pinned post and clear the rest of the container
+                    const pinnedPost = document.getElementById('pinnedAnnouncement');
+                    postsContainer.innerHTML = '';
+                    postsContainer.appendChild(pinnedPost);
+                    
+                    if (serverPosts.length > 0) {
+                        // Display all server posts
+                        serverPosts.forEach(post => {
+                            const postElement = createPostElement(post);
+                            postsContainer.appendChild(postElement);
+                        });
+                        
+                        // Update localStorage with server posts
+                        localStorage.setItem('posts', JSON.stringify(serverPosts));
+                        console.log('Updated localStorage with server posts');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading posts from server:', error);
+                    
+                    // Fallback to localStorage if server fetch fails
+                    const localPosts = JSON.parse(localStorage.getItem('posts') || '[]');
+                    console.log('Using local posts as fallback:', localPosts.length);
+                    
+                    // Keep the pinned post and clear the rest of the container
+                    const pinnedPost = document.getElementById('pinnedAnnouncement');
+                    postsContainer.innerHTML = '';
+                    postsContainer.appendChild(pinnedPost);
+                    
+                    if (localPosts.length > 0) {
+                        localPosts.forEach(post => {
+                            const postElement = createPostElement(post);
+                            postsContainer.appendChild(postElement);
+                        });
+                    }
+                });
+                
+            // Setup auto-refresh every 30 seconds to keep posts updated
+            setInterval(refreshPosts, 30000);
+        });
+        
+        // Function to show empty state
+        function showEmptyState() {
+            // Get the pinned post before clearing
+            const pinnedPost = document.getElementById('pinnedAnnouncement');
+            postsContainer.innerHTML = '';
+            
+            // Add back the pinned post
+            if (pinnedPost) {
+                postsContainer.appendChild(pinnedPost);
+            }
+            
+            // Remove empty state message - don't display "No Posts Yet"
+        }
+        
+        // Function to expand the create post section
+        function expandCreatePost() {
+            if (postFormContainer.classList.contains('collapsed')) {
+                toggleForm();
+                // Scroll to the form
+                createPostHeader.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Function to refresh posts from server
+        function refreshPosts() {
+            fetch('/api/posts')
+                .then(response => response.ok ? response.json() : [])
+                .then(serverPosts => {
+                    if (serverPosts.length > 0) {
+                        // Compare with current posts to see if there's any difference
+                        const currentPosts = JSON.parse(localStorage.getItem('posts') || '[]');
+                        
+                        // If post count is different, refresh the whole list
+                        if (serverPosts.length !== currentPosts.length) {
+                            console.log('Post count changed, refreshing...');
+                            
+                            // Clear the container
+                            postsContainer.innerHTML = '';
+                            
+                            // Add each post
+                            serverPosts.forEach(post => {
+                                const postElement = createPostElement(post);
+                                postsContainer.appendChild(postElement);
+                            });
+                            
+                            // Update localStorage
+                            localStorage.setItem('posts', JSON.stringify(serverPosts));
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.warn('Auto-refresh error:', error);
+                });
+        }
+
+        // Form submission
+        newsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log('Form submitted');
+
+            // Check for profanity in the post content
+            const postContent = document.getElementById('post').value;
+            if (containsProfanity(postContent)) {
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'error-message';
+                errorMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Your post contains inappropriate language. Please revise and try again.';
+                newsForm.insertBefore(errorMessage, newsForm.firstChild);
+                
+                // Remove error message after 5 seconds
+                setTimeout(() => {
+                    errorMessage.remove();
+                }, 5000);
+                
+                // Highlight the textarea to indicate where the issue is
+                const textarea = document.getElementById('post');
+                textarea.style.borderColor = '#dc3545';
+                
+                setTimeout(() => {
+                    textarea.style.borderColor = 'var(--primary-purple)';
+                }, 3000);
+                
+                return; // Stop submission
+            }
+            
+            // Show loading state
+            const submitBtn = newsForm.querySelector('.submit-btn');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+            submitBtn.disabled = true;
+
+            // Create post data
+            const newPost = {
+                id: Date.now().toString(),
+                userId: userId, // Add user ID to identify post ownership
+                name: document.getElementById('name').value,
+                role: document.getElementById('role').value,
+                grade: document.getElementById('grade').value,
+                school: document.getElementById('school').value,
+                post: document.getElementById('post').value,
+                image: imageData,
+                timestamp: new Date().toISOString()
+            };
+
+            console.log('New post data:', newPost);
+
+            // First send to server, then update UI
+            fetch('/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newPost)
+            })
+            .then(response => {
+                console.log('Server response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(savedPost => {
+                console.log('Post saved to server:', savedPost);
+                
+                // Save to localStorage as backup
+                let localPosts = JSON.parse(localStorage.getItem('posts') || '[]');
+                localPosts.unshift(savedPost);
+                localStorage.setItem('posts', JSON.stringify(localPosts));
+                
+                // Clear empty state if present
+                if (postsContainer.querySelector('.empty-posts')) {
+                    postsContainer.innerHTML = '';
+                }
+                
+                // Create and display the new post element
+                const postElement = createPostElement(savedPost);
+                postElement.classList.add('new-post'); // Add highlight animation
+                
+                // Add new post to the beginning of the list
+                postsContainer.insertBefore(postElement, postsContainer.firstChild);
+                
+                // Show success message
+                const successMessage = document.createElement('div');
+                successMessage.className = 'success-message';
+                successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Post submitted successfully!';
+                newsForm.insertBefore(successMessage, newsForm.firstChild);
+
+            // Reset form
+            newsForm.reset();
+            imagePreview.src = '';
+            imagePreview.style.display = 'none';
+            removeImageBtn.style.display = 'none';
+                imageData = null;
+                charCount.textContent = '0/500';
+                
+                // Collapse the form after submission
+                setTimeout(() => {
+                    if (!postFormContainer.classList.contains('collapsed')) {
+                        toggleForm();
+                    }
+                }, 1000);
+                
+                // Remove success message after 3 seconds
+                setTimeout(() => {
+                    successMessage.remove();
+                }, 3000);
+            })
+            .catch(error => {
+                console.error('Error saving post to server:', error);
+                
+                // Show error message
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'error-message';
+                errorMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> Error: ${error.message}`;
+                newsForm.insertBefore(errorMessage, newsForm.firstChild);
+                
+                // Remove error message after 5 seconds
+                setTimeout(() => {
+                    errorMessage.remove();
+                }, 5000);
+            })
+            .finally(() => {
+                // Reset button state
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            });
+        });
+
         // Add styles for delete button
         const styleSheet = document.createElement('style');
         styleSheet.textContent = `
@@ -795,9 +1330,14 @@
                 border: none;
                 color: var(--gray-medium);
                 cursor: pointer;
-                padding: 0.2rem;
+                padding: 0.5rem;
                 opacity: 0.7;
                 transition: all 0.3s ease;
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .delete-btn:hover {
@@ -808,6 +1348,44 @@
 
             .post-card {
                 transition: all 0.3s ease;
+            }
+            
+            .success-message, .error-message {
+                padding: 1rem;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                animation: slideIn 0.3s ease;
+            }
+
+            .success-message {
+                background: rgba(40, 167, 69, 0.1);
+                border: 1px solid #28a745;
+                color: #28a745;
+            }
+
+            .error-message {
+                background: rgba(220, 53, 69, 0.1);
+                border: 1px solid #dc3545;
+                color: #dc3545;
+            }
+
+            @keyframes slideIn {
+                from {
+                    transform: translateY(-20px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+
+            .submit-btn:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
             }
         `;
         document.head.appendChild(styleSheet);

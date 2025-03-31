@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pleasanton Student Pro</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,10 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="app-download-banner">
+        <a href="https://apps.apple.com/us/app/pleasanton-student-pro/id6742766833" target="_blank" rel="noopener">
+            <i class="fab fa-apple"></i> Download iOS App Now!
+        </a>
+    </div>
+    
     <div class="splash-screen">
         <img src="images/logo.png" alt="Pleasanton Student Pro Logo" class="logo">
         <div class="creator-credit">
             Designed and created by Shaurya Grover
+        </div>
+        <div class="version-tag">
+            Version 1.1
         </div>
     </div>
 
@@ -186,6 +196,40 @@
                 </div>
             </div>
 
+            <div class="version-info">
+                Pleasanton Student Pro • Version 1.1
+            </div>
+
+            <div class="version-updates">
+                <h4>What's New in Version 1.1</h4>
+                <div class="updates-list">
+                    <div class="update-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Added iOS App Download Banner 🚀</span>
+                    </div>
+                    <div class="update-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Enhanced Community Board UI 🎨</span>
+                    </div>
+                    <div class="update-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Improved Post Creation Experience ✍️</span>
+                    </div>
+                    <div class="update-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Added Image Upload Support 📸</span>
+                    </div>
+                    <div class="update-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Enhanced Mobile Responsiveness 📱</span>
+                    </div>
+                    <div class="update-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Added GitHub Repository Link <a href="https://github.com/Shauryagrov/pleasantonstudentpro" target="_blank" class="github-link"><i class="fab fa-github"></i></a></span>
+                    </div>
+                </div>
+            </div>
+
             <div class="privacy-section">
                 <h4>Privacy Policy</h4>
                 <div class="privacy-content">
@@ -332,6 +376,11 @@
         -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16zm1-26h-3v12l10.49 6.3L34 29.84l-9-5.34V14z' fill='%238257E6'/%3E%3C/svg%3E");
     }
 
+    .icon.store {
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M40 4H8C5.79 4 4 5.79 4 8v32c0 2.21 1.79 4 4 4h32c2.21 0 4-1.79 4-4V8c0-2.21-1.79-4-4-4zm0 36H8V8h32v32zm-4-24H12v-4h24v4zm0 8H12v-4h24v4zm0 8H12v-4h24v4z' fill='%238257E6'/%3E%3C/svg%3E");
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M40 4H8C5.79 4 4 5.79 4 8v32c0 2.21 1.79 4 4 4h32c2.21 0 4-1.79 4-4V8c0-2.21-1.79-4-4-4zm0 36H8V8h32v32zm-4-24H12v-4h24v4zm0 8H12v-4h24v4zm0 8H12v-4h24v4z' fill='%238257E6'/%3E%3C/svg%3E");
+    }
+
     .feature-card h3 {
         color: white;
         margin: 0 0 8px 0;
@@ -379,6 +428,56 @@
 
     .creator-signature:hover {
         opacity: 1;
+    }
+
+    .version-updates {
+        background: linear-gradient(135deg, rgba(130, 87, 230, 0.1), rgba(130, 87, 230, 0.05));
+        padding: 24px;
+        border-radius: 16px;
+        margin: 20px 0;
+        border: 1px solid rgba(130, 87, 230, 0.2);
+    }
+
+    .version-updates h4 {
+        color: var(--primary-purple);
+        margin: 0 0 16px 0;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .updates-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .update-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--text-light);
+        font-size: 16px;
+    }
+
+    .update-item i {
+        color: var(--primary-purple);
+        font-size: 18px;
+    }
+
+    .update-item span {
+        line-height: 1.5;
+    }
+
+    .github-link {
+        color: var(--primary-purple);
+        text-decoration: none;
+        margin-left: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .github-link:hover {
+        color: var(--accent-color);
+        transform: scale(1.1);
     }
 
     @keyframes fadeIn {
@@ -638,6 +737,49 @@
         .dev-container {
             padding: 30px 20px;
         }
+    }
+
+    .app-download-banner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(90deg, var(--primary-purple-dark), var(--primary-purple));
+        color: white;
+        text-align: center;
+        padding: 10px;
+        z-index: 9999;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        animation: slideDown 0.5s ease-out;
+    }
+    
+    .app-download-banner a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 1.1rem;
+    }
+    
+    .app-download-banner i {
+        font-size: 1.3rem;
+    }
+    
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+    
+    /* Adjust splash screen to account for banner */
+    .splash-screen {
+        padding-top: 45px;
     }
     </style>
 </body>
