@@ -9,7 +9,7 @@ services:
         value: production
       - key: PORT
         value: 8080
-      - key: GEMINI_API_KEY
-        value: AIzaSyAkkTVjbQ9Uv2DxLA6m4swvl-KdHOavYdA
+      - key: MONGODB_URI
+        value: mongodb+srv://pleasantonstudentpro:pleasantonstudentpro@cluster0.mongodb.net/pleasantonstudentpro?retryWrites=true&w=majority
     healthCheckPath: /health
     autoDeploy: true 

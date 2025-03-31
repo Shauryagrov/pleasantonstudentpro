@@ -3,34 +3,33 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 8080;
 
+// MongoDB connection
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://pleasantonstudentpro:pleasantonstudentpro@cluster0.mongodb.net/pleasantonstudentpro?retryWrites=true&w=majority';
+
+mongoose.connect(MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+// Post Schema
+const postSchema = new mongoose.Schema({
+    name: String,
+    post: String,
+    timestamp: { type: Date, default: Date.now }
+});
+
+const Post = mongoose.model('Post', postSchema);
+
 // Enable CORS with specific origin
 app.use(cors({
-    origin: function(origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        const allowedOrigins = [
-            'https://pleasantonstudentpro.com',
-            'http://localhost:8080',
-            'http://localhost:3000',
-            'http://127.0.0.1:8080',
-            'http://127.0.0.1:3000'
-        ];
-        
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
+    origin: ['https://pleasantonstudentpro.com', 'http://localhost:8080'],
+    methods: ['GET', 'POST', 'DELETE'],
+    credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -111,53 +110,19 @@ function containsProfanity(text) {
     return false;
 }
 
-// Create data directory if it doesn't exist
-const dataDir = path.join(__dirname, 'data');
-const postsFile = path.join(dataDir, 'posts.json');
-
-if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir);
-}
-
-// Initialize posts as an array
-let posts = [];
-
-// Load existing posts or initialize empty array
-try {
-    if (fs.existsSync(postsFile)) {
-        const data = fs.readFileSync(postsFile, 'utf8');
-        posts = JSON.parse(data);
-        console.log(`Loaded ${posts.length} posts from storage`);
-    } else {
-        // Create initial file with empty array
-        fs.writeFileSync(postsFile, JSON.stringify(posts), 'utf8');
-        console.log('Created empty posts file');
-    }
-} catch (error) {
-    console.error('Error loading posts:', error);
-    // Ensure posts is an array in case of error
-    posts = [];
-}
-
-// Save posts to file
-function savePosts() {
-    try {
-        fs.writeFileSync(postsFile, JSON.stringify(posts), 'utf8');
-        console.log(`Saved ${posts.length} posts to storage`);
-        return true;
-    } catch (error) {
-        console.error('Error saving posts:', error);
-        return false;
-    }
-}
-
 // API endpoints for posts
-app.get('/api/posts', (req, res) => {
-    console.log('GET /api/posts - Sending', posts.length, 'posts');
-    res.json(posts);
+app.get('/api/posts', async (req, res) => {
+    try {
+        const posts = await Post.find().sort({ timestamp: -1 });
+        console.log('GET /api/posts - Sending', posts.length, 'posts');
+        res.json(posts);
+    } catch (error) {
+        console.error('Error fetching posts:', error);
+        res.status(500).json({ error: 'Server error fetching posts' });
+    }
 });
 
-app.post('/api/posts', (req, res) => {
+app.post('/api/posts', async (req, res) => {
     try {
         console.log('POST /api/posts - Received new post request');
         
@@ -172,29 +137,14 @@ app.post('/api/posts', (req, res) => {
             return res.status(400).json({ error: 'Post contains inappropriate content that violates community guidelines' });
         }
         
-        const newPost = {
-            id: Date.now().toString(),
-            ...req.body,
-            timestamp: new Date().toISOString()
-        };
+        const newPost = new Post({
+            name: req.body.name,
+            post: req.body.post
+        });
         
-        console.log('Created new post:', newPost.id);
+        await newPost.save();
+        console.log('Created new post:', newPost._id);
         
-        // Ensure posts is initialized as an array
-        if (!Array.isArray(posts)) {
-            console.log('Initializing posts as an array');
-            posts = [];
-        }
-        
-        // Add to beginning of array
-        posts.unshift(newPost);
-        
-        const saved = savePosts();
-        if (!saved) {
-            return res.status(500).json({ error: 'Failed to save post' });
-        }
-        
-        console.log('Sending new post in response');
         res.status(201).json(newPost);
     } catch (error) {
         console.error('Error creating post:', error);
@@ -202,37 +152,14 @@ app.post('/api/posts', (req, res) => {
     }
 });
 
-// Delete post endpoint
-app.delete('/api/posts/:id', (req, res) => {
+app.delete('/api/posts/:id', async (req, res) => {
     try {
         const postId = req.params.id;
-        const userId = req.query.userId;
-        console.log(`DELETE /api/posts/${postId} by user ${userId}`);
+        console.log(`DELETE /api/posts/${postId}`);
         
-        // Ensure posts is an array
-        if (!Array.isArray(posts)) {
-            posts = [];
+        const result = await Post.findByIdAndDelete(postId);
+        if (!result) {
             return res.status(404).json({ error: 'Post not found' });
-        }
-        
-        // Find the post
-        const postIndex = posts.findIndex(post => post.id === postId);
-        if (postIndex === -1) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-        
-        // Check ownership (if userId is provided)
-        if (userId && posts[postIndex].userId && posts[postIndex].userId !== userId) {
-            console.log('Delete rejected: User does not own this post');
-            return res.status(403).json({ error: 'You do not have permission to delete this post' });
-        }
-        
-        // Remove the post
-        posts = posts.filter(post => post.id !== postId);
-        
-        const saved = savePosts();
-        if (!saved) {
-            return res.status(500).json({ error: 'Failed to save after delete' });
         }
         
         console.log('Post deleted successfully');
