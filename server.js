@@ -8,8 +8,12 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 8080;
 
-// Enable CORS
-app.use(cors());
+// Enable CORS with specific origin
+app.use(cors({
+    origin: ['https://pleasantonstudentpro.com', 'http://localhost:8080'],
+    methods: ['GET', 'POST', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -302,11 +306,16 @@ app.post('/api/ai/generate', rateLimitMiddleware, async (req, res) => {
 });
 
 // Serve static files from the root directory
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname)));
 
 // Serve index.html for the root route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Add a health check endpoint for Render
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
 });
 
 // Error handling middleware
@@ -317,7 +326,5 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-    console.log(`  - Local:   http://localhost:${port}`);
-    console.log(`  - Network: http://${require('os').hostname()}:${port}`);
+    console.log(`Server is running on port ${port}`);
 }); 
