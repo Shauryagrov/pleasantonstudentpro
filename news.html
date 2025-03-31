@@ -824,7 +824,9 @@
     </div>
 
     <script>
-        const API_BASE_URL = 'https://pleasantonstudentpro.onrender.com';
+        const API_BASE_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:8080' 
+            : 'https://pleasantonstudentpro.vercel.app';
 
         // DOM elements
         const newsForm = document.getElementById('newsForm');
