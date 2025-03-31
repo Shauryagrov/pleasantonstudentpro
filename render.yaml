@@ -9,5 +9,7 @@ services:
         value: production
       - key: PORT
         value: 8080
+      - key: GEMINI_API_KEY
+        value: AIzaSyAkkTVjbQ9Uv2DxLA6m4swvl-KdHOavYdA
     healthCheckPath: /health
     autoDeploy: true 

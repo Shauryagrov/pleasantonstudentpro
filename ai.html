@@ -642,7 +642,7 @@
                 }
 
                 // Use our server-side proxy instead of direct API call
-                const response = await fetch(`${SERVER_URL}/api/ai`, {
+                const response = await fetch(`${SERVER_URL}/api/ai/generate`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
