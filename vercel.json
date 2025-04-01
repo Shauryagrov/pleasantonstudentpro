@@ -9,7 +9,9 @@
     "routes": [
         {
             "src": "/api/(.*)",
-            "dest": "server.js"
+            "dest": "/server.js"
         }
-    ]
+    ],
+    "buildCommand": "npm install",
+    "outputDirectory": "."
 } 
