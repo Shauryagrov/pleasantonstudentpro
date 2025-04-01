@@ -1076,11 +1076,14 @@
         // Load posts on page load
         window.addEventListener('DOMContentLoaded', () => {
             console.log('Loading posts...');
+            console.log('API URL:', API_BASE_URL);
             
             // Always try to fetch from server first
+            console.log('Fetching from:', `${API_BASE_URL}/api/posts`);
             fetch(`${API_BASE_URL}/api/posts`)
                 .then(response => {
                     console.log('Server response status:', response.status);
+                    console.log('Response headers:', [...response.headers.entries()]);
                     if (!response.ok) {
                         throw new Error(`Server error: ${response.status}`);
                     }

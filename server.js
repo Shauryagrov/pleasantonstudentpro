@@ -4,13 +4,22 @@ const fs = require('fs').promises;
 const path = require('path');
 const app = express();
 
-// CORS configuration
+// Log all incoming requests
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url} - Origin: ${req.headers.origin}`);
+    next();
+});
+
+// CORS configuration - super permissive for debugging
 app.use(cors({
-    origin: ['https://pleasantonstudentpro.com', 'http://localhost:8080', 'https://pleasantonstudentpro.vercel.app'],
+    origin: '*', // Allow all origins for now
     methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
     credentials: true,
-    allowedHeaders: ['Content-Type']
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Pre-flight CORS handler
+app.options('*', cors());
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
@@ -44,9 +53,11 @@ async function savePosts(posts) {
 
 // Routes
 app.get('/api/posts', async (req, res) => {
+    console.log('GET /api/posts - Request received');
     try {
         await initializeStorage();
         const posts = await getPosts();
+        console.log(`GET /api/posts - Returning ${posts.length} posts`);
         res.json(posts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)));
     } catch (error) {
         console.error('Error fetching posts:', error);
@@ -55,6 +66,7 @@ app.get('/api/posts', async (req, res) => {
 });
 
 app.post('/api/posts', async (req, res) => {
+    console.log('POST /api/posts - Request received');
     try {
         await initializeStorage();
         const posts = await getPosts();
@@ -65,6 +77,7 @@ app.post('/api/posts', async (req, res) => {
         };
         posts.push(newPost);
         await savePosts(posts);
+        console.log('POST /api/posts - Created new post:', newPost.id);
         res.status(201).json(newPost);
     } catch (error) {
         console.error('Error creating post:', error);
@@ -73,6 +86,7 @@ app.post('/api/posts', async (req, res) => {
 });
 
 app.delete('/api/posts/:id', async (req, res) => {
+    console.log(`DELETE /api/posts/${req.params.id} - Request received`);
     try {
         await initializeStorage();
         const { id } = req.params;
@@ -81,11 +95,13 @@ app.delete('/api/posts/:id', async (req, res) => {
         const postIndex = posts.findIndex(p => p.id === id && p.userId === userId);
         
         if (postIndex === -1) {
+            console.log(`DELETE /api/posts/${id} - Post not found or unauthorized`);
             return res.status(404).json({ error: 'Post not found or unauthorized' });
         }
         
         posts.splice(postIndex, 1);
         await savePosts(posts);
+        console.log(`DELETE /api/posts/${id} - Post deleted successfully`);
         res.status(200).json({ message: 'Post deleted successfully' });
     } catch (error) {
         console.error('Error deleting post:', error);
@@ -95,6 +111,7 @@ app.delete('/api/posts/:id', async (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
+    console.log('GET /api/health - Health check');
     res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
