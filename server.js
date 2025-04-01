@@ -162,13 +162,12 @@ app.delete('/api/posts/:id', async (req, res) => {
     try {
         await initializeStorage();
         const { id } = req.params;
-        const { userId } = req.query;
         const posts = await getPosts();
-        const postIndex = posts.findIndex(p => p.id === id && p.userId === userId);
+        const postIndex = posts.findIndex(p => p.id === id);
         
         if (postIndex === -1) {
-            console.log(`DELETE /api/posts/${id} - Post not found or unauthorized`);
-            return res.status(404).json({ error: 'Post not found or unauthorized' });
+            console.log(`DELETE /api/posts/${id} - Post not found`);
+            return res.status(404).json({ error: 'Post not found' });
         }
         
         posts.splice(postIndex, 1);

@@ -964,13 +964,10 @@
                    </div>` 
                 : '';
             
-            // Only show delete button if the post belongs to current user
-            const isOwnPost = post.userId === userId;
-            const deleteButton = isOwnPost 
-                ? `<button class="delete-btn" onclick="showDeleteModal('${post.id}', this.closest('.post-card'))">
+            // Show delete button for all posts
+            const deleteButton = `<button class="delete-btn" onclick="showDeleteModal('${post.id}', this.closest('.post-card'))">
                        <i class="fas fa-trash"></i>
-                   </button>` 
-                : '';
+                   </button>`;
 
             postElement.innerHTML = `
                 <div class="post-header">
@@ -995,8 +992,10 @@
             return postElement;
         }
 
-        // Delete post function
+        // Delete post
         function deletePost(postId, postElement) {
+            console.log('Deleting post:', postId);
+            
             // Check if this is the pinned announcement
             if (postElement.id === 'pinnedAnnouncement') {
                 closeDeleteModal();
@@ -1013,8 +1012,8 @@
             }
             
             try {
-                // Try to delete from server
-                fetch(`${API_BASE_URL}/api/posts/${postId}?userId=${userId}`, {
+                // Try to delete from server - removed userId from request
+                fetch(`${API_BASE_URL}/api/posts/${postId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {
@@ -1030,21 +1029,21 @@
                     posts = posts.filter(post => post.id !== postId);
                     localStorage.setItem('posts', JSON.stringify(posts));
             
-            // Remove from DOM with animation
-            postElement.style.opacity = '0';
-            postElement.style.transform = 'translateX(100px)';
-            setTimeout(() => {
-                postElement.remove();
+                    // Remove from DOM with animation
+                    postElement.style.opacity = '0';
+                    postElement.style.transform = 'translateX(100px)';
+                    setTimeout(() => {
+                        postElement.remove();
                         
                         // If no posts left, show empty state
                         if (postsContainer.children.length === 0) {
                             showEmptyState();
                         }
-            }, 300);
+                    }, 300);
                 })
                 .catch(err => {
                     console.warn('Could not delete from server:', err);
-                    alert(err.message || 'You can only delete your own posts');
+                    alert(err.message || 'Could not delete post');
                 });
             } catch (e) {
                 console.warn('Error trying to delete from server:', e);
