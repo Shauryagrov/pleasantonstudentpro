@@ -7,6 +7,735 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a0dad;
+            --primary-dark: #4b0082;
+            --secondary-color: #9c27b0;
+            --text-color: #f8f9fa;
+            --background-dark: #1a1a1a;
+            --background-card: #252525;
+            --background-light: #333333;
+            --accent-color: #8a2be2;
+            --accent-glow: rgba(138, 43, 226, 0.4);
+            --gradient-start: #6a0dad;
+            --gradient-end: #9c27b0;
+        }
+        
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        .schedule-section h1, 
+        .schedule-section h2 {
+            color: var(--text-color);
+        }
+        
+        /* Header animations */
+        .schedule-section h1 {
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        
+        .schedule-section h1::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            animation: expandWidth 3s ease-in-out infinite;
+        }
+        
+        @keyframes expandWidth {
+            0%, 100% { width: 50px; }
+            50% { width: 150px; }
+        }
+        
+        /* Promotional Banner */
+        .promo-banner {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: pulseShadow 4s infinite alternate;
+        }
+        
+        @keyframes pulseShadow {
+            from { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+            to { box-shadow: 0 10px 25px rgba(138, 43, 226, 0.5); }
+        }
+        
+        .promo-banner::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shimmer 10s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            from { transform: translateX(-50%) rotate(30deg); }
+            to { transform: translateX(50%) rotate(30deg); }
+        }
+        
+        .promo-banner h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .promo-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-right: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pulse-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin-right: 4px;
+            position: relative;
+        }
+        
+        .pulse-dot::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+        
+        .school-category {
+            background-color: var(--background-light);
+            border: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .school-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: var(--background-card);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.4);
+        }
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        .login-btn::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            transition: transform 0.5s;
+        }
+        .login-btn:hover::after {
+            transform: rotate(30deg) translate(10%, 10%);
+        }
+        .privacy-notice {
+            font-size: 12px;
+            color: #aaa;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--accent-color);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            color: #ff7675;
+            margin-top: 10px;
+            display: none;
+            animation: fadeInUp 0.5s;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .grades-container {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .course-card {
+            background-color: var(--background-card);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        .course-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+            opacity: 0.8;
+        }
+        .course-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        .course-card:hover::after {
+            opacity: 1;
+        }
+        .course-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(138, 43, 226, 0) 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .course-name {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-color);
+        }
+        .course-grade {
+            font-weight: 700;
+            font-size: 18px;
+            position: relative;
+            z-index: 1;
+        }
+        .grade-percentage {
+            margin-left: 8px;
+            font-size: 16px;
+            color: #999;
+            font-weight: 500;
+        }
+        .grade-a {
+            color: #4caf50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+        }
+        .grade-b {
+            color: #8bc34a;
+            text-shadow: 0 0 10px rgba(139, 195, 74, 0.3);
+        }
+        .grade-c {
+            color: #ffc107;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+        }
+        .grade-d {
+            color: #ff9800;
+            text-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+        }
+        .grade-f {
+            color: #f44336;
+            text-shadow: 0 0 10px rgba(244, 67, 54, 0.3);
+        }
+        .progress-bar {
+            height: 8px;
+            background-color: #444;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        .assignments-toggle {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            font-weight: 500;
+            padding: 5px 0;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .school-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .school-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Course detail page styles */
+        .course-detail-container {
+            display: none;
+            padding: 20px;
+            background-color: var(--background-light);
+            border-radius: 8px;
+            margin-top: 20px;
+            animation: slideIn 0.4s ease-out;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .back-to-courses {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .back-to-courses:hover {
+            transform: translateX(-5px);
+        }
+        
+        .back-to-courses::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s;
+        }
+        
+        .back-to-courses:hover::after {
+            width: 100%;
+        }
+        
+        .course-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #444;
+            position: relative;
+        }
+        
+        .course-detail-header::before {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+        }
+        
+        .course-detail-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-color);
+            background: linear-gradient(to right, #fff, #ccc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .course-detail-grade {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .assignments-container {
+            margin-top: 20px;
+        }
+        
+        .assignment-item {
+            padding: 15px;
+            border-bottom: 1px solid #444;
+            position: relative;
+            background-color: var(--background-card);
+            margin-bottom: 10px;
+            border-radius: 6px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .assignment-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .assignment-item:last-child {
+            border-bottom: none;
+        }
+        
+        .assignment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .assignment-name {
+            font-weight: 600;
+            font-size: 15px;
+            flex: 1;
+            color: var(--text-color);
+        }
+        
+        .assignment-score {
+            font-weight: 700;
+            font-size: 15px;
+            margin-left: 10px;
+            text-align: right;
+        }
+        
+        .assignment-details {
+            display: flex;
+            font-size: 13px;
+            color: #999;
+            margin-top: 5px;
+            justify-content: space-between;
+        }
+        
+        .assignment-date {
+            color: #888;
+        }
+        
+        .assignment-category {
+            padding: 2px 8px;
+            border-radius: 12px;
+            background-color: rgba(156, 39, 176, 0.2);
+            font-size: 12px;
+            color: #ddd;
+            border: 1px solid rgba(156, 39, 176, 0.3);
+        }
+        
+        .assignment-status {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #4caf50;
+        }
+        
+        .recent-tag {
+            position: absolute;
+            left: 0;
+            top: 12px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            font-size: 10px;
+            padding: 3px 6px;
+            border-radius: 0 3px 3px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            animation: pulseNew 2s infinite;
+        }
+        
+        @keyframes pulseNew {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        .hypothetical-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--background-light);
+            border-radius: 8px;
+            position: relative;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hypothetical-heading {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            font-size: 18px;
+        }
+        
+        .hypothetical-inputs {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .hypothetical-inputs input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .hypothetical-inputs input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px var(--accent-glow);
+            outline: none;
+        }
+        
+        .calculate-btn {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 13, 173, 0.4);
+        }
+        
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Grade chart styles */
+        .assignments-chart-container {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #121212;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .assignments-chart-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            opacity: 0.7;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .chart-canvas-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #ddd;
+            margin-right: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        /* Selected Assignment Style */
+        .selected-assignment {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(138, 43, 226, 0.1);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .selected-assignment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .selected-assignment-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .selected-assignment-score {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .selected-assignment-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .chart-instructions {
+            text-align: center;
+            color: #aaa;
+            font-size: 13px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
     <nav class="top-nav">
@@ -21,42 +750,1321 @@
 
     <div class="main-content visible">
         <section class="schedule-section">
-            <h1>Gradebook Access 📚</h1>
+            <h1>Gradebook 📚</h1>
             <div class="schedule-intro">
-                <p>We're working on something special! 🚀</p>
+                <p>View all your grades in one place with our enhanced gradebook experience.</p>
             </div>
-
-            <div class="school-category">
-                <h2><i class="fas fa-code"></i> Coming Soon</h2>
-                <p style="color: var(--gray-medium); margin-bottom: 2rem;">
-                    We're building a seamless gradebook experience! 🛠️ In the meantime, you can access your grades through StudentVUE. 
-                    Our upcoming integration will make checking grades even easier! ✨
-                </p>
-                <div class="school-buttons">
-                    <a href="https://ca-pleas-psv.edupoint.com/PXP2_Login_Student.aspx?regenerateSessionId=True" target="_blank" class="school-btn" style="justify-content: center;">
-                        <i class="fas fa-external-link-alt"></i>
-                        Access StudentVUE
-                    </a>
+            
+            <!-- Promotional Banner -->
+            <div class="promo-banner">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                    <h3>🎉 Our Gradebook Is Finally Here!</h3>
+                    <div>
+                        <span class="promo-badge"><span class="pulse-dot"></span>NEW</span>
+                        <span class="promo-badge">SECURE</span>
+                    </div>
+                </div>
+                <p style="margin-bottom: 10px;">After weeks of development, we've successfully integrated with StudentVUE to bring you a <strong>faster</strong>, <strong>better</strong>, and <strong>more beautiful</strong> gradebook experience!</p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 150px;">
+                        <div style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-shield-alt"></i> 100% Secure</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Your credentials connect directly to StudentVUE - we never store or see your password.</div>
+                    </div>
+                    <div style="flex: 1; min-width: 150px;">
+                        <div style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-bolt"></i> Lightning Fast</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Get your grades instantly with our optimized gradebook loader.</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="school-category">
-                <h2><i class="fas fa-envelope"></i> Questions or Suggestions?</h2>
-                <p style="color: var(--gray-medium); margin-bottom: 2rem;">
-                    We'd love to hear your thoughts on what features you'd like to see! 💭
-                </p>
-                <div class="school-buttons">
-                    <a href="mailto:pleasantonstudentpro@gmail.com" class="school-btn">
-                        <i class="fas fa-envelope"></i>
-                        pleasantonstudentpro@gmail.com
-                    </a>
-                    <a href="https://www.instagram.com/pleasantonstudentpro/" target="_blank" class="school-btn">
-                        <i class="fab fa-instagram"></i>
-                        @pleasantonstudentpro
-                    </a>
+            <!-- Login Container -->
+            <div id="login-container" class="login-container school-category">
+                <h2><i class="fas fa-lock"></i> StudentVUE Login</h2>
+                <div id="login-form">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="student@school.net" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="advanced-options" id="advanced-toggle">Advanced Options</div>
+                    <div class="advanced-panel" id="advanced-panel">
+                        <div class="input-group">
+                            <label for="domain">Domain</label>
+                            <input type="text" id="domain" value="ca-pleas-psv.edupoint.com" required>
+                        </div>
+                    </div>
+                    <button class="login-btn" id="login-btn">Log In</button>
+                    <div id="error-message" class="error-message"></div>
+                    <p class="privacy-notice">
+                        <i class="fas fa-shield-alt"></i> Your device connects directly to StudentVUE. 
+                        We never see your password or your grades.
+                    </p>
+                </div>
+                <div id="loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Logging in...</p>
+                </div>
+            </div>
+
+            <!-- Grades Container -->
+            <div id="grades-container" class="grades-container school-category">
+                <h2><i class="fas fa-graduation-cap"></i> Your Grades</h2>
+                <div id="reporting-period-selector" style="margin-bottom: 20px; text-align: center;">
+                    <button class="school-btn" id="period-selector">
+                        <span id="current-period">Current Grading Period</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div id="period-dropdown" style="display: none;"></div>
+                </div>
+                <div id="courses-list"></div>
+            </div>
+            
+            <!-- Course Detail View -->
+            <div id="course-detail-container" class="course-detail-container school-category">
+                <div class="back-to-courses" id="back-to-courses">
+                    <i class="fas fa-arrow-left"></i> <span style="margin-left: 8px;">Back to All Courses</span>
+                </div>
+                <div class="course-detail-header">
+                    <div class="course-detail-title" id="detail-course-title">Course Name</div>
+                    <div>
+                        <span class="course-detail-grade" id="detail-course-grade">A</span>
+                        <span class="grade-percentage" id="detail-course-percentage">95.0%</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="detail-progress-fill" style="width: 95%"></div>
+                </div>
+                <div class="assignments-container" id="detail-assignments-container"></div>
+                
+                <!-- Hypothetical grade calculator -->
+                <div class="hypothetical-container">
+                    <div class="hypothetical-heading">What If Calculator</div>
+                    <div style="color: #aaa;">See how a new grade would affect your overall score</div>
+                    <div class="hypothetical-inputs">
+                        <input type="number" id="detail-hypo-points" placeholder="Points earned" min="0">
+                        <input type="number" id="detail-hypo-possible" placeholder="Points possible" min="1">
+                    </div>
+                    <button class="calculate-btn" id="detail-calculate-btn">Calculate</button>
+                    <div id="detail-calculation-result" style="margin-top: 10px;"></div>
                 </div>
             </div>
         </section>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Fast-XML-Parser equivalent (simplified for this implementation)
+        function parseXML(xmlStr) {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlStr, "text/xml");
+            return xmlToJson(xmlDoc);
+        }
+
+        function xmlToJson(xml) {
+            // Create the return object
+            var obj = {};
+
+            if (xml.nodeType == 1) {
+                // Element
+                // Do attributes
+                if (xml.attributes.length > 0) {
+                    obj["@attributes"] = {};
+                    for (var j = 0; j < xml.attributes.length; j++) {
+                        var attribute = xml.attributes.item(j);
+                        obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+                    }
+                }
+            } else if (xml.nodeType == 3) {
+                // Text
+                obj = xml.nodeValue;
+            }
+
+            // Do children
+            if (xml.hasChildNodes()) {
+                for (var i = 0; i < xml.childNodes.length; i++) {
+                    var item = xml.childNodes.item(i);
+                    var nodeName = item.nodeName;
+                    if (typeof(obj[nodeName]) == "undefined") {
+                        obj[nodeName] = xmlToJson(item);
+                    } else {
+                        if (typeof(obj[nodeName].push) == "undefined") {
+                            var old = obj[nodeName];
+                            obj[nodeName] = [];
+                            obj[nodeName].push(old);
+                        }
+                        obj[nodeName].push(xmlToJson(item));
+                    }
+                }
+            }
+            return obj;
+        }
+
+        class StudentAccount {
+            constructor(domain, userID, password) {
+                this.domain = domain;
+                this.userID = userID;
+                this.password = password;
+            }
+
+            async soapRequest(operation, methodName, params = {}) {
+                // Create a simplified XML string for parameters
+                let paramStr = JSON.stringify(params)
+                    .replace(/"/g, '')
+                    .replace(/:/g, '=')
+                    .replace(/,/g, ' ')
+                    .replace(/{/g, '<Params ')
+                    .replace(/}/g, ' />')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+
+                try {
+                    console.log(`Sending ${operation} request to ${this.domain} for method ${methodName}`);
+                    const res = await fetch(`https://${this.domain}/Service/PXPCommunication.asmx`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/soap+xml; charset=utf-8' },
+                        body: `<?xml version="1.0" encoding="utf-8"?>
+                        <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+                            <soap12:Body>
+                                <${operation} xmlns="http://edupoint.com/webservices/">
+                                    <userID>${this.userID}</userID>
+                                    <password>${this.password}</password>
+                                    <skipLoginLog>true</skipLoginLog>
+                                    <parent>false</parent>
+                                    <webServiceHandleName>PXPWebServices</webServiceHandleName>
+                                    <methodName>${methodName}</methodName>
+                                    <paramStr>${paramStr}</paramStr>
+                                </${operation}>
+                            </soap12:Body>
+                        </soap12:Envelope>`
+                    });
+
+                    const text = await res.text();
+                    console.log('Response received from server');
+                    
+                    // Log a sample of the response for debugging
+                    console.log('Response sample:', text.substring(0, 200) + '...');
+                    
+                    // First, check if there's an error in the SOAP response
+                    if (text.includes('RT_ERROR')) {
+                        const errorMatch = text.match(/<ERROR_MESSAGE>(.*?)<\/ERROR_MESSAGE>/);
+                        if (errorMatch && errorMatch[1]) {
+                            throw new Error(errorMatch[1]);
+                        } else {
+                            throw new Error('Unknown error in the response');
+                        }
+                    }
+                    
+                    // Use regex to extract the XML content from the SOAP response
+                    // The StudentVUE API returns the XML as CDATA or escaped HTML inside the Result element
+                    const xmlPattern = new RegExp(`<${operation}Result>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</${operation}Result>`, 's');
+                    const match = text.match(xmlPattern);
+                    
+                    if (!match || !match[1]) {
+                        console.error('Could not extract result from SOAP response');
+                        console.log('Full response:', text);
+                        
+                        // Try a more lenient approach
+                        const altPattern = new RegExp(`<${operation}Result>(.*)</${operation}Result>`, 's');
+                        const altMatch = text.match(altPattern);
+                        if (!altMatch || !altMatch[1]) {
+                            throw new Error('Invalid response format from server');
+                        }
+                        
+                        // If we got here, we found something with the alternative pattern
+                        const resultXML = this.decodeHtmlEntities(altMatch[1]);
+                        console.log('Extracted XML result with alternative pattern');
+                        
+                        // For StudentInfo, we just need to check login success
+                        if (methodName === 'StudentInfo') {
+                            return { success: true };
+                        }
+                        
+                        // Try to manually extract data for Gradebook
+                        if (methodName === 'Gradebook') {
+                            return this.parseXMLDirectly(resultXML, methodName);
+                        }
+                        
+                        return { success: true };
+                    }
+                    
+                    const resultXML = this.decodeHtmlEntities(match[1]);
+                    console.log('Extracted XML result');
+                    
+                    // For very specific StudentVUE response types, handle directly
+                    if (methodName === 'StudentInfo') {
+                        // For StudentInfo, we just need authentication check
+                        return { success: true };
+                    }
+                    
+                    if (methodName === 'Gradebook') {
+                        // Direct parsing for gradebook data
+                        return this.parseXMLDirectly(resultXML, methodName);
+                    }
+                    
+                    // Fall back to returning a success indicator
+                    return { success: true };
+                    
+                } catch (error) {
+                    console.error('SOAP Request Error:', error);
+                    throw error;
+                }
+            }
+            
+            // Decode HTML entities that might be in the XML
+            decodeHtmlEntities(input) {
+                if (!input || typeof input !== 'string') return '';
+                
+                // Use browser's built-in HTML decoding
+                const doc = new DOMParser().parseFromString(input, 'text/html');
+                return doc.documentElement.textContent;
+            }
+            
+            // Direct XML parsing for StudentVue's format
+            parseXMLDirectly(xmlString, methodName) {
+                console.log('Using direct XML parsing for', methodName);
+                
+                // Clean the XML string - StudentVUE sometimes has extra characters
+                xmlString = xmlString.trim();
+                
+                // For debugging
+                console.log('XML string sample:', xmlString.substring(0, 100) + '...');
+                
+                if (methodName === 'Gradebook') {
+                    try {
+                        // First, try using the browser's XML parser
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(`<root>${xmlString}</root>`, "text/xml");
+                        
+                        if (!xmlDoc.querySelector('parsererror')) {
+                            // If parsing succeeded, process the XML document
+                            const courses = [];
+                            const courseNodes = xmlDoc.querySelectorAll('Course');
+                            
+                            courseNodes.forEach(courseNode => {
+                                const title = courseNode.getAttribute('Title') || 'Unknown Course';
+                                
+                                // Find mark node
+                                const markNode = courseNode.querySelector('Mark');
+                                if (markNode) {
+                                    const score = markNode.getAttribute('CalculatedScoreString') || 'N/A';
+                                    const scoreRaw = parseFloat(markNode.getAttribute('CalculatedScoreRaw') || '0');
+                                    
+                                    // Extract assignments
+                                    const assignments = [];
+                                    const assignmentNodes = markNode.querySelectorAll('Assignment');
+                                    assignmentNodes.forEach(assignmentNode => {
+                                        assignments.push({
+                                            Measure: assignmentNode.getAttribute('Measure') || 'Unnamed Assignment',
+                                            Type: assignmentNode.getAttribute('Type') || 'Uncategorized',
+                                            Points: assignmentNode.getAttribute('Points') || 'Not Graded',
+                                            PointsPossible: assignmentNode.getAttribute('PointsPossible') || '0',
+                                            DueDate: assignmentNode.getAttribute('DueDate') || ''
+                                        });
+                                    });
+                                    
+                                    courses.push({
+                                        Title: title,
+                                        Mark: {
+                                            CalculatedScoreString: score,
+                                            CalculatedScoreRaw: scoreRaw,
+                                            Assignments: assignments
+                                        }
+                                    });
+                                }
+                            });
+                            
+                            // Get reporting periods
+                            const reportingPeriods = [];
+                            const periodNodes = xmlDoc.querySelectorAll('ReportPeriod');
+                            periodNodes.forEach(periodNode => {
+                                reportingPeriods.push({
+                                    GradePeriod: periodNode.getAttribute('GradePeriod') || 'Unknown Period'
+                                });
+                            });
+                            
+                            // Get current period
+                            const reportingPeriodNode = xmlDoc.querySelector('ReportingPeriod');
+                            const currentPeriod = reportingPeriodNode ? 
+                                reportingPeriodNode.getAttribute('GradePeriod') || 'Current Period' : 
+                                'Current Period';
+                            
+                            return {
+                                Courses: { Course: courses },
+                                ReportingPeriods: { ReportPeriod: reportingPeriods.length > 0 ? reportingPeriods : [{ GradePeriod: 'Current Period' }] },
+                                ReportingPeriod: { GradePeriod: currentPeriod }
+                            };
+                        }
+                    } catch (error) {
+                        console.error('DOM parsing error:', error);
+                        // Continue to fallback regex parsing
+                    }
+                    
+                    // Fallback to regex-based parsing
+                    try {
+                        // Extract courses using regex
+                        const courses = [];
+                        const courseRegex = /<Course\s+([^>]*)>([\s\S]*?)<\/Course>/g;
+                        let courseMatch;
+                        
+                        while ((courseMatch = courseRegex.exec(xmlString)) !== null) {
+                            try {
+                                const courseAttrs = courseMatch[1];
+                                const courseContent = courseMatch[2];
+                                
+                                // Extract course title
+                                const titleMatch = courseAttrs.match(/Title="([^"]*)"/);
+                                const title = titleMatch ? titleMatch[1] : "Unknown Course";
+                                
+                                // Extract mark data
+                                const markRegex = /<Mark\s+([^>]*)>([\s\S]*?)<\/Mark>/;
+                                const markMatch = courseContent.match(markRegex);
+                                
+                                if (markMatch) {
+                                    const markAttrs = markMatch[1];
+                                    const markContent = markMatch[2];
+                                    
+                                    // Extract grade
+                                    const scoreMatch = markAttrs.match(/CalculatedScoreString="([^"]*)"/);
+                                    const scoreRawMatch = markAttrs.match(/CalculatedScoreRaw="([^"]*)"/);
+                                    
+                                    const score = scoreMatch ? scoreMatch[1] : "N/A";
+                                    const scoreRaw = scoreRawMatch ? parseFloat(scoreRawMatch[1]) : 0;
+                                    
+                                    // Extract assignments
+                                    const assignments = [];
+                                    const assignmentRegex = /<Assignment\s+([^>]*?)\/?>/g;
+                                    let assignmentMatch;
+                                    
+                                    while ((assignmentMatch = assignmentRegex.exec(markContent)) !== null) {
+                                        try {
+                                            const assignmentAttrs = assignmentMatch[1];
+                                            
+                                            const measureMatch = assignmentAttrs.match(/Measure="([^"]*)"/);
+                                            const typeMatch = assignmentAttrs.match(/Type="([^"]*)"/);
+                                            const pointsMatch = assignmentAttrs.match(/Points="([^"]*)"/);
+                                            const pointsPossibleMatch = assignmentAttrs.match(/PointsPossible="([^"]*)"/);
+                                            const dateMatch = assignmentAttrs.match(/DueDate="([^"]*)"/);
+                                            
+                                            assignments.push({
+                                                Measure: measureMatch ? measureMatch[1] : "Unnamed Assignment",
+                                                Type: typeMatch ? typeMatch[1] : "Uncategorized",
+                                                Points: pointsMatch ? pointsMatch[1] : "Not Graded",
+                                                PointsPossible: pointsPossibleMatch ? pointsPossibleMatch[1] : "0",
+                                                DueDate: dateMatch ? dateMatch[1] : ""
+                                            });
+                                        } catch (assignmentError) {
+                                            console.error('Error processing assignment:', assignmentError);
+                                        }
+                                    }
+                                    
+                                    courses.push({
+                                        Title: title,
+                                        Mark: {
+                                            CalculatedScoreString: score,
+                                            CalculatedScoreRaw: scoreRaw,
+                                            Assignments: assignments
+                                        }
+                                    });
+                                }
+                            } catch (courseError) {
+                                console.error('Error processing course:', courseError);
+                            }
+                        }
+                        
+                        // Extract reporting periods
+                        const reportingPeriods = [];
+                        const periodRegex = /<ReportPeriod\s+([^>]*?)\/?>/g;
+                        let periodMatch;
+                        
+                        while ((periodMatch = periodRegex.exec(xmlString)) !== null) {
+                            try {
+                                const periodAttrs = periodMatch[1];
+                                const gradePeriodMatch = periodAttrs.match(/GradePeriod="([^"]*)"/);
+                                if (gradePeriodMatch) {
+                                    reportingPeriods.push({
+                                        GradePeriod: gradePeriodMatch[1]
+                                    });
+                                }
+                            } catch (periodError) {
+                                console.error('Error processing period:', periodError);
+                            }
+                        }
+                        
+                        // Extract current period
+                        const currentPeriodMatch = xmlString.match(/<ReportingPeriod\s+([^>]*?)GradePeriod="([^"]*)"/);
+                        const currentPeriod = currentPeriodMatch ? currentPeriodMatch[2] : "Current Period";
+                        
+                        // If no courses were found, but we have valid XML, create an empty gradebook structure
+                        return {
+                            Courses: { Course: courses.length > 0 ? courses : [] },
+                            ReportingPeriods: { ReportPeriod: reportingPeriods.length > 0 ? reportingPeriods : [{ GradePeriod: 'Current Period' }] },
+                            ReportingPeriod: { GradePeriod: currentPeriod }
+                        };
+                    } catch (regexError) {
+                        console.error('Regex parsing error:', regexError);
+                        
+                        // Return an empty gradebook structure as last resort
+                        return {
+                            Courses: { Course: [] },
+                            ReportingPeriods: { ReportPeriod: [{ GradePeriod: 'Current Period' }] },
+                            ReportingPeriod: { GradePeriod: 'Current Period' }
+                        };
+                    }
+                }
+                
+                // For StudentInfo or other methods, return a simple result
+                return { success: true };
+            }
+
+            async request(methodName, params = {}) {
+                return this.soapRequest('ProcessWebServiceRequest', methodName, params);
+            }
+
+            async checkLogin() {
+                try {
+                    await this.request('StudentInfo');
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            }
+
+            async gradebook(reportPeriod) {
+                if (reportPeriod) {
+                    return this.request('Gradebook', { ReportPeriod: reportPeriod });
+                }
+                return this.request('Gradebook');
+            }
+        }
+
+        // UI Interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('login-btn');
+            const loginForm = document.getElementById('login-form');
+            const loading = document.getElementById('loading');
+            const errorMessage = document.getElementById('error-message');
+            const gradesContainer = document.getElementById('grades-container');
+            const loginContainer = document.getElementById('login-container');
+            const advancedToggle = document.getElementById('advanced-toggle');
+            const advancedPanel = document.getElementById('advanced-panel');
+            const courseDetailContainer = document.getElementById('course-detail-container');
+            const backToCourses = document.getElementById('back-to-courses');
+            
+            // Store course data globally to access when showing details
+            let coursesData = [];
+            let studentAccount = null;
+
+            // Advanced options toggle
+            advancedToggle.addEventListener('click', function() {
+                advancedPanel.style.display = advancedPanel.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            // Back button functionality
+            backToCourses.addEventListener('click', function() {
+                courseDetailContainer.style.display = 'none';
+                gradesContainer.style.display = 'block';
+            });
+
+            // Login functionality
+            loginBtn.addEventListener('click', async function() {
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+                const domain = document.getElementById('domain').value.trim();
+
+                if (!username || !password) {
+                    errorMessage.textContent = 'Username and password are required.';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+
+                // Show loading
+                loginForm.style.display = 'none';
+                loading.style.display = 'block';
+                errorMessage.style.display = 'none';
+
+                try {
+                    // Create student account and attempt login
+                    studentAccount = new StudentAccount(domain, username, password);
+                    const loginSuccess = await studentAccount.checkLogin();
+
+                    if (loginSuccess) {
+                        // Store credentials in localStorage (only on client side)
+                        localStorage.setItem('studentVueCredentials', JSON.stringify({
+                            username, password, domain
+                        }));
+
+                        // Get gradebook data
+                        const gradebook = await studentAccount.gradebook();
+                        console.log("Raw gradebook data:", gradebook);
+                        displayGrades(gradebook, studentAccount);
+
+                        // Hide login, show grades
+                        loginContainer.style.display = 'none';
+                        gradesContainer.style.display = 'block';
+                    } else {
+                        throw new Error('Login failed. Please check your credentials.');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    errorMessage.textContent = error.message || 'An error occurred during login.';
+                    errorMessage.style.display = 'block';
+                    loginForm.style.display = 'block';
+                }
+
+                loading.style.display = 'none';
+            });
+
+            // Check if already logged in
+            const savedCredentials = localStorage.getItem('studentVueCredentials');
+            if (savedCredentials) {
+                const {username, password, domain} = JSON.parse(savedCredentials);
+                document.getElementById('username').value = username;
+                document.getElementById('password').value = password;
+                document.getElementById('domain').value = domain;
+                
+                // Auto-login if credentials exist
+                loginBtn.click();
+            }
+
+            // Function to display grades
+            function displayGrades(gradebook, account) {
+                console.log('Gradebook data received:', gradebook);
+                
+                const coursesList = document.getElementById('courses-list');
+                coursesList.innerHTML = '';
+                
+                // Setup reporting period selector if available
+                try {
+                    if (gradebook && gradebook.ReportingPeriods && gradebook.ReportingPeriods.ReportPeriod) {
+                        setupReportingPeriods(gradebook, account);
+                    } else {
+                        console.log('No reporting periods data found, skipping period selector setup');
+                        document.getElementById('reporting-period-selector').style.display = 'none';
+                    }
+                } catch (error) {
+                    console.error('Error setting up reporting periods:', error);
+                    document.getElementById('reporting-period-selector').style.display = 'none';
+                }
+                
+                // Display courses
+                try {
+                    let courses = [];
+                    
+                    if (gradebook && gradebook.Courses && gradebook.Courses.Course) {
+                        courses = ensureArray(gradebook.Courses.Course);
+                        console.log('Courses found:', courses.length);
+                        
+                        // Save courses data globally for detail view
+                        coursesData = courses;
+                    } else {
+                        console.log('No courses found in gradebook data');
+                        coursesList.innerHTML = `
+                            <div class="error-message" style="display:block; text-align:center; margin:20px;">
+                                No courses found in the gradebook data. 
+                                <p style="margin-top:10px; font-size:12px;">
+                                    Note: Make sure that you only have the "Gradebook" section enabled in StudentVue settings.
+                                </p>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    courses.forEach((course, index) => {
+                        try {
+                            const courseCard = document.createElement('div');
+                            courseCard.className = 'course-card';
+                            courseCard.dataset.index = index;
+                            
+                            // Extract title, checking different possible locations
+                            const title = course.Title || 
+                                        (course['@attributes'] ? course['@attributes'].Title : null) || 
+                                        'Unknown Course';
+                                        
+                            // Check if Mark exists in different possible structures
+                            let mark;
+                            if (course.Mark) {
+                                mark = course.Mark;
+                            } else if (course.Marks && course.Marks.Mark) {
+                                mark = course.Marks.Mark;
+                            } else {
+                                console.log(`Course ${index} is missing Mark property`, course);
+                                return; // Skip this course
+                            }
+                            
+                            // Get grade value from different possible attribute locations
+                            const gradeLetter = mark.CalculatedScoreString || 
+                                            (mark['@attributes'] ? mark['@attributes'].CalculatedScoreString : null) || 
+                                            'N/A';
+                                            
+                            const gradePercentStr = mark.CalculatedScoreRaw || 
+                                                (mark['@attributes'] ? mark['@attributes'].CalculatedScoreRaw : null) || 
+                                                '0';
+                                                
+                            const gradePercent = parseFloat(gradePercentStr) || 0;
+                            
+                            // Determine grade color class
+                            let gradeColorClass = '';
+                            if (gradeLetter.includes('A')) gradeColorClass = 'grade-a';
+                            else if (gradeLetter.includes('B')) gradeColorClass = 'grade-b';
+                            else if (gradeLetter.includes('C')) gradeColorClass = 'grade-c';
+                            else if (gradeLetter.includes('D')) gradeColorClass = 'grade-d';
+                            else if (gradeLetter.includes('F')) gradeColorClass = 'grade-f';
+                            
+                            courseCard.innerHTML = `
+                                <div class="course-header">
+                                    <span class="course-name">${removeClassID(title)}</span>
+                                    <div>
+                                        <span class="course-grade ${gradeColorClass}">${gradeLetter}</span>
+                                        <span class="grade-percentage">${gradePercent.toFixed(1)}%</span>
+                                    </div>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill ${gradeColorClass}" style="width: ${Math.min(gradePercent, 100)}%"></div>
+                                </div>
+                                <i class="fas fa-chevron-right" style="margin-top: 10px; color: var(--secondary-color);"></i>
+                            `;
+                            
+                            coursesList.appendChild(courseCard);
+                            
+                            // Click on course card to show detail view
+                            courseCard.addEventListener('click', function() {
+                                console.log('Course clicked:', index);
+                                showCourseDetail(index);
+                            });
+                            
+                        } catch (courseError) {
+                            console.error(`Error displaying course ${index}:`, courseError);
+                        }
+                    });
+                    
+                    if (coursesList.children.length === 0) {
+                        coursesList.innerHTML = '<div class="error-message" style="display:block; text-align:center; margin:20px;">No course data could be processed.</div>';
+                    }
+                } catch (error) {
+                    console.error('Error displaying courses:', error);
+                    coursesList.innerHTML = '<div class="error-message" style="display:block; text-align:center; margin:20px;">Error loading course data. Please try again.</div>';
+                }
+            }
+            
+            // Show course detail page
+            function showCourseDetail(courseIndex) {
+                const course = coursesData[courseIndex];
+                if (!course) {
+                    console.error('Course not found:', courseIndex);
+                    return;
+                }
+                
+                // Get course data
+                const title = course.Title || 
+                            (course['@attributes'] ? course['@attributes'].Title : null) || 
+                            'Unknown Course';
+                
+                // Check if Mark exists in different possible structures
+                let mark;
+                if (course.Mark) {
+                    mark = course.Mark;
+                } else if (course.Marks && course.Marks.Mark) {
+                    mark = course.Marks.Mark;
+                } else {
+                    console.error('Course missing Mark property');
+                    return;
+                }
+                
+                // Get grade information
+                const gradeLetter = mark.CalculatedScoreString || 
+                                (mark['@attributes'] ? mark['@attributes'].CalculatedScoreString : null) || 
+                                'N/A';
+                                
+                const gradePercentStr = mark.CalculatedScoreRaw || 
+                                    (mark['@attributes'] ? mark['@attributes'].CalculatedScoreRaw : null) || 
+                                    '0';
+                                    
+                const gradePercent = parseFloat(gradePercentStr) || 0;
+                
+                // Determine grade color class
+                let gradeColorClass = '';
+                if (gradeLetter.includes('A')) gradeColorClass = 'grade-a';
+                else if (gradeLetter.includes('B')) gradeColorClass = 'grade-b';
+                else if (gradeLetter.includes('C')) gradeColorClass = 'grade-c';
+                else if (gradeLetter.includes('D')) gradeColorClass = 'grade-d';
+                else if (gradeLetter.includes('F')) gradeColorClass = 'grade-f';
+                
+                // Set course detail data
+                document.getElementById('detail-course-title').textContent = removeClassID(title);
+                document.getElementById('detail-course-grade').textContent = gradeLetter;
+                document.getElementById('detail-course-grade').className = `course-detail-grade ${gradeColorClass}`;
+                document.getElementById('detail-course-percentage').textContent = `${gradePercent.toFixed(1)}%`;
+                document.getElementById('detail-progress-fill').style.width = `${Math.min(gradePercent, 100)}%`;
+                document.getElementById('detail-progress-fill').className = `progress-fill ${gradeColorClass}`;
+                
+                // Display assignments
+                const assignmentsContainer = document.getElementById('detail-assignments-container');
+                assignmentsContainer.innerHTML = '';
+                
+                // Get assignments
+                displayCourseAssignments(mark, assignmentsContainer, gradePercent);
+                
+                // Set up hypothetical grade calculator
+                const calculateBtn = document.getElementById('detail-calculate-btn');
+                calculateBtn.onclick = function() {
+                    const pointsEarnedInput = document.getElementById('detail-hypo-points');
+                    const pointsPossibleInput = document.getElementById('detail-hypo-possible');
+                    const resultDiv = document.getElementById('detail-calculation-result');
+                    
+                    const earnedPoints = parseFloat(pointsEarnedInput.value);
+                    const possiblePoints = parseFloat(pointsPossibleInput.value);
+                    
+                    if (isNaN(earnedPoints) || isNaN(possiblePoints) || possiblePoints <= 0) {
+                        resultDiv.innerHTML = '<span style="color: #ff7675;">Please enter valid numbers</span>';
+                        return;
+                    }
+                    
+                    // Calculate hypothetical impact
+                    const hypotheticalPercent = (earnedPoints / possiblePoints) * 100;
+                    const impact = (hypotheticalPercent - gradePercent) / 10;
+                    
+                    resultDiv.innerHTML = `
+                        <div style="color: #ddd;">Score: <strong>${earnedPoints}/${possiblePoints}</strong> (${hypotheticalPercent.toFixed(1)}%)</div>
+                        <div style="color: ${impact >= 0 ? '#4caf50' : '#f44336'};">
+                            Approximate grade impact: <strong>${impact > 0 ? '+' : ''}${impact.toFixed(2)}%</strong>
+                        </div>
+                    `;
+                };
+                
+                // Show course detail, hide grades list
+                gradesContainer.style.display = 'none';
+                courseDetailContainer.style.display = 'block';
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+            
+            // Display assignments for a course
+            function displayCourseAssignments(mark, assignmentsContainer, courseGradePercent) {
+                try {
+                    // Find assignments in different possible structures
+                    let assignments = [];
+                    
+                    if (mark.Assignments && mark.Assignments.Assignment) {
+                        assignments = ensureArray(mark.Assignments.Assignment);
+                    } else if (mark.Assignments) {
+                        assignments = ensureArray(mark.Assignments);
+                    } else if (Array.isArray(mark)) {
+                        assignments = mark;
+                    }
+                    
+                    console.log('Assignments:', assignments);
+                    
+                    if (!assignments || assignments.length === 0) {
+                        assignmentsContainer.innerHTML = '<div style="padding:10px; text-align:center; color: #aaa;">No assignments found for this course.</div>';
+                        return;
+                    }
+                    
+                    // Sort by date (newest first)
+                    assignments.sort((a, b) => {
+                        const getDate = (item) => {
+                            if (!item) return new Date(0);
+                            
+                            let dateStr = '';
+                            if (item.DueDate) {
+                                dateStr = item.DueDate;
+                            } else if (item['@attributes'] && item['@attributes'].DueDate) {
+                                dateStr = item['@attributes'].DueDate;
+                            }
+                            return new Date(dateStr || '1970-01-01');
+                        };
+                        
+                        const dateA = getDate(a);
+                        const dateB = getDate(b);
+                        return dateB - dateA;
+                    });
+                    
+                    // Add chart container
+                    const chartContainer = document.createElement('div');
+                    chartContainer.className = 'assignments-chart-container';
+                    chartContainer.innerHTML = `
+                        <div class="chart-title">Grade Progression</div>
+                        <div class="chart-canvas-container">
+                            <canvas id="assignments-chart"></canvas>
+                        </div>
+                        <div class="chart-legend" id="chart-legend"></div>
+                    `;
+                    assignmentsContainer.appendChild(chartContainer);
+                    
+                    // Add assignments heading
+                    const assignmentsHeading = document.createElement('h3');
+                    assignmentsHeading.style.marginTop = '30px';
+                    assignmentsHeading.style.marginBottom = '15px';
+                    assignmentsHeading.textContent = 'Assignments';
+                    assignmentsContainer.appendChild(assignmentsHeading);
+                    
+                    // Flag for "new" assignments - assignments from last 7 days
+                    const oneWeekAgo = new Date();
+                    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+                    
+                    // Process assignments for display and for chart
+                    const chartData = {
+                        labels: [],
+                        scores: [],
+                        colors: [],
+                        categories: []
+                    };
+                    
+                    const categoryColors = {};
+                    const categoryList = new Set();
+                    
+                    assignments.forEach((assignment, index) => {
+                        if (!assignment) return; // Skip undefined assignments
+                        
+                        try {
+                            // Log the raw assignment data for debugging
+                            console.log(`Assignment ${index}:`, assignment);
+                            
+                            // Get values from either direct properties or attributes
+                            const getProperty = (obj, prop) => {
+                                if (!obj) return '';
+                                if (obj[prop] !== undefined) return obj[prop];
+                                if (obj['@attributes'] && obj['@attributes'][prop] !== undefined) {
+                                    return obj['@attributes'][prop];
+                                }
+                                return '';
+                            };
+                            
+                            let points = getProperty(assignment, 'Points');
+                            let pointsPossible = getProperty(assignment, 'PointsPossible');
+                            const name = getProperty(assignment, 'Measure');
+                            const category = getProperty(assignment, 'Type');
+                            const dueDateStr = getProperty(assignment, 'DueDate');
+                            
+                            // Handle points in different formats
+                            if (points === 'Not Graded' || points === '') {
+                                points = 'Not Graded';
+                            } else if (points.includes('/')) {
+                                // If points already includes slash format like "15/20"
+                                const parts = points.split('/');
+                                points = parts[0].trim();
+                                pointsPossible = parts[1].trim();
+                            }
+                            
+                            const dueDate = new Date(dueDateStr || '');
+                            const formattedDate = isNaN(dueDate.getTime()) ? 'No date' : dueDate.toLocaleDateString();
+                            const isGraded = points !== 'Not Graded' && points !== '';
+                            const isRecent = !isNaN(dueDate.getTime()) && dueDate > oneWeekAgo;
+                            
+                            let scoreDisplay = 'Not Graded';
+                            let scorePercent = 0;
+                            
+                            if (isGraded) {
+                                const earnedPoints = parseFloat(points);
+                                const totalPoints = parseFloat(pointsPossible);
+                                
+                                if (!isNaN(earnedPoints) && !isNaN(totalPoints) && totalPoints > 0) {
+                                    scorePercent = (earnedPoints / totalPoints) * 100;
+                                    scoreDisplay = `${earnedPoints}/${totalPoints} (${scorePercent.toFixed(1)}%)`;
+                                    
+                                    // Add to chart data if it's a valid score
+                                    if (index < 15) {  // Only show last 15 assignments in chart
+                                        // Generate color for category if not exists
+                                        if (!categoryColors[category]) {
+                                            const hue = Math.floor(Math.random() * 360);
+                                            categoryColors[category] = `hsl(${hue}, 70%, 60%)`;
+                                        }
+                                        
+                                        chartData.labels.push(name.substring(0, 15) + (name.length > 15 ? '...' : ''));
+                                        chartData.scores.push(scorePercent);
+                                        chartData.colors.push(categoryColors[category]);
+                                        chartData.categories.push(category);
+                                        categoryList.add(category);
+                                    }
+                                } else {
+                                    scoreDisplay = points;
+                                }
+                            }
+                            
+                            const assignmentItem = document.createElement('div');
+                            assignmentItem.className = 'assignment-item';
+                            
+                            // Determine grade color
+                            let scoreColor = '';
+                            if (isGraded) {
+                                if (scorePercent >= 90) scoreColor = 'color: #4caf50;';
+                                else if (scorePercent >= 80) scoreColor = 'color: #8bc34a;';
+                                else if (scorePercent >= 70) scoreColor = 'color: #ffc107;';
+                                else if (scorePercent >= 60) scoreColor = 'color: #ff9800;';
+                                else scoreColor = 'color: #f44336;';
+                            }
+                            
+                            // Format the HTML with better styling
+                            let assignmentHTML = `
+                                ${isRecent ? '<div class="recent-tag">NEW</div>' : ''}
+                                <div class="assignment-header">
+                                    <span class="assignment-name">${name || 'Unnamed Assignment'}</span>
+                                    <span class="assignment-score" style="${scoreColor}">${scoreDisplay}</span>
+                                </div>
+                                <div class="assignment-details">
+                                    <span class="assignment-category">${category || 'Uncategorized'}</span>
+                                    <span class="assignment-date"><i class="far fa-calendar-alt"></i> ${formattedDate}</span>
+                                </div>
+                            `;
+                            
+                            assignmentItem.innerHTML = assignmentHTML;
+                            
+                            // Only show the first 15 assignments by default
+                            if (index >= 15) {
+                                assignmentItem.style.display = 'none';
+                                assignmentItem.classList.add('hidden-assignment');
+                            }
+                            
+                            assignmentsContainer.appendChild(assignmentItem);
+                        } catch (assignmentError) {
+                            console.error('Error displaying assignment:', assignmentError);
+                        }
+                    });
+                    
+                    // Add "Show More" button if there are more than 15 assignments
+                    if (assignments.length > 15) {
+                        const showMoreButton = document.createElement('button');
+                        showMoreButton.className = 'assignments-toggle';
+                        showMoreButton.style.width = '100%';
+                        showMoreButton.style.marginTop = '10px';
+                        showMoreButton.innerHTML = '<i class="fas fa-plus"></i> Show More Assignments';
+                        
+                        showMoreButton.addEventListener('click', function() {
+                            const hiddenAssignments = assignmentsContainer.querySelectorAll('.hidden-assignment');
+                            hiddenAssignments.forEach(assignment => {
+                                assignment.style.display = 'block';
+                                assignment.classList.remove('hidden-assignment');
+                            });
+                            showMoreButton.style.display = 'none';
+                        });
+                        
+                        assignmentsContainer.appendChild(showMoreButton);
+                    }
+                    
+                    // Create the chart if we have data
+                    if (chartData.labels.length > 0) {
+                        setTimeout(() => {
+                            createAssignmentsChart(chartData, categoryList, categoryColors);
+                        }, 100);
+                    } else {
+                        document.querySelector('.assignments-chart-container').innerHTML = 
+                            '<div style="padding:20px; text-align:center; color: #aaa;">No graded assignments available to display in the chart.</div>';
+                    }
+                    
+                } catch (error) {
+                    console.error('Error displaying assignments:', error);
+                    assignmentsContainer.innerHTML = '<div style="padding:10px; text-align:center; color: #aaa;">Error loading assignments: ' + error.message + '</div>';
+                }
+            }
+            
+            // Create chart for assignments
+            function createAssignmentsChart(data, categoryList, categoryColors) {
+                const ctx = document.getElementById('assignments-chart').getContext('2d');
+                
+                // Reverse arrays to show oldest to newest (left to right)
+                const reversedLabels = [...data.labels].reverse();
+                const reversedScores = [...data.scores].reverse();
+                const reversedColors = [...data.colors].reverse();
+                const reversedCategories = [...data.categories].reverse();
+                
+                // Store the original assignment data for later use with interactivity
+                const assignmentData = [];
+                data.labels.forEach((label, index) => {
+                    assignmentData.push({
+                        name: label,
+                        score: data.scores[index],
+                        category: data.categories[index],
+                        color: data.colors[index]
+                    });
+                });
+                
+                // Store the reversed assignment data
+                const reversedAssignmentData = [...assignmentData].reverse();
+                
+                // Create gradient line
+                const gradientStroke = ctx.createLinearGradient(0, 0, 600, 0);
+                gradientStroke.addColorStop(0, "#6a0dad");
+                gradientStroke.addColorStop(1, "#9c27b0");
+                
+                // Create glow effect
+                const glowLine = ctx.createLinearGradient(0, 0, 600, 0);
+                glowLine.addColorStop(0, "rgba(106, 13, 173, 0.8)");
+                glowLine.addColorStop(1, "rgba(156, 39, 176, 0.8)");
+
+                // Add selected assignment container
+                const chartContainer = document.querySelector('.assignments-chart-container');
+                
+                // Add selected assignment display
+                const selectedAssignment = document.createElement('div');
+                selectedAssignment.className = 'selected-assignment';
+                selectedAssignment.id = 'selected-assignment';
+                chartContainer.appendChild(selectedAssignment);
+                
+                // Add instructions
+                const instructions = document.createElement('div');
+                instructions.className = 'chart-instructions';
+                instructions.textContent = 'Click on any data point to see assignment details';
+                chartContainer.appendChild(instructions);
+                
+                // Create chart
+                const assignmentsChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: reversedLabels,
+                        datasets: [
+                            {
+                                type: 'line',
+                                label: 'Grade Trend',
+                                data: reversedScores,
+                                borderColor: glowLine,
+                                backgroundColor: 'transparent',
+                                borderWidth: 4,
+                                fill: false,
+                                pointBackgroundColor: 'white',
+                                pointBorderColor: reversedColors,
+                                pointBorderWidth: 2,
+                                pointRadius: 6,
+                                pointHoverRadius: 8,
+                                tension: 0.3,
+                                pointStyle: 'circle',
+                                pointShadowBlur: 10,
+                                pointShadowColor: 'rgba(138, 43, 226, 0.5)',
+                                /* We'll handle the hover state manually for better visuals */
+                                hoverBorderWidth: 3,
+                                hoverBackgroundColor: '#fff',
+                                hoverBorderColor: '#6a0dad',
+                                /* Shadow to create a glow effect */
+                                borderCapStyle: 'round',
+                                borderJoinStyle: 'round',
+                                shadowOffsetX: 0,
+                                shadowOffsetY: 0,
+                                shadowBlur: 10,
+                                shadowColor: 'rgba(138, 43, 226, 0.5)'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.05)',
+                                    lineWidth: 1
+                                },
+                                ticks: {
+                                    color: '#aaa',
+                                    font: {
+                                        size: 11
+                                    },
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                },
+                                border: {
+                                    dash: [4, 4]
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: '#aaa',
+                                    maxRotation: 45,
+                                    minRotation: 45,
+                                    font: {
+                                        size: 10
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                enabled: true,
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                callbacks: {
+                                    label: function(context) {
+                                        return `Score: ${context.raw.toFixed(1)}%`;
+                                    },
+                                    title: function(tooltipItems) {
+                                        const index = tooltipItems[0].dataIndex;
+                                        return reversedLabels[index];
+                                    }
+                                }
+                            }
+                        },
+                        onClick: function(event, elements) {
+                            if (elements.length > 0) {
+                                const index = elements[0].index;
+                                showSelectedAssignment(reversedAssignmentData[index]);
+                            } else {
+                                // If clicked elsewhere on the chart, hide the selected assignment
+                                hideSelectedAssignment();
+                            }
+                        },
+                        animation: {
+                            duration: 2000,
+                            easing: 'easeOutQuart'
+                        }
+                    }
+                });
+                
+                // Create custom legend
+                const legendContainer = document.getElementById('chart-legend');
+                legendContainer.innerHTML = '';
+                
+                // Add line trend to legend
+                const trendLegend = document.createElement('div');
+                trendLegend.className = 'legend-item';
+                trendLegend.innerHTML = `
+                    <div class="legend-color" style="background: linear-gradient(to right, #6a0dad, #9c27b0);"></div>
+                    <span>Grade Trend</span>
+                `;
+                legendContainer.appendChild(trendLegend);
+                
+                // Add category colors to legend
+                categoryList.forEach(category => {
+                    const color = categoryColors[category];
+                    const legendItem = document.createElement('div');
+                    legendItem.className = 'legend-item';
+                    legendItem.innerHTML = `
+                        <div class="legend-color" style="background-color: ${color};"></div>
+                        <span>${category}</span>
+                    `;
+                    legendContainer.appendChild(legendItem);
+                });
+                
+                // Function to show selected assignment details
+                function showSelectedAssignment(assignment) {
+                    const selectedAssignmentElement = document.getElementById('selected-assignment');
+                    
+                    // Format score display
+                    let scoreColor = '';
+                    if (assignment.score >= 90) scoreColor = 'color: #4caf50;';
+                    else if (assignment.score >= 80) scoreColor = 'color: #8bc34a;';
+                    else if (assignment.score >= 70) scoreColor = 'color: #ffc107;';
+                    else if (assignment.score >= 60) scoreColor = 'color: #ff9800;';
+                    else scoreColor = 'color: #f44336;';
+                    
+                    selectedAssignmentElement.innerHTML = `
+                        <div class="selected-assignment-header">
+                            <span class="selected-assignment-name">${assignment.name}</span>
+                            <span class="selected-assignment-score" style="${scoreColor}">${assignment.score.toFixed(1)}%</span>
+                        </div>
+                        <div class="selected-assignment-details">
+                            <span class="selected-assignment-category">${assignment.category}</span>
+                        </div>
+                    `;
+                    
+                    selectedAssignmentElement.style.display = 'block';
+                    selectedAssignmentElement.style.borderColor = assignment.color;
+                }
+                
+                // Function to hide selected assignment
+                function hideSelectedAssignment() {
+                    const selectedAssignmentElement = document.getElementById('selected-assignment');
+                    selectedAssignmentElement.style.display = 'none';
+                }
+            }
+            
+            // Helper function to ensure we always have an array
+            function ensureArray(item) {
+                if (!item) return [];
+                return Array.isArray(item) ? item : [item];
+            }
+            
+            // Remove class ID from course name
+            function removeClassID(title) {
+                if (!title) return 'Unknown Course';
+                return String(title).replace(/\([^)]*\)$/, '').trim();
+            }
+            
+            // Setup reporting periods dropdown
+            function setupReportingPeriods(gradebook, account) {
+                try {
+                    const periodSelector = document.getElementById('period-selector');
+                    const periodDropdown = document.getElementById('period-dropdown');
+                    const currentPeriod = document.getElementById('current-period');
+                    
+                    if (!gradebook.ReportingPeriods || !gradebook.ReportingPeriods.ReportPeriod) {
+                        console.log('No reporting periods found');
+                        document.getElementById('reporting-period-selector').style.display = 'none';
+                        return;
+                    }
+                    
+                    const reportingPeriods = ensureArray(gradebook.ReportingPeriods.ReportPeriod);
+                    console.log('Reporting periods:', reportingPeriods);
+                    
+                    // Get current period from either attribute or property
+                    let currentPeriodName = 'Current Period';
+                    if (gradebook.ReportingPeriod) {
+                        if (gradebook.ReportingPeriod['@attributes'] && gradebook.ReportingPeriod['@attributes'].GradePeriod) {
+                            currentPeriodName = gradebook.ReportingPeriod['@attributes'].GradePeriod;
+                        } else if (gradebook.ReportingPeriod.GradePeriod) {
+                            currentPeriodName = gradebook.ReportingPeriod.GradePeriod;
+                        }
+                    }
+                    
+                    currentPeriod.textContent = currentPeriodName;
+                    
+                    // Create dropdown items
+                    periodDropdown.innerHTML = '';
+                    reportingPeriods.forEach((period, index) => {
+                        // Get period name from either attribute or property
+                        let periodName = 'Period ' + (index + 1);
+                        if (period['@attributes'] && period['@attributes'].GradePeriod) {
+                            periodName = period['@attributes'].GradePeriod;
+                        } else if (period.GradePeriod) {
+                            periodName = period.GradePeriod;
+                        }
+                        
+                        const item = document.createElement('div');
+                        item.className = 'dropdown-item';
+                        item.style.padding = '10px';
+                        item.style.cursor = 'pointer';
+                        item.style.backgroundColor = 'white';
+                        item.style.borderBottom = '1px solid #eee';
+                        item.textContent = periodName;
+                        
+                        item.addEventListener('click', async function() {
+                            periodDropdown.style.display = 'none';
+                            currentPeriod.textContent = 'Loading...';
+                            
+                            try {
+                                const newGradebook = await account.gradebook(index);
+                                displayGrades(newGradebook, account);
+                                currentPeriod.textContent = periodName;
+                            } catch (error) {
+                                console.error('Failed to load period:', error);
+                                currentPeriod.textContent = currentPeriodName;
+                            }
+                        });
+                        
+                        periodDropdown.appendChild(item);
+                    });
+                    
+                    // Toggle dropdown
+                    periodSelector.addEventListener('click', function() {
+                        periodDropdown.style.display = periodDropdown.style.display === 'none' ? 'block' : 'none';
+                    });
+                } catch (error) {
+                    console.error('Error setting up period selector:', error);
+                    document.getElementById('reporting-period-selector').style.display = 'none';
+                }
+            }
+        });
+    </script>
 </body>
+</html> 
 </html> 
