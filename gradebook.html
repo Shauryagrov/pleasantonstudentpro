@@ -368,7 +368,51 @@
         .progress-fill {
             height: 100%;
             border-radius: 4px;
+            transition: width 0.5s ease-out;
         }
+        
+        /* Grade color classes for progress bar */
+        .grade-a {
+            color: #4caf50;
+        }
+        
+        .grade-b {
+            color: #8bc34a;
+        }
+        
+        .grade-c {
+            color: #ffc107;
+        }
+        
+        .grade-d {
+            color: #ff9800;
+        }
+        
+        .grade-f {
+            color: #f44336;
+        }
+        
+        /* Progress bar color fills */
+        .progress-fill.grade-a {
+            background-color: #4caf50;
+        }
+        
+        .progress-fill.grade-b {
+            background-color: #8bc34a;
+        }
+        
+        .progress-fill.grade-c {
+            background-color: #ffc107;
+        }
+        
+        .progress-fill.grade-d {
+            background-color: #ff9800;
+        }
+        
+        .progress-fill.grade-f {
+            background-color: #f44336;
+        }
+        
         .assignments-toggle {
             background: none;
             border: none;
@@ -539,7 +583,16 @@
             background-color: rgba(156, 39, 176, 0.2);
             font-size: 12px;
             color: #ddd;
-            border: 1px solid rgba(156, 39, 176, 0.3);
+            margin-right: 10px;
+        }
+        
+        .new-badge {
+            background-color: #4caf50;
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 10px;
+            margin-left: 5px;
         }
         
         .assignment-status {
@@ -735,6 +788,188 @@
             margin-top: 10px;
             font-style: italic;
         }
+        
+        /* Toggle Switch Styles */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            vertical-align: middle;
+        }
+        
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #444;
+            transition: .4s;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+        
+        input:checked + .slider {
+            background-color: #9c27b0;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .slider.round {
+            border-radius: 24px;
+        }
+        
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Hypothetical assignment styles */
+        .assignment-item.hypothetical {
+            border-left: 4px solid #9c27b0;
+        }
+        
+        .assignment-item.modified {
+            border-left: 4px solid #9c27b0;
+        }
+        
+        .hypothetical-badge {
+            background-color: #9c27b0;
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+        
+        .assignment-input {
+            background-color: #333;
+            border: 1px solid #555;
+            color: white;
+            padding: 5px;
+            width: 60px;
+            border-radius: 3px;
+        }
+
+        /* Course detail styles */
+        .detail-header {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            background-color: #222;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .back-button {
+            display: flex;
+            align-items: center;
+            color: #9c27b0;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .back-button svg {
+            margin-right: 5px;
+        }
+        
+        .detail-course-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .hypothetical-toggle-container {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        
+        .detail-grade-wrapper {
+            background-color: #333;
+            padding: 15px;
+            border-bottom: 1px solid #444;
+        }
+        
+        .detail-grade-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .detail-grade {
+            display: flex;
+            align-items: baseline;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .grade-letter {
+            font-size: 32px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+        
+        .grade-percentage {
+            font-size: 20px;
+            color: #ddd;
+        }
+        
+        .grade-diff {
+            font-size: 16px;
+            margin-left: 10px;
+        }
+        
+        .detail-progress {
+            flex: 1;
+            margin-left: 20px;
+            max-width: 200px;
+        }
+        
+        .assignments-container {
+            padding: 15px;
+        }
+        
+        .grade-a {
+            color: #4caf50;
+        }
+        
+        .grade-b {
+            color: #8bc34a;
+        }
+        
+        .grade-c {
+            color: #ffc107;
+        }
+        
+        .grade-d {
+            color: #ff9800;
+        }
+        
+        .grade-f {
+            color: #f44336;
+        }
+        
+        /* Assignments chart styles */
     </style>
 </head>
 <body>
@@ -823,33 +1058,35 @@
             </div>
             
             <!-- Course Detail View -->
-            <div id="course-detail-container" class="course-detail-container school-category">
-                <div class="back-to-courses" id="back-to-courses">
-                    <i class="fas fa-arrow-left"></i> <span style="margin-left: 8px;">Back to All Courses</span>
-                </div>
-                <div class="course-detail-header">
-                    <div class="course-detail-title" id="detail-course-title">Course Name</div>
-                    <div>
-                        <span class="course-detail-grade" id="detail-course-grade">A</span>
-                        <span class="grade-percentage" id="detail-course-percentage">95.0%</span>
+            <div id="course-detail-container" style="display: none;">
+                <div class="detail-header">
+                    <div class="back-button" id="back-to-courses">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        All Courses
+                    </div>
+                    <div id="detail-course-name" class="detail-course-name"></div>
+                    
+                    <!-- Moved Hypothetical Mode toggle to top -->
+                    <div class="hypothetical-toggle-container" style="margin: 10px 0; display: flex; align-items: center;">
+                        <label class="switch">
+                            <input type="checkbox" id="hypothetical-mode-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span style="margin-left: 10px; color: #ddd;">Hypothetical Mode</span>
+                        <div id="hypothetical-controls" style="display: none; margin-left: 15px;">
+                            <button class="calculate-btn" id="add-hypothetical-btn">Add Assignment</button>
+                        </div>
                     </div>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="detail-progress-fill" style="width: 95%"></div>
-                </div>
-                <div class="assignments-container" id="detail-assignments-container"></div>
                 
-                <!-- Hypothetical grade calculator -->
-                <div class="hypothetical-container">
-                    <div class="hypothetical-heading">What If Calculator</div>
-                    <div style="color: #aaa;">See how a new grade would affect your overall score</div>
-                    <div class="hypothetical-inputs">
-                        <input type="number" id="detail-hypo-points" placeholder="Points earned" min="0">
-                        <input type="number" id="detail-hypo-possible" placeholder="Points possible" min="1">
+                <div class="detail-grade-wrapper">
+                    <div class="detail-grade-container">
+                        <div class="detail-grade" id="detail-grade"></div>
+                        <!-- Progress bar removed as requested -->
                     </div>
-                    <button class="calculate-btn" id="detail-calculate-btn">Calculate</button>
-                    <div id="detail-calculation-result" style="margin-top: 10px;"></div>
                 </div>
+                
+                <div class="assignments-container" id="detail-assignments-container"></div>
             </div>
         </section>
     </div>
@@ -1493,12 +1730,13 @@
                 else if (gradeLetter.includes('F')) gradeColorClass = 'grade-f';
                 
                 // Set course detail data
-                document.getElementById('detail-course-title').textContent = removeClassID(title);
-                document.getElementById('detail-course-grade').textContent = gradeLetter;
-                document.getElementById('detail-course-grade').className = `course-detail-grade ${gradeColorClass}`;
-                document.getElementById('detail-course-percentage').textContent = `${gradePercent.toFixed(1)}%`;
-                document.getElementById('detail-progress-fill').style.width = `${Math.min(gradePercent, 100)}%`;
-                document.getElementById('detail-progress-fill').className = `progress-fill ${gradeColorClass}`;
+                document.getElementById('detail-course-name').textContent = removeClassID(title);
+                
+                // Initialize the grade display
+                document.getElementById('detail-grade').innerHTML = `
+                    <span class="grade-letter ${gradeColorClass}">${gradeLetter}</span>
+                    <span class="grade-percentage">${gradePercent.toFixed(1)}%</span>
+                `;
                 
                 // Display assignments
                 const assignmentsContainer = document.getElementById('detail-assignments-container');
@@ -1507,32 +1745,350 @@
                 // Get assignments
                 displayCourseAssignments(mark, assignmentsContainer, gradePercent);
                 
-                // Set up hypothetical grade calculator
-                const calculateBtn = document.getElementById('detail-calculate-btn');
-                calculateBtn.onclick = function() {
-                    const pointsEarnedInput = document.getElementById('detail-hypo-points');
-                    const pointsPossibleInput = document.getElementById('detail-hypo-possible');
-                    const resultDiv = document.getElementById('detail-calculation-result');
+                // Set up hypothetical mode
+                let originalAssignments = [];
+                let hypotheticalMode = false;
+                
+                const hypotheticalToggle = document.getElementById('hypothetical-mode-toggle');
+                const hypotheticalControls = document.getElementById('hypothetical-controls');
+                const addHypotheticalBtn = document.getElementById('add-hypothetical-btn');
+                
+                // Clone assignments when toggling hypothetical mode
+                hypotheticalToggle.addEventListener('change', function() {
+                    hypotheticalMode = this.checked;
+                    hypotheticalControls.style.display = hypotheticalMode ? 'block' : 'none';
                     
-                    const earnedPoints = parseFloat(pointsEarnedInput.value);
-                    const possiblePoints = parseFloat(pointsPossibleInput.value);
+                    if (hypotheticalMode) {
+                        // Save original assignments
+                        originalAssignments = Array.from(document.querySelectorAll('.assignment-item')).map(item => {
+                            const clone = item.cloneNode(true);
+                            const assignmentId = item.getAttribute('data-id');
+                            const scoreElement = item.querySelector('.assignment-score');
+                            const pointsText = scoreElement ? scoreElement.textContent : '';
+                            
+                            // Extract points information
+                            let pointsEarned = null;
+                            let pointsPossible = null;
+                            
+                            if (pointsText && pointsText !== 'Not Graded') {
+                                const match = pointsText.match(/(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/);
+                                if (match) {
+                                    pointsEarned = parseFloat(match[1]);
+                                    pointsPossible = parseFloat(match[2]);
+                                }
+                            }
+                            
+                            return {
+                                element: clone,
+                                id: assignmentId,
+                                pointsEarned,
+                                pointsPossible
+                            };
+                        });
+                        
+                        // Make assignments editable
+                        makeAssignmentsEditable();
+                    } else {
+                        // Reset to original state when turning off hypothetical mode
+                        resetHypotheticalMode();
+                        
+                        // Restore original grade display
+                        document.getElementById('detail-grade').innerHTML = `
+                            <span class="grade-letter ${gradeColorClass}">${gradeLetter}</span>
+                            <span class="grade-percentage">${gradePercent.toFixed(1)}%</span>
+                        `;
+                    }
+                });
+                
+                // Add hypothetical assignment
+                addHypotheticalBtn.addEventListener('click', function() {
+                    const newAssignment = document.createElement('div');
+                    newAssignment.className = 'assignment-item hypothetical';
+                    newAssignment.setAttribute('data-id', 'hypothetical-' + Date.now());
                     
-                    if (isNaN(earnedPoints) || isNaN(possiblePoints) || possiblePoints <= 0) {
-                        resultDiv.innerHTML = '<span style="color: #ff7675;">Please enter valid numbers</span>';
-                        return;
+                    // Determine available categories from existing assignments
+                    const categories = new Set();
+                    document.querySelectorAll('.assignment-item .assignment-category').forEach(el => {
+                        if (el.textContent && el.textContent.trim()) {
+                            categories.add(el.textContent.trim());
+                        }
+                    });
+                    
+                    // If no categories are found, add a default one
+                    if (categories.size === 0) {
+                        categories.add('Homework');
                     }
                     
-                    // Calculate hypothetical impact
-                    const hypotheticalPercent = (earnedPoints / possiblePoints) * 100;
-                    const impact = (hypotheticalPercent - gradePercent) / 10;
+                    // Create category dropdown options
+                    let categoryOptions = '';
+                    categories.forEach(category => {
+                        categoryOptions += `<option value="${category}">${category}</option>`;
+                    });
                     
-                    resultDiv.innerHTML = `
-                        <div style="color: #ddd;">Score: <strong>${earnedPoints}/${possiblePoints}</strong> (${hypotheticalPercent.toFixed(1)}%)</div>
-                        <div style="color: ${impact >= 0 ? '#4caf50' : '#f44336'};">
-                            Approximate grade impact: <strong>${impact > 0 ? '+' : ''}${impact.toFixed(2)}%</strong>
+                    newAssignment.innerHTML = `
+                        <div class="assignment-header">
+                            <div class="assignment-name">
+                                <input type="text" value="Hypothetical Assignment" 
+                                    class="assignment-name-input" 
+                                    style="background:#333;border:1px solid #555;color:white;width:250px;padding:5px;border-radius:3px;">
+                                <span class="hypothetical-badge">Hypothetical</span>
+                            </div>
+                            <div class="assignment-score">
+                                <input type="number" class="assignment-input points-earned" value="0" min="0" step="0.5"> / 
+                                <input type="number" class="assignment-input points-possible" value="10" min="1" step="0.5">
+                            </div>
+                        </div>
+                        <div class="assignment-details">
+                            <div>
+                                <select class="assignment-category-select" 
+                                    style="background:#333;border:1px solid #555;color:white;padding:5px;border-radius:3px;">
+                                    ${categoryOptions}
+                                </select>
+                                <span class="assignment-date">${new Date().toLocaleDateString()}</span>
+                            </div>
                         </div>
                     `;
-                };
+                    
+                    // Add at the beginning of the list
+                    const firstAssignment = assignmentsContainer.querySelector('.assignment-item');
+                    if (firstAssignment) {
+                        assignmentsContainer.insertBefore(newAssignment, firstAssignment);
+                    } else {
+                        assignmentsContainer.appendChild(newAssignment);
+                    }
+                    
+                    // Add event listeners to inputs
+                    newAssignment.querySelectorAll('input, select').forEach(input => {
+                        input.addEventListener('change', function() {
+                            // When category select changes, update the category display
+                            if (input.classList.contains('assignment-category-select')) {
+                                const categoryElement = newAssignment.querySelector('.assignment-category');
+                                if (categoryElement) {
+                                    categoryElement.textContent = input.value;
+                                } else {
+                                    // Create category element if it doesn't exist
+                                    const categorySpan = document.createElement('span');
+                                    categorySpan.className = 'assignment-category';
+                                    categorySpan.textContent = input.value;
+                                    newAssignment.querySelector('.assignment-details div').prepend(categorySpan);
+                                }
+                            }
+                            
+                            updateOverallGrade();
+                        });
+                    });
+                    
+                    // Trigger the change event on the category select to initialize the category
+                    const categorySelect = newAssignment.querySelector('.assignment-category-select');
+                    if (categorySelect) {
+                        const event = new Event('change');
+                        categorySelect.dispatchEvent(event);
+                    }
+                    
+                    // Update grade
+                    updateOverallGrade();
+                });
+                
+                // Function to make assignments editable
+                function makeAssignmentsEditable() {
+                    document.querySelectorAll('.assignment-item').forEach(item => {
+                        const scoreElement = item.querySelector('.assignment-score');
+                        if (!scoreElement) return;
+                        
+                        const scoreText = scoreElement.textContent.trim();
+                        if (scoreText === 'Not Graded') return;
+                        
+                        // Extract points
+                        const match = scoreText.match(/(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)/);
+                        if (match) {
+                            const pointsEarned = parseFloat(match[1]);
+                            const pointsPossible = parseFloat(match[2]);
+                            
+                            // Replace with inputs
+                            scoreElement.innerHTML = `
+                                <input type="number" class="assignment-input points-earned" value="${pointsEarned}" min="0" step="0.5"> / 
+                                <input type="number" class="assignment-input points-possible" value="${pointsPossible}" min="1" step="0.5">
+                                <span class="original-score" style="margin-left:5px;color:#888;font-size:11px;">
+                                    (Original: ${pointsEarned}/${pointsPossible})
+                                </span>
+                            `;
+                            
+                            // Add event listeners
+                            scoreElement.querySelectorAll('input').forEach(input => {
+                                input.addEventListener('change', function() {
+                                    item.classList.add('modified');
+                                    updateOverallGrade();
+                                });
+                            });
+                        }
+                    });
+                }
+                
+                // Function to reset hypothetical mode
+                function resetHypotheticalMode() {
+                    if (originalAssignments.length === 0) return;
+                    
+                    // Remove any added hypothetical assignments
+                    document.querySelectorAll('.assignment-item.hypothetical').forEach(item => {
+                        item.remove();
+                    });
+                    
+                    // Reset existing assignments
+                    document.querySelectorAll('.assignment-item').forEach(item => {
+                        const assignmentId = item.getAttribute('data-id');
+                        const original = originalAssignments.find(orig => orig.id === assignmentId);
+                        
+                        if (original) {
+                            item.classList.remove('modified');
+                            
+                            // Reset the score display
+                            const scoreElement = item.querySelector('.assignment-score');
+                            if (scoreElement && original.pointsEarned !== null && original.pointsPossible !== null) {
+                                const scorePercent = (original.pointsEarned / original.pointsPossible) * 100;
+                                scoreElement.innerHTML = `${original.pointsEarned}/${original.pointsPossible} (${scorePercent.toFixed(1)}%)`;
+                            }
+                        }
+                    });
+                }
+                
+                // Function to update overall grade based on current assignments
+                function updateOverallGrade() {
+                    if (!hypotheticalMode) return;
+                    
+                    // Check if the course uses weighted categories
+                    const hasWeightedCategories = !!mark.GradeCalculationSummary && 
+                                                  !!mark.GradeCalculationSummary.AssignmentGradeCalc;
+                    
+                    if (hasWeightedCategories) {
+                        // For weighted categories, calculate using category weights
+                        updateGradeWithWeightedCategories();
+                    } else {
+                        // For total points calculation, sum all points
+                        updateGradeWithTotalPoints();
+                    }
+                }
+                
+                function updateGradeWithWeightedCategories() {
+                    // Get all assignments grouped by category
+                    const categories = new Map();
+                    
+                    // Get the category weights from the original grade calculation
+                    const categoryWeights = new Map();
+                    if (mark.GradeCalculationSummary && mark.GradeCalculationSummary.AssignmentGradeCalc) {
+                        const gradeCalcs = Array.isArray(mark.GradeCalculationSummary.AssignmentGradeCalc) 
+                            ? mark.GradeCalculationSummary.AssignmentGradeCalc 
+                            : [mark.GradeCalculationSummary.AssignmentGradeCalc];
+                            
+                        gradeCalcs.forEach(calc => {
+                            if (calc._Type !== 'TOTAL') {
+                                categoryWeights.set(calc._Type, parseFloat(calc._Weight));
+                            }
+                        });
+                    }
+                    
+                    // Group assignments by category and calculate points
+                    document.querySelectorAll('.assignment-item').forEach(item => {
+                        const categoryEl = item.querySelector('.assignment-category');
+                        if (!categoryEl) return;
+                        
+                        const category = categoryEl.textContent.trim();
+                        const scoreElement = item.querySelector('.assignment-score');
+                        if (!scoreElement) return;
+                        
+                        // Get points from inputs if in hypothetical mode
+                        const pointsEarnedInput = scoreElement.querySelector('.points-earned');
+                        const pointsPossibleInput = scoreElement.querySelector('.points-possible');
+                        
+                        if (pointsEarnedInput && pointsPossibleInput) {
+                            const earned = parseFloat(pointsEarnedInput.value);
+                            const possible = parseFloat(pointsPossibleInput.value);
+                            
+                            if (!isNaN(earned) && !isNaN(possible) && possible > 0) {
+                                // Add to category totals
+                                if (!categories.has(category)) {
+                                    categories.set(category, { earned: 0, possible: 0 });
+                                }
+                                
+                                const categoryData = categories.get(category);
+                                categoryData.earned += earned;
+                                categoryData.possible += possible;
+                            }
+                        }
+                    });
+                    
+                    // Calculate weighted grade
+                    let totalWeightedPercentage = 0;
+                    let totalWeight = 0;
+                    
+                    categories.forEach((data, category) => {
+                        if (categoryWeights.has(category)) {
+                            const weight = categoryWeights.get(category);
+                            const percentage = data.earned / data.possible;
+                            totalWeightedPercentage += percentage * weight;
+                            totalWeight += weight;
+                        }
+                    });
+                    
+                    // Calculate final grade percentage
+                    let newGradePercent = 0;
+                    if (totalWeight > 0) {
+                        newGradePercent = (totalWeightedPercentage / totalWeight) * 100;
+                    }
+                    
+                    // Update grade display
+                    updateGradeDisplay(newGradePercent);
+                }
+                
+                function updateGradeWithTotalPoints() {
+                    let totalPointsEarned = 0;
+                    let totalPointsPossible = 0;
+                    
+                    document.querySelectorAll('.assignment-item').forEach(item => {
+                        // Skip items without score
+                        const scoreElement = item.querySelector('.assignment-score');
+                        if (!scoreElement) return;
+                        
+                        // Get points from inputs if they exist
+                        const pointsEarnedInput = scoreElement.querySelector('.points-earned');
+                        const pointsPossibleInput = scoreElement.querySelector('.points-possible');
+                        
+                        if (pointsEarnedInput && pointsPossibleInput) {
+                            const earned = parseFloat(pointsEarnedInput.value);
+                            const possible = parseFloat(pointsPossibleInput.value);
+                            
+                            if (!isNaN(earned) && !isNaN(possible) && possible > 0) {
+                                totalPointsEarned += earned;
+                                totalPointsPossible += possible;
+                            }
+                        }
+                    });
+                    
+                    // Calculate new grade percentage
+                    let newGradePercent = 0;
+                    if (totalPointsPossible > 0) {
+                        newGradePercent = (totalPointsEarned / totalPointsPossible) * 100;
+                    }
+                    
+                    // Update grade display
+                    updateGradeDisplay(newGradePercent);
+                }
+                
+                function updateGradeDisplay(newGradePercent) {
+                    const gradeDiff = newGradePercent - gradePercent;
+                    const letterGrade = getLetterGrade(newGradePercent);
+                    const colorClass = getGradeColorClass(newGradePercent);
+                    
+                    // Update the detail-grade element with the new percentage
+                    document.getElementById('detail-grade').innerHTML = `
+                        <span class="grade-letter ${colorClass}">${letterGrade}</span>
+                        <span class="grade-percentage">${newGradePercent.toFixed(1)}%</span>
+                        <span class="grade-diff" style="margin-left: 8px; font-size: 14px; color: ${gradeDiff >= 0 ? '#4caf50' : '#f44336'};">
+                            (${gradeDiff >= 0 ? '+' : ''}${gradeDiff.toFixed(2)}%)
+                        </span>
+                    `;
+                    
+                    // Progress bar references removed
+                }
                 
                 // Show course detail, hide grades list
                 gradesContainer.style.display = 'none';
@@ -1686,6 +2242,8 @@
                             
                             const assignmentItem = document.createElement('div');
                             assignmentItem.className = 'assignment-item';
+                            // Add a unique id to track for hypothetical mode
+                            assignmentItem.setAttribute('data-id', `assignment-${index}-${Date.now()}`);
                             
                             // Determine grade color
                             let scoreColor = '';
@@ -1699,14 +2257,16 @@
                             
                             // Format the HTML with better styling
                             let assignmentHTML = `
-                                ${isRecent ? '<div class="recent-tag">NEW</div>' : ''}
                                 <div class="assignment-header">
-                                    <span class="assignment-name">${name || 'Unnamed Assignment'}</span>
-                                    <span class="assignment-score" style="${scoreColor}">${scoreDisplay}</span>
+                                    <div class="assignment-name">${name}</div>
+                                    <div class="assignment-score" style="${scoreColor}">${scoreDisplay}</div>
                                 </div>
                                 <div class="assignment-details">
-                                    <span class="assignment-category">${category || 'Uncategorized'}</span>
-                                    <span class="assignment-date"><i class="far fa-calendar-alt"></i> ${formattedDate}</span>
+                                    <div>
+                                        <span class="assignment-category">${category}</span>
+                                        <span class="assignment-date">${formattedDate}</span>
+                                        ${isRecent ? '<span class="new-badge">New</span>' : ''}
+                                    </div>
                                 </div>
                             `;
                             
@@ -2064,7 +2624,31 @@
                 }
             }
         });
+
+        // Helper functions for hypothetical mode
+        function getLetterGrade(percentage) {
+            if (percentage >= 97) return 'A+';
+            if (percentage >= 93) return 'A';
+            if (percentage >= 90) return 'A-';
+            if (percentage >= 87) return 'B+';
+            if (percentage >= 83) return 'B';
+            if (percentage >= 80) return 'B-';
+            if (percentage >= 77) return 'C+';
+            if (percentage >= 73) return 'C';
+            if (percentage >= 70) return 'C-';
+            if (percentage >= 67) return 'D+';
+            if (percentage >= 63) return 'D';
+            if (percentage >= 60) return 'D-';
+            return 'F';
+        }
+        
+        function getGradeColorClass(percentage) {
+            if (percentage >= 90) return 'grade-a';
+            if (percentage >= 80) return 'grade-b';
+            if (percentage >= 70) return 'grade-c';
+            if (percentage >= 60) return 'grade-d';
+            return 'grade-f';
+        }
     </script>
 </body>
-</html> 
 </html> 
