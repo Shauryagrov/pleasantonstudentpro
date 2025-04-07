@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9267906638185160" crossorigin="anonymous"></script>
+    <script src="ads-config.js"></script>
 </head>
 <body>
     <div class="app-download-banner">
@@ -17,6 +19,9 @@
             <i class="fab fa-apple"></i> Download iOS App Now!
         </a>
     </div>
+    
+    <!-- Top banner ad -->
+    <div class="ad-container banner-ad"></div>
     
     <div class="splash-screen">
         <img src="images/logo.png" alt="Pleasanton Student Pro Logo" class="logo">
@@ -74,6 +79,9 @@
                 </div>
             </div>
         </section>
+
+        <!-- In-content ad after features section -->
+        <div class="ad-container in-content-ad"></div>
 
         <div class="promo-section">
             <h3 class="fade-up">What Students Are Saying 🌟</h3>
@@ -180,6 +188,9 @@
                 </div>
             </div>
         </section>
+
+        <!-- Bottom banner ad -->
+        <div class="ad-container banner-ad"></div>
 
         <footer class="footer-section">
             <div class="contact-section">
@@ -315,6 +326,12 @@
         // Observe all animated elements
         document.querySelectorAll('.fade-up, .fade-in, .slide-in-left, .slide-in-right, .scale-up, .option-card, .testimonial-card')
             .forEach(el => observer.observe(el));
+
+        // Initialize ads when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            AdsConfig.initAds();
+            AdsConfig.updateAdsVisibility();
+        });
     </script>
 
     <style>

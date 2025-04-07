@@ -1389,4 +1389,77 @@ h2, h3, h4 {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+/* Ad Containers */
+.ad-container {
+    margin: 20px auto;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.ad-container::before {
+    content: 'Advertisement';
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar-ad {
+    max-width: 300px;
+    min-height: 600px;
+}
+
+.in-content-ad {
+    max-width: 728px;
+    min-height: 90px;
+    margin: 30px auto;
+}
+
+.banner-ad {
+    max-width: 970px;
+    min-height: 250px;
+    margin: 20px auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar-ad {
+        max-width: 100%;
+        min-height: 250px;
+    }
+    
+    .in-content-ad {
+        max-width: 100%;
+        min-height: 90px;
+    }
+    
+    .banner-ad {
+        max-width: 100%;
+        min-height: 90px;
+    }
+}
+
+/* Ad loading animation */
+.ad-container.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: adLoading 1.5s infinite;
+}
+
+@keyframes adLoading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 } 
